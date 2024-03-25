@@ -18,10 +18,8 @@
 		B5150D9D2BB1ACF20016EF33 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; };
 		B5150DA82BB1ACF30016EF33 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; };
 		B5150DA92BB1ACF30016EF33 /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B5150DF32BB1B5AC0016EF33 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DEF2BB1B5AC0016EF33 /* Task+CoreDataClass.swift */; };
-		B5150DF42BB1B5AD0016EF33 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DF02BB1B5AC0016EF33 /* Task+CoreDataProperties.swift */; };
-		B5150DF52BB1B5AD0016EF33 /* TaskList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DF12BB1B5AC0016EF33 /* TaskList+CoreDataClass.swift */; };
-		B5150DF62BB1B5AD0016EF33 /* TaskList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DF22BB1B5AC0016EF33 /* TaskList+CoreDataProperties.swift */; };
+		B5150E092BB1B6A80016EF33 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E072BB1B6A80016EF33 /* Task.swift */; };
+		B5150E0A2BB1B6A80016EF33 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E082BB1B6A80016EF33 /* TaskList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,10 +104,8 @@
 		B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150D9C2BB1ACF20016EF33 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150DE12BB1B42A0016EF33 /* ActivityListDataLayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ActivityListDataLayer.xcodeproj; path = ../ActivityListDataLayer/ActivityListDataLayer.xcodeproj; sourceTree = "<group>"; };
-		B5150DEF2BB1B5AC0016EF33 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "ActivityListDataLayer/Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B5150DF02BB1B5AC0016EF33 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "ActivityListDataLayer/Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B5150DF12BB1B5AC0016EF33 /* TaskList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TaskList+CoreDataClass.swift"; path = "ActivityListDataLayer/TaskList+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B5150DF22BB1B5AC0016EF33 /* TaskList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TaskList+CoreDataProperties.swift"; path = "ActivityListDataLayer/TaskList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B5150E072BB1B6A80016EF33 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Task.swift; path = ActivityListDataLayer/Task.swift; sourceTree = "<group>"; };
+		B5150E082BB1B6A80016EF33 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskList.swift; path = ActivityListDataLayer/TaskList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,10 +152,8 @@
 		B5150D522BB1ABA60016EF33 = {
 			isa = PBXGroup;
 			children = (
-				B5150DEF2BB1B5AC0016EF33 /* Task+CoreDataClass.swift */,
-				B5150DF02BB1B5AC0016EF33 /* Task+CoreDataProperties.swift */,
-				B5150DF12BB1B5AC0016EF33 /* TaskList+CoreDataClass.swift */,
-				B5150DF22BB1B5AC0016EF33 /* TaskList+CoreDataProperties.swift */,
+				B5150E072BB1B6A80016EF33 /* Task.swift */,
+				B5150E082BB1B6A80016EF33 /* TaskList.swift */,
 				B5150DE12BB1B42A0016EF33 /* ActivityListDataLayer.xcodeproj */,
 				B5150D5D2BB1ABA60016EF33 /* ActivityList */,
 				B5150D742BB1ABA90016EF33 /* ActivityListTests */,
@@ -471,10 +465,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5150DF52BB1B5AD0016EF33 /* TaskList+CoreDataClass.swift in Sources */,
-				B5150DF42BB1B5AD0016EF33 /* Task+CoreDataProperties.swift in Sources */,
-				B5150DF62BB1B5AD0016EF33 /* TaskList+CoreDataProperties.swift in Sources */,
-				B5150DF32BB1B5AC0016EF33 /* Task+CoreDataClass.swift in Sources */,
+				B5150E0A2BB1B6A80016EF33 /* TaskList.swift in Sources */,
+				B5150E092BB1B6A80016EF33 /* Task.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
