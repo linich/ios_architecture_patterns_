@@ -9,8 +9,7 @@
 import Foundation
 import SwiftData
 
-
-@Model public class Task {
+@Model public class MyTask {
     public var id: String?
     public var name: String?
     public var createdAt: Date?

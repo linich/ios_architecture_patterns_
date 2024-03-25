@@ -18,8 +18,6 @@
 		B5150D9D2BB1ACF20016EF33 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; };
 		B5150DA82BB1ACF30016EF33 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; };
 		B5150DA92BB1ACF30016EF33 /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B5150E092BB1B6A80016EF33 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E072BB1B6A80016EF33 /* Task.swift */; };
-		B5150E0A2BB1B6A80016EF33 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E082BB1B6A80016EF33 /* TaskList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,8 +102,6 @@
 		B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150D9C2BB1ACF20016EF33 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150DE12BB1B42A0016EF33 /* ActivityListDataLayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ActivityListDataLayer.xcodeproj; path = ../ActivityListDataLayer/ActivityListDataLayer.xcodeproj; sourceTree = "<group>"; };
-		B5150E072BB1B6A80016EF33 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Task.swift; path = ActivityListDataLayer/Task.swift; sourceTree = "<group>"; };
-		B5150E082BB1B6A80016EF33 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskList.swift; path = ActivityListDataLayer/TaskList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,8 +148,6 @@
 		B5150D522BB1ABA60016EF33 = {
 			isa = PBXGroup;
 			children = (
-				B5150E072BB1B6A80016EF33 /* Task.swift */,
-				B5150E082BB1B6A80016EF33 /* TaskList.swift */,
 				B5150DE12BB1B42A0016EF33 /* ActivityListDataLayer.xcodeproj */,
 				B5150D5D2BB1ABA60016EF33 /* ActivityList */,
 				B5150D742BB1ABA90016EF33 /* ActivityListTests */,
@@ -465,8 +459,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5150E0A2BB1B6A80016EF33 /* TaskList.swift in Sources */,
-				B5150E092BB1B6A80016EF33 /* Task.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,7 +633,6 @@
 		B5150D862BB1ABA90016EF33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -669,7 +660,6 @@
 		B5150D872BB1ABA90016EF33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -842,7 +832,6 @@
 		B5150DAF2BB1ACF30016EF33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -861,7 +850,6 @@
 		B5150DB02BB1ACF30016EF33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -10,8 +10,8 @@ import Foundation
 import SwiftData
 
 
-@Model public class TaskList {
-    @Relationship(inverse: \Task.taskList) var tasks: Task?
+@Model public class MyTaskList {
+    @Relationship(inverse: \MyTask.taskList) var tasks: MyTask?
     public init() {
 
     }
