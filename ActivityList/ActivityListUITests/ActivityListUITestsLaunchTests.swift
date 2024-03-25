@@ -1,13 +1,13 @@
 //
-//  ActivitListUITestsLaunchTests.swift
-//  ActivitListUITests
+//  ActivityListUITestsLaunchTests.swift
+//  ActivityListUITests
 //
 //  Created by Maksim Linich on 25.03.24.
 //
 
 import XCTest
 
-final class ActivitListUITestsLaunchTests: XCTestCase {
+final class ActivityListUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
