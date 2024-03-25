@@ -55,6 +55,7 @@
 		B5150DBD2BB1B4290016EF33 = {
 			isa = PBXGroup;
 			children = (
+				B5150DEE2BB1B4980016EF33 /* Model */,
 				B5150DEA2BB1B43D0016EF33 /* Data */,
 				B5150DC92BB1B42A0016EF33 /* ActivityListDataLayer */,
 				B5150DD52BB1B42A0016EF33 /* ActivityListDataLayerTests */,
@@ -91,9 +92,16 @@
 		B5150DEA2BB1B43D0016EF33 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				B5150DEB2BB1B4700016EF33 /* ActivityList.xcdatamodeld */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		B5150DEE2BB1B4980016EF33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B5150DEB2BB1B4700016EF33 /* ActivityList.xcdatamodeld */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
