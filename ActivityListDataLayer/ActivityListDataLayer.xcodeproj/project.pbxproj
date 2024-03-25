@@ -12,7 +12,8 @@
 		B5150DD72BB1B42A0016EF33 /* ActivityListDataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DD62BB1B42A0016EF33 /* ActivityListDataLayerTests.swift */; };
 		B5150DD82BB1B42A0016EF33 /* ActivityListDataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B5150DCA2BB1B42A0016EF33 /* ActivityListDataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5150DED2BB1B4700016EF33 /* ActivityList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5150DEB2BB1B4700016EF33 /* ActivityList.xcdatamodeld */; };
-		B5150E1B2BB1B82A0016EF33 /* MyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E0F2BB1B7410016EF33 /* MyTask.swift */; };
+		B5150E1E2BB1B91F0016EF33 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E1C2BB1B91F0016EF33 /* TaskList.swift */; };
+		B5150E1F2BB1B91F0016EF33 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E1D2BB1B91F0016EF33 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,8 +33,8 @@
 		B5150DD12BB1B42A0016EF33 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150DD62BB1B42A0016EF33 /* ActivityListDataLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListDataLayerTests.swift; sourceTree = "<group>"; };
 		B5150DEC2BB1B4700016EF33 /* ActivityList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActivityList.xcdatamodel; sourceTree = "<group>"; };
-		B5150E0F2BB1B7410016EF33 /* MyTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyTask.swift; path = ../../../ActivityList/ActivityListDataLayer/MyTask.swift; sourceTree = "<group>"; };
-		B5150E102BB1B7410016EF33 /* MyTaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyTaskList.swift; path = ../../../ActivityList/ActivityListDataLayer/MyTaskList.swift; sourceTree = "<group>"; };
+		B5150E1C2BB1B91F0016EF33 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskList.swift; path = ../../../ActivityList/ActivityListDataLayer/TaskList.swift; sourceTree = "<group>"; };
+		B5150E1D2BB1B91F0016EF33 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Task.swift; path = ../../../ActivityList/ActivityListDataLayer/Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +96,8 @@
 		B5150DEA2BB1B43D0016EF33 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				B5150E0F2BB1B7410016EF33 /* MyTask.swift */,
-				B5150E102BB1B7410016EF33 /* MyTaskList.swift */,
+				B5150E1C2BB1B91F0016EF33 /* TaskList.swift */,
+				B5150E1D2BB1B91F0016EF33 /* Task.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -218,8 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5150E1F2BB1B91F0016EF33 /* Task.swift in Sources */,
+				B5150E1E2BB1B91F0016EF33 /* TaskList.swift in Sources */,
 				B5150DED2BB1B4700016EF33 /* ActivityList.xcdatamodeld in Sources */,
-				B5150E1B2BB1B82A0016EF33 /* MyTask.swift in Sources */,
 				B5150DCC2BB1B42A0016EF33 /* ActivityListDataLayer.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

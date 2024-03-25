@@ -14,7 +14,7 @@ import SwiftData
     public var name: String?
     public var createdAt: Date?
     public var icon: String?
-    public var taskList: TaskList?
+    public var taskList: MyTaskList?
     public init() {
 
     }
