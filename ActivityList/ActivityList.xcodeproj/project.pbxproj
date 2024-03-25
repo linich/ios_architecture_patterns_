@@ -18,6 +18,10 @@
 		B5150D9D2BB1ACF20016EF33 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; };
 		B5150DA82BB1ACF30016EF33 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; };
 		B5150DA92BB1ACF30016EF33 /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5150DF32BB1B5AC0016EF33 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DEF2BB1B5AC0016EF33 /* Task+CoreDataClass.swift */; };
+		B5150DF42BB1B5AD0016EF33 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DF02BB1B5AC0016EF33 /* Task+CoreDataProperties.swift */; };
+		B5150DF52BB1B5AD0016EF33 /* TaskList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DF12BB1B5AC0016EF33 /* TaskList+CoreDataClass.swift */; };
+		B5150DF62BB1B5AD0016EF33 /* TaskList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150DF22BB1B5AC0016EF33 /* TaskList+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +106,10 @@
 		B5150D932BB1ACF20016EF33 /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150D9C2BB1ACF20016EF33 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150DE12BB1B42A0016EF33 /* ActivityListDataLayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ActivityListDataLayer.xcodeproj; path = ../ActivityListDataLayer/ActivityListDataLayer.xcodeproj; sourceTree = "<group>"; };
+		B5150DEF2BB1B5AC0016EF33 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "ActivityListDataLayer/Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B5150DF02BB1B5AC0016EF33 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "ActivityListDataLayer/Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B5150DF12BB1B5AC0016EF33 /* TaskList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TaskList+CoreDataClass.swift"; path = "ActivityListDataLayer/TaskList+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B5150DF22BB1B5AC0016EF33 /* TaskList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TaskList+CoreDataProperties.swift"; path = "ActivityListDataLayer/TaskList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +156,10 @@
 		B5150D522BB1ABA60016EF33 = {
 			isa = PBXGroup;
 			children = (
+				B5150DEF2BB1B5AC0016EF33 /* Task+CoreDataClass.swift */,
+				B5150DF02BB1B5AC0016EF33 /* Task+CoreDataProperties.swift */,
+				B5150DF12BB1B5AC0016EF33 /* TaskList+CoreDataClass.swift */,
+				B5150DF22BB1B5AC0016EF33 /* TaskList+CoreDataProperties.swift */,
 				B5150DE12BB1B42A0016EF33 /* ActivityListDataLayer.xcodeproj */,
 				B5150D5D2BB1ABA60016EF33 /* ActivityList */,
 				B5150D742BB1ABA90016EF33 /* ActivityListTests */,
@@ -335,6 +347,7 @@
 					};
 					B5150D922BB1ACF20016EF33 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
 					};
 					B5150D9B2BB1ACF20016EF33 = {
 						CreatedOnToolsVersion = 15.2;
@@ -458,6 +471,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5150DF52BB1B5AD0016EF33 /* TaskList+CoreDataClass.swift in Sources */,
+				B5150DF42BB1B5AD0016EF33 /* Task+CoreDataProperties.swift in Sources */,
+				B5150DF62BB1B5AD0016EF33 /* TaskList+CoreDataProperties.swift in Sources */,
+				B5150DF32BB1B5AC0016EF33 /* Task+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +649,7 @@
 		B5150D862BB1ABA90016EF33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -659,6 +677,7 @@
 		B5150D872BB1ABA90016EF33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -758,6 +777,7 @@
 		B5150DAB2BB1ACF30016EF33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -783,6 +803,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -793,6 +814,7 @@
 		B5150DAC2BB1ACF30016EF33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -828,6 +850,7 @@
 		B5150DAF2BB1ACF30016EF33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -846,6 +869,7 @@
 		B5150DB02BB1ACF30016EF33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
