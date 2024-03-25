@@ -1,14 +1,14 @@
 //
-//  ActivityListUITests.swift
-//  ActivityListUITests
+//  ActivityListDomainTests.swift
+//  ActivityListDomainTests
 //
 //  Created by Maksim Linich on 25.03.24.
 //
 
 import XCTest
-@testable import ActivityListUI
+@testable import ActivityListDomain
 
-final class ActivityListUITests: XCTestCase {
+class ActivityListDomainTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

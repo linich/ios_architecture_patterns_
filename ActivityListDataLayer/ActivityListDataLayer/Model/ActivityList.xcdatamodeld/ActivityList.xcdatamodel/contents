@@ -8,6 +8,10 @@
         <relationship name="taskList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskList" inverseName="tasks" inverseEntity="TaskList"/>
     </entity>
     <entity name="TaskList" representedClassName="TaskList" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="tasks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="taskList" inverseEntity="Task"/>
     </entity>
 </model>
