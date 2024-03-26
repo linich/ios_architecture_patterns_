@@ -8,7 +8,7 @@
 import CoreData
 import ActivityListDomain
 
-public class TaskListRepository: TaskRepositoryProtocol {
+public class TaskListRepository: TaskListRepositoryProtocol {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ActivityList")
