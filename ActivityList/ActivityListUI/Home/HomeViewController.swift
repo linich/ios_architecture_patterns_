@@ -11,9 +11,22 @@ import ActivityListDomain
 public class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private var taskListRepository: TaskListRepositoryProtocol?
+    private var taskLists =  [TaskListModel]()
     
     public convenience init(taskListRepository: TaskListRepositoryProtocol) {
         self.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
         self.taskListRepository = taskListRepository
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        taskListRepository?.readTasks(completion: { [weak self] result in
+            switch result {
+            case let .success(items):
+                self?.taskLists = items
+            case let .failure(error):
+                print("\(error)")
+            }
+        })
     }
 }

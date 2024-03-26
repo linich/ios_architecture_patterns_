@@ -25,10 +25,13 @@ internal class CompositionRoot {
     }
     
     var coreDataStoreUrl: URL {
-        return documentDirectory.appendingPathComponent("activity_task_list.data", isDirectory: false)
+        guard let url = URL(string: "ActivityList.sqlite", relativeTo: documentDirectory) else {
+            fatalError("Failed to create store url")
+        }
+        return url
     }
     
-    var documentDirectory: URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var documentDirectory: URL? {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
 }

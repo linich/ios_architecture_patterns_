@@ -10,20 +10,36 @@ import ActivityListDomain
 
 public class TaskListRepository: TaskListRepositoryProtocol {
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "ActivityList")
-        let fileUrl = self.fileUrl
-        container.loadPersistentStores { store, error in
-            if let error = error {
-                fatalError("Unable to load model \(error)")
-            }
-            store.url = fileUrl
+    lazy var persistentCoordinator: NSPersistentStoreCoordinator = {
+        let bundle = Bundle(for: TaskListRepository.self)
+        guard let modelURL = bundle.url(forResource: "ActivityList",
+                                             withExtension: "momd") else {
+            fatalError("Failed to find data model")
         }
-        return container
+        
+        guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("Failed to create model from file: \(modelURL)")
+        }
+        
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+        do {
+            // Set the options to enable lightweight data migrations.
+            let options = [NSMigratePersistentStoresAutomaticallyOption: true,
+                                 NSInferMappingModelAutomaticallyOption: true]
+            // Add the store to the coordinator.
+            _ = try coordinator.addPersistentStore(type: .sqlite, at: self.fileUrl,
+                                               options: options)
+        } catch {
+            fatalError("Failed to add persistent store: \(error.localizedDescription)")
+        }
+        
+        return coordinator
     }()
     
     lazy var viewContext: NSManagedObjectContext = {
-        return persistentContainer.viewContext
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        context.persistentStoreCoordinator = persistentCoordinator
+        return context
     }()
     
     private let fileUrl: URL
