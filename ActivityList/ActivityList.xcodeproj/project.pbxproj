@@ -37,6 +37,8 @@
 		B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */; };
 		B5B39A082BB2AD7C0084726F /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; platformFilter = ios; };
 		B5B39A0C2BB2ADC90084726F /* TaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */; };
+		B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */; };
+		B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B39A122BB2BDC60084726F /* HomeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +169,8 @@
 		B5B399DD2BB2A9F80084726F /* ActivityListDataLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListDataLayerTests.swift; sourceTree = "<group>"; };
 		B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActivityList.xcdatamodel; sourceTree = "<group>"; };
 		B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRepository.swift; sourceTree = "<group>"; };
+		B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B5B39A122BB2BDC60084726F /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +348,7 @@
 		B5150E622BB1C88C0016EF33 /* ActivityListUI */ = {
 			isa = PBXGroup;
 			children = (
+				B5B39A0D2BB2B0FE0084726F /* Home */,
 				B5150E632BB1C88C0016EF33 /* ActivityListUI.h */,
 				B5150E642BB1C88D0016EF33 /* ActivityListUI.docc */,
 			);
@@ -398,6 +403,15 @@
 				B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		B5B39A0D2BB2B0FE0084726F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */,
+				B5B39A122BB2BDC60084726F /* HomeViewController.xib */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -709,6 +723,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5150E652BB1C88D0016EF33 /* ActivityListUI.docc in Sources */,
+				B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,7 +1034,6 @@
 				INFOPLIST_FILE = ActivityList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1028,6 +1043,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ActivityList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1046,7 +1064,6 @@
 				INFOPLIST_FILE = ActivityList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1056,6 +1073,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ActivityList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

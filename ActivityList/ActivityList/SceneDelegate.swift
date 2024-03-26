@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ActivityListUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = ViewController()
+        window.rootViewController = HomeViewController()
         window.makeKeyAndVisible()
         self.window = window
     }
