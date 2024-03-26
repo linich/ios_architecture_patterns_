@@ -7,6 +7,7 @@
 
 import UIKit
 import ActivityListUI
+import ActivityListDataLayer
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = HomeViewController()
+        let taskListRepository = TaskListRepository()
+        window.rootViewController = HomeViewController(taskListRepository: taskListRepository)
         window.makeKeyAndVisible()
         self.window = window
     }
