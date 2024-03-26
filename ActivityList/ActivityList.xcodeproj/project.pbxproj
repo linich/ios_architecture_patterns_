@@ -35,6 +35,8 @@
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */; };
+		B5B39A082BB2AD7C0084726F /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; platformFilter = ios; };
+		B5B39A0C2BB2ADC90084726F /* TaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +166,7 @@
 		B5B399D62BB2A9F70084726F /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399DD2BB2A9F80084726F /* ActivityListDataLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListDataLayerTests.swift; sourceTree = "<group>"; };
 		B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActivityList.xcdatamodel; sourceTree = "<group>"; };
+		B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B39A082BB2AD7C0084726F /* ActivityListDomain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +256,7 @@
 				B5B399CE2BB2A9F60084726F /* ActivityListDataLayer */,
 				B5B399DC2BB2A9F80084726F /* ActivityListDataLayerTests */,
 				B5150D5C2BB1ABA60016EF33 /* Products */,
+				B5B39A072BB2AD7C0084726F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -356,7 +361,7 @@
 		B5B399CE2BB2A9F60084726F /* ActivityListDataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				B5B399EE2BB2AAEA0084726F /* CoreDataClasses */,
+				B5B39A092BB2AD8A0084726F /* Repository */,
 				B5B399EA2BB2AA230084726F /* Model */,
 				B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */,
 				B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */,
@@ -380,11 +385,19 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		B5B399EE2BB2AAEA0084726F /* CoreDataClasses */ = {
+		B5B39A072BB2AD7C0084726F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = CoreDataClasses;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5B39A092BB2AD8A0084726F /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -788,6 +801,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B39A0C2BB2ADC90084726F /* TaskListRepository.swift in Sources */,
 				B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */,
 				B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */,
 			);
