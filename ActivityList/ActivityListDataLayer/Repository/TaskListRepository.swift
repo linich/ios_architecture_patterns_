@@ -12,10 +12,12 @@ public class TaskListRepository: TaskListRepositoryProtocol {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ActivityList")
-        container.loadPersistentStores { _, error in
+        let fileUrl = self.fileUrl
+        container.loadPersistentStores { store, error in
             if let error = error {
                 fatalError("Unable to load model \(error)")
             }
+            store.url = fileUrl
         }
         return container
     }()
@@ -24,9 +26,9 @@ public class TaskListRepository: TaskListRepositoryProtocol {
         return persistentContainer.viewContext
     }()
     
-    
-    public init() {
-        
+    private let fileUrl: URL
+    public init(fileUrl: URL) {
+        self.fileUrl = fileUrl
     }
     
     public func readTasks(completion: @escaping (Result<[TaskListModel], Error>) -> Void) {

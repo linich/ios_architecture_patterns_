@@ -38,6 +38,7 @@
 		B5B39A0C2BB2ADC90084726F /* TaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */; };
 		B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */; };
 		B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B39A122BB2BDC60084726F /* HomeViewController.xib */; };
+		B5B39A162BB2C4360084726F /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A152BB2C4360084726F /* CompositionRoot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRepository.swift; sourceTree = "<group>"; };
 		B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B5B39A122BB2BDC60084726F /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		B5B39A152BB2C4360084726F /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +283,7 @@
 		B5150D5D2BB1ABA60016EF33 /* ActivityList */ = {
 			isa = PBXGroup;
 			children = (
+				B5B39A142BB2C41E0084726F /* Composition */,
 				B5150D5E2BB1ABA60016EF33 /* AppDelegate.swift */,
 				B5150D602BB1ABA60016EF33 /* SceneDelegate.swift */,
 				B5150D672BB1ABA80016EF33 /* Assets.xcassets */,
@@ -409,6 +412,14 @@
 				B5B39A122BB2BDC60084726F /* HomeViewController.xib */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		B5B39A142BB2C41E0084726F /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+				B5B39A152BB2C4360084726F /* CompositionRoot.swift */,
+			);
+			path = Composition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -753,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5150D5F2BB1ABA60016EF33 /* AppDelegate.swift in Sources */,
+				B5B39A162BB2C4360084726F /* CompositionRoot.swift in Sources */,
 				B5150D612BB1ABA60016EF33 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
