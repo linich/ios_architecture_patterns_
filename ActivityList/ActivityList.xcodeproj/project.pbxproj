@@ -32,9 +32,9 @@
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399D72BB2A9F70084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399DE2BB2A9F80084726F /* ActivityListDataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B399DD2BB2A9F80084726F /* ActivityListDataLayerTests.swift */; };
-		B5B399DF2BB2A9F80084726F /* ActivityListDataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +163,7 @@
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
 		B5B399D62BB2A9F70084726F /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399DD2BB2A9F80084726F /* ActivityListDataLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListDataLayerTests.swift; sourceTree = "<group>"; };
+		B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActivityList.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +356,8 @@
 		B5B399CE2BB2A9F60084726F /* ActivityListDataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				B5B399EE2BB2AAEA0084726F /* CoreDataClasses */,
+				B5B399EA2BB2AA230084726F /* Model */,
 				B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */,
 				B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */,
 			);
@@ -367,6 +370,21 @@
 				B5B399DD2BB2A9F80084726F /* ActivityListDataLayerTests.swift */,
 			);
 			path = ActivityListDataLayerTests;
+			sourceTree = "<group>";
+		};
+		B5B399EA2BB2AA230084726F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B5B399EE2BB2AAEA0084726F /* CoreDataClasses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreDataClasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,7 +410,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B399DF2BB2A9F80084726F /* ActivityListDataLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +788,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */,
 				B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1512,6 +1530,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */,
+			);
+			currentVersion = B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */;
+			path = ActivityList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B5150D532BB1ABA60016EF33 /* Project object */;
 }
