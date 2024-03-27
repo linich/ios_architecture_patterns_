@@ -9,7 +9,7 @@ import UIKit
 import ActivityListDomain
 
 public class HomeViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var homeView: HomeView!
     private var taskListRepository: TaskListRepositoryProtocol?
     private var taskLists =  [TaskListModel]()
     
@@ -20,6 +20,8 @@ public class HomeViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.homeView.title = "My ToDos"
+        self.homeView.emptyListMessage = "Press 'Add List' to start"
         taskListRepository?.readTasks(completion: { [weak self] result in
             switch result {
             case let .success(items):

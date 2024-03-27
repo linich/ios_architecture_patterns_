@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="ActivityListUI" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="Nzr-UN-Fxa" id="NO0-uf-UAg"/>
+                <outlet property="homeView" destination="lOq-qd-Of0" id="QCc-0b-S32"/>
                 <outlet property="view" destination="iN0-l3-epB" id="BKz-eJ-Cy8"/>
             </connections>
         </placeholder>
@@ -19,18 +19,26 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Nzr-UN-Fxa">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOq-qd-Of0" customClass="HomeView" customModule="ActivityListUI" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uh8-gW-yeM">
+                            <rect key="frame" x="117" y="322" width="75" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Nzr-UN-Fxa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Cnk-dZ-fwH"/>
-                <constraint firstItem="Nzr-UN-Fxa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Ew3-Kg-LFv"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Nzr-UN-Fxa" secondAttribute="trailing" id="YwX-zJ-s5M"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Nzr-UN-Fxa" secondAttribute="bottom" id="jeI-7b-4la"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lOq-qd-Of0" secondAttribute="bottom" id="Bed-fP-f7Z"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lOq-qd-Of0" secondAttribute="trailing" id="HPr-HO-WJ7"/>
+                <constraint firstItem="lOq-qd-Of0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="dau-29-Zz5"/>
+                <constraint firstItem="lOq-qd-Of0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="hI9-gU-QON"/>
             </constraints>
             <point key="canvasLocation" x="134" y="-11"/>
         </view>
