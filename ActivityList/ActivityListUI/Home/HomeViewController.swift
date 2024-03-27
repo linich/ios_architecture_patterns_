@@ -20,7 +20,7 @@ public class HomeViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.homeView.title = "My ToDos"
+        self.homeView.title = "My To Do List"
         self.homeView.emptyListMessage = "Press 'Add List' to start"
         self.homeView.addListButtonText = "Add List"
         taskListRepository?.readTasks(completion: { [weak self] result in
