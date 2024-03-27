@@ -47,7 +47,7 @@ public class TaskListRepository: TasksListRepositoryProtocol {
         self.fileUrl = fileUrl
     }
     
-    public func readTasksLists(completion: @escaping (Result<[TaskListModel], Error>) -> Void) {
+    public func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
         viewContext.perform {
             do {
                 let fetchRequest = ToDoList.fetchRequest()
@@ -57,9 +57,9 @@ public class TaskListRepository: TasksListRepositoryProtocol {
                           let id = UUID(uuidString: stringId),
                             let name = taskList.name,
                           let createdAt = taskList.createdAt, let icon = taskList.icon else {
-                        return nil as TaskListModel?
+                        return nil as TasksListModel?
                     }
-                    return TaskListModel.init(id: id, name: name, createdDate: createdAt, icon: icon)
+                    return TasksListModel.init(id: id, name: name, createdDate: createdAt, icon: icon)
                 }.compactMap{$0}
                 
                 completion(.success(tasksList))

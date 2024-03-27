@@ -11,13 +11,14 @@ internal protocol HomeViewDelegate: AnyObject {
     
 }
 
-internal class HomeView: UIView {
+public class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
     
-    public var tasksList: [TaskListModel] = [] {
+    public var tasksLists: [TasksListModel] = [] {
         didSet {
+            tableViewDataSource.tasksLists = tasksLists
             tableView.reloadData()
-            emptyState.isHidden = tasksList.count > 0
+            emptyState.isHidden = tasksLists.count > 0
         }
     }
     
@@ -39,6 +40,7 @@ internal class HomeView: UIView {
         }
     }
 
+    private var tableViewDataSource = HomeViewTableViewDataSource()
     private let titleLabel = {
         let label =  UILabel()
         label.textAlignment = .center
@@ -87,7 +89,7 @@ internal class HomeView: UIView {
         emptyState.addSubview(emptyListLabel)
         addSubview(addListButton)
         setupConstraints();
-        
+        tableView.dataSource = tableViewDataSource
     }
     
     private func setupConstraints() {
@@ -135,19 +137,21 @@ internal class HomeView: UIView {
         emptyListLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
     }
     
-    public func setTasksLists(_ list: [TaskListModel]) {
-        tasksList = list
+    public func setTasksLists(_ list: [TasksListModel]) {
+        tasksLists = list
     }
 }
 
 
-extension HomeView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
+    public var tasksLists = [TasksListModel]()
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasksList.count
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasksLists.count
     }
     
 }

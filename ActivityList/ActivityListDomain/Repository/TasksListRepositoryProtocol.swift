@@ -6,7 +6,7 @@
 //
 
 public protocol TasksListRepositoryProtocol {
-    typealias Result = Swift.Result<[TaskListModel], Error>
+    typealias Result = Swift.Result<[TasksListModel], Error>
     
     func readTasksLists(completion: @escaping (Result) -> Void) -> Void
     

@@ -9,7 +9,7 @@ import UIKit
 import ActivityListDomain
 
 final public class HomeViewController: UIViewController {
-    @IBOutlet weak var homeView: HomeView!
+    @IBOutlet public weak var homeView: HomeView!
     public var taskListRepository: TasksListRepositoryProtocol?
     
     public convenience init(taskListRepository: TasksListRepositoryProtocol) {
@@ -26,7 +26,7 @@ final public class HomeViewController: UIViewController {
         taskListRepository?.readTasksLists(completion: { [weak self] result in
             switch result {
             case let .success(items):
-                self?.homeView.tasksList = items
+                self?.homeView.tasksLists = items
             case let .failure(error):
                 print("\(error)")
             }

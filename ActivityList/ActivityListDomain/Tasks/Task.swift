@@ -16,7 +16,7 @@ public struct TaskModel {
 }
 
 
-public struct TaskListModel {
+public struct TasksListModel {
     public let id: UUID
     public let name: String
     public let createdDate: Date
