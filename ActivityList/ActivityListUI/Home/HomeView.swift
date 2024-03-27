@@ -13,11 +13,6 @@ internal protocol HomeViewDelegate: AnyObject {
 
 internal class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
-    public var title: String = "" {
-        didSet {
-            self.titleLabel.text = self.title
-        }
-    }
     
     public var tasksList: [TaskListModel] = [] {
         didSet {
@@ -31,7 +26,19 @@ internal class HomeView: UIView {
             emptyListLabel.text = emptyListMessage
         }
     }
+
+    public var title: String = "" {
+        didSet {
+            titleLabel.text = title
+        }
+    }
     
+    public var addListButtonText: String = "" {
+        didSet {
+            addListButton.setTitle(addListButtonText, for: .normal)
+        }
+    }
+
     private let titleLabel = {
         let label =  UILabel()
         label.textAlignment = .center
@@ -65,12 +72,12 @@ internal class HomeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupSubviews();
+        setupSubviews();
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.setupSubviews();
+        setupSubviews();
     }
     
     private func setupSubviews() {
@@ -79,12 +86,11 @@ internal class HomeView: UIView {
         addSubview(emptyState)
         emptyState.addSubview(emptyListLabel)
         addSubview(addListButton)
-        setUpLabelConstrains();
+        setupConstraints();
         
     }
     
-    private func setUpLabelConstrains() {
-        // Needed to avoid auto layout conflicts
+    private func setupConstraints() {
         
         //Title label constraints
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

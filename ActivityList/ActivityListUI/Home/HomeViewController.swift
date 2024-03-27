@@ -22,6 +22,7 @@ public class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.homeView.title = "My ToDos"
         self.homeView.emptyListMessage = "Press 'Add List' to start"
+        self.homeView.addListButtonText = "Add List"
         taskListRepository?.readTasks(completion: { [weak self] result in
             switch result {
             case let .success(items):
