@@ -8,7 +8,7 @@
 import CoreData
 import ActivityListDomain
 
-public class TaskListRepository: TaskListRepositoryProtocol {
+public class TaskListRepository: TasksListRepositoryProtocol {
     
     lazy var persistentCoordinator: NSPersistentStoreCoordinator = {
         let bundle = Bundle(for: TaskListRepository.self)

@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "C739F1D2-9802-4B3C-B178-813223180C45",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ActivityList.xcodeproj",
+        "identifier" : "B5150E692BB1C88D0016EF33",
+        "name" : "ActivityListUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

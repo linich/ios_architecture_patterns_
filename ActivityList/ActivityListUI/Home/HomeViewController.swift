@@ -8,11 +8,11 @@
 import UIKit
 import ActivityListDomain
 
-public class HomeViewController: UIViewController {
+final public class HomeViewController: UIViewController {
     @IBOutlet weak var homeView: HomeView!
-    private var taskListRepository: TaskListRepositoryProtocol?
+    public var taskListRepository: TasksListRepositoryProtocol?
     
-    public convenience init(taskListRepository: TaskListRepositoryProtocol) {
+    public convenience init(taskListRepository: TasksListRepositoryProtocol) {
         self.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
         self.taskListRepository = taskListRepository
     }

@@ -20,7 +20,7 @@ internal class CompositionRoot {
         return HomeViewController(taskListRepository: taskListRepository)
     }
     
-    var taskListRepository: TaskListRepositoryProtocol {
+    var taskListRepository: TasksListRepositoryProtocol {
         return TaskListRepository(fileUrl: coreDataStoreUrl)
     }
     
