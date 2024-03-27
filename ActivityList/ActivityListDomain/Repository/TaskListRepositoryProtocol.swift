@@ -7,6 +7,6 @@
 
 public protocol TaskListRepositoryProtocol {
     
-    func readTasks(completion: @escaping (Result<[TaskListModel], Error>) -> Void)
+    func readTasksLists(completion: @escaping (Result<[TaskListModel], Error>) -> Void)
     
 }

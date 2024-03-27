@@ -23,7 +23,7 @@ public class HomeViewController: UIViewController {
         homeView.emptyListMessage = "Press 'Add List' to start"
         homeView.addListButtonText = "Add List"
         
-        taskListRepository?.readTasks(completion: { [weak self] result in
+        taskListRepository?.readTasksLists(completion: { [weak self] result in
             switch result {
             case let .success(items):
                 self?.homeView.tasksList = items

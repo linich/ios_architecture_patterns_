@@ -29,7 +29,7 @@ public class TaskListRepository: TaskListRepositoryProtocol {
         
     }
     
-    public func readTasks(completion: @escaping (Result<[ActivityListDomain.TaskListModel], Error>) -> Void) {
+    public func readTasksLists(completion: @escaping (Result<[ActivityListDomain.TaskListModel], Error>) -> Void) {
         viewContext.perform {
             do {
                 let fetchRequest = TaskList.fetchRequest()

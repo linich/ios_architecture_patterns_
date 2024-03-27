@@ -47,7 +47,7 @@ public class TaskListRepository: TaskListRepositoryProtocol {
         self.fileUrl = fileUrl
     }
     
-    public func readTasks(completion: @escaping (Result<[TaskListModel], Error>) -> Void) {
+    public func readTasksLists(completion: @escaping (Result<[TaskListModel], Error>) -> Void) {
         viewContext.perform {
             do {
                 let fetchRequest = ToDoList.fetchRequest()
