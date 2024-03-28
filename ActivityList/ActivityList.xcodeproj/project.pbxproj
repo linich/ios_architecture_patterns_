@@ -636,7 +636,6 @@
 					};
 					B5150E692BB1C88D0016EF33 = {
 						CreatedOnToolsVersion = 15.2;
-						TestTargetID = B5150D5A2BB1ABA60016EF33;
 					};
 					B5B399CC2BB2A9F60084726F = {
 						CreatedOnToolsVersion = 15.2;
@@ -1303,7 +1302,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActivityList.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ActivityList";
 			};
 			name = Debug;
 		};
@@ -1324,7 +1322,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActivityList.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ActivityList";
 			};
 			name = Release;
 		};
