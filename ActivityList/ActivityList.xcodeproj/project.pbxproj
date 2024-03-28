@@ -367,7 +367,7 @@
 		B5150E702BB1C88D0016EF33 /* ActivityListUITests */ = {
 			isa = PBXGroup;
 			children = (
-				B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */,
+				B5B39A1D2BB551580084726F /* Home */,
 			);
 			path = ActivityListUITests;
 			sourceTree = "<group>";
@@ -430,6 +430,14 @@
 				B5B39A152BB2C4360084726F /* CompositionRoot.swift */,
 			);
 			path = Composition;
+			sourceTree = "<group>";
+		};
+		B5B39A1D2BB551580084726F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
