@@ -10,48 +10,16 @@ import ActivityListDomain
 
 public class TasksListRepository: TasksListRepositoryProtocol {
     
-    lazy var persistentCoordinator: NSPersistentStoreCoordinator = {
-        let bundle = Bundle(for: TasksListRepository.self)
-        guard let modelURL = bundle.url(forResource: "ActivityList",
-                                             withExtension: "momd") else {
-            fatalError("Failed to find data model")
-        }
-        
-        guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
-            fatalError("Failed to create model from file: \(modelURL)")
-        }
-        
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        do {
-            // Set the options to enable lightweight data migrations.
-            let options = [NSMigratePersistentStoresAutomaticallyOption: true,
-                                 NSInferMappingModelAutomaticallyOption: true]
-            // Add the store to the coordinator.
-            _ = try coordinator.addPersistentStore(type: .sqlite, at: self.fileUrl,
-                                               options: options)
-        } catch {
-            fatalError("Failed to add persistent store: \(error.localizedDescription)")
-        }
-        
-        return coordinator
-    }()
-    
-    lazy var viewContext: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = persistentCoordinator
-        return context
-    }()
-    
-    private let fileUrl: URL
-    public init(fileUrl: URL) {
-        self.fileUrl = fileUrl
+    private let context: NSManagedObjectContext
+    public init(context: NSManagedObjectContext) {
+        self.context = context
     }
     
     public func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
-        viewContext.perform {
+        context.perform {
             do {
                 let fetchRequest = TasksList.fetchRequest()
-                let result = try self.viewContext.fetch<TasksList>(fetchRequest)
+                let result = try self.context.fetch<TasksList>(fetchRequest)
                 
                 let tasksList = result.map {$0.toModel()}.compactMap{$0}
                 
