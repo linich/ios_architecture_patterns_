@@ -41,19 +41,20 @@ public class HomeView: UIView {
     }
     
     private var tableViewDataSource = HomeViewTableViewDataSource()
+    
     private let titleLabel = {
         let label =  UILabel()
         label.textAlignment = .center
         return label
     }()
     
-    private let tableView = {
+    public let tableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
     
-    private let emptyState = {
+    public let emptyState = {
         let view = UIView()
         return view
         
@@ -88,7 +89,9 @@ public class HomeView: UIView {
         addSubview(emptyState)
         emptyState.addSubview(emptyListLabel)
         addSubview(addListButton)
+        
         setupConstraints();
+        
         tableView.dataSource = tableViewDataSource
     }
     

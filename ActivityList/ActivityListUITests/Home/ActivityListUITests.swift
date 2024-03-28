@@ -58,15 +58,9 @@ final class HomeViewControllerTests: XCTestCase {
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController, TasksListRepositoryStub) {
         let stub = TasksListRepositoryStub()
         let homeController = HomeViewController.init(taskListRepository: stub)
-        self.trackMemoryLeak(homeController, file: file, line: line)
+        trackMemoryLeak(homeController, file: file, line: line)
         
         return (homeController, stub)
-    }
-    
-    fileprivate func trackMemoryLeak(_ object: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        self.addTeardownBlock { [weak object] in
-            XCTAssertNil(object, file: file, line: line)
-        }
     }
 }
 
