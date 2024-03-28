@@ -45,24 +45,16 @@ final class HomeViewTests: XCTestCase {
     
     func test_tasksLists_renderTasksLists() {
         let sut = createSUT()
-        let tasksList1 = makeTasksList(name: "name1", icon: "icon1")
-        let tasksList2 = makeTasksList(name: "name2", icon: "icon2")
-        let tasksList3 = makeTasksList(name: "name3", icon: "icon3")
         
-        sut.tasksLists = [
-            tasksList1,
-            tasksList2,
-            tasksList3
+        let tasksLists = [
+            makeTasksList(name: "name1", icon: "icon1"),
+            makeTasksList(name: "name2", icon: "icon2"),
+            makeTasksList(name: "name3", icon: "icon3")
         ]
         
-        XCTAssertEqual(sut.numberOfRenderedTasksLists, 3);
+        sut.tasksLists = tasksLists
         
-        assertThat(sut: sut, hasConfiguredCellFor: tasksList1, at: 0)
-        
-        assertThat(sut: sut, hasConfiguredCellFor: tasksList2, at: 1)
-        
-        assertThat(sut: sut, hasConfiguredCellFor: tasksList3, at: 2)
-        
+        assertThat(sut: sut, configuredFor: tasksLists)
     }
     
     // Mark: - Helpers
@@ -71,6 +63,14 @@ final class HomeViewTests: XCTestCase {
         let view = HomeView()
         trackMemoryLeak(view)
         return view
+    }
+    
+    fileprivate func assertThat(sut: HomeView, configuredFor models: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(sut.numberOfRenderedTasksLists, models.count);
+        
+        for ( index, model) in models.enumerated(){
+            assertThat(sut: sut, hasConfiguredCellFor: model, at: index)
+        }
     }
     
     fileprivate func assertThat(sut: HomeView, hasConfiguredCellFor model: TasksListModel, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
