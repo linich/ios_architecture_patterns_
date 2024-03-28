@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "560F046B-3941-4CA1-957C-C0ABEDF3C201",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ActivityList.xcodeproj",
+      "identifier" : "B5150D5A2BB1ABA60016EF33",
+      "name" : "ActivityList"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:ActivityList.xcodeproj",
+        "identifier" : "B5150E692BB1C88D0016EF33",
+        "name" : "ActivityListUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
