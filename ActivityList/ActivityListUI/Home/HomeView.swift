@@ -51,7 +51,7 @@ public class HomeView: UIView {
     
     public let tableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TasksListCell.self, forCellReuseIdentifier: "\(TasksListCell.self)")
         return tableView
     }()
     
@@ -147,11 +147,21 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
     public var tasksLists = [TasksListModel]()
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        guard let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(TasksListCell.self)", for: indexPath) as? TasksListCell else {
+            fatalError("Can't get cell for item at \(indexPath)")
+        }
+        let model = tasksLists[indexPath.row]
+        tasksListCell.nameLabel.text = model.name
+        return tasksListCell
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasksLists.count
     }
     
+}
+
+final public class TasksListCell: UITableViewCell {
+    public let nameLabel = UILabel()
 }
