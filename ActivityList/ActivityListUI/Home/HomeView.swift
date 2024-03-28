@@ -27,7 +27,7 @@ public class HomeView: UIView {
             emptyListLabel.text = emptyListMessage
         }
     }
-
+    
     public var title: String = "" {
         didSet {
             titleLabel.text = title
@@ -39,7 +39,7 @@ public class HomeView: UIView {
             addListButton.setTitle(addListButtonText, for: .normal)
         }
     }
-
+    
     private var tableViewDataSource = HomeViewTableViewDataSource()
     private let titleLabel = {
         let label =  UILabel()
@@ -107,7 +107,7 @@ public class HomeView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-
+        
         tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
         
@@ -135,10 +135,6 @@ public class HomeView: UIView {
         
         emptyListLabel.trailingAnchor.constraint(equalTo: emptyState.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
         emptyListLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
-    }
-    
-    public func setTasksLists(_ list: [TasksListModel]) {
-        tasksLists = list
     }
 }
 
