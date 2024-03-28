@@ -7,12 +7,23 @@
 
 import UIKit
 import ActivityListDomain
+
 internal protocol HomeViewDelegate: AnyObject {
     
 }
 
+public protocol IconImageProviderProtocol{
+    func image(byName: String) -> UIImage?
+}
+
 public class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
+    
+    public var iconImageProvider: IconImageProviderProtocol = IconImageProvider() {
+        didSet {
+            tableViewDataSource.iconImageProvider = iconImageProvider
+        }
+    }
     
     public var tasksLists: [TasksListModel] = [] {
         didSet {
@@ -60,7 +71,7 @@ public class HomeView: UIView {
         return view
         
     }()
-    
+        
     private let emptyListLabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -145,7 +156,7 @@ public class HomeView: UIView {
 
 internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
     public var tasksLists = [TasksListModel]()
-    
+    public var iconImageProvider: IconImageProviderProtocol?
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(TasksListCell.self)", for: indexPath) as? TasksListCell else {
@@ -154,6 +165,7 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
         let model = tasksLists[indexPath.row]
         tasksListCell.nameLabel.text = model.name
         tasksListCell.tasksCountLabel.text = "\(model.tasks.count) Tasks"
+        tasksListCell.iconImageView.image = iconImageProvider?.image(byName: model.icon)
         return tasksListCell
     }
     
@@ -166,4 +178,5 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
 final public class TasksListCell: UITableViewCell {
     public let nameLabel = UILabel()
     public let tasksCountLabel = UILabel()
+    public let iconImageView = UIImageView()
 }

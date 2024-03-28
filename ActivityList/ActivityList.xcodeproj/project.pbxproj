@@ -24,6 +24,8 @@
 		B5150E772BB1C88D0016EF33 /* ActivityListUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E612BB1C88C0016EF33 /* ActivityListUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B56726272BB57AC0007DE166 /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; };
 		B56726282BB57AC0007DE166 /* ActivityListDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567262C2BB58231007DE166 /* IconImageProvider.swift */; };
+		B567262F2BB58938007DE166 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B567262E2BB58938007DE166 /* Media.xcassets */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -132,6 +134,8 @@
 		B5150E642BB1C88D0016EF33 /* ActivityListUI.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListUI.docc; sourceTree = "<group>"; };
 		B5150E6A2BB1C88D0016EF33 /* ActivityListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListUITests.swift; sourceTree = "<group>"; };
+		B567262C2BB58231007DE166 /* IconImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageProvider.swift; sourceTree = "<group>"; };
+		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				B5B39A0D2BB2B0FE0084726F /* Home */,
 				B5150E632BB1C88C0016EF33 /* ActivityListUI.h */,
 				B5150E642BB1C88D0016EF33 /* ActivityListUI.docc */,
+				B567262E2BB58938007DE166 /* Media.xcassets */,
 			);
 			path = ActivityListUI;
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 				B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */,
 				B5B39A122BB2BDC60084726F /* HomeViewController.xib */,
 				B5B39A172BB4234E0084726F /* HomeView.swift */,
+				B567262C2BB58231007DE166 /* IconImageProvider.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -548,6 +554,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B567262F2BB58938007DE166 /* Media.xcassets in Resources */,
 				B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B39A182BB4234E0084726F /* HomeView.swift in Sources */,
+				B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */,
 				B5150E652BB1C88D0016EF33 /* ActivityListUI.docc in Sources */,
 				B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */,
 			);

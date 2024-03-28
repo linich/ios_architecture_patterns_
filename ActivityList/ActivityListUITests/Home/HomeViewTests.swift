@@ -61,6 +61,7 @@ final class HomeViewTests: XCTestCase {
     
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> HomeView {
         let view = HomeView()
+        view.iconImageProvider = iconImageProvider
         trackMemoryLeak(view)
         return view
     }
@@ -83,7 +84,13 @@ final class HomeViewTests: XCTestCase {
         XCTAssertEqual(tasksListCell.nameLabel.text, model.name, "Expected name to be \(String(describing: model.name)) at \(row)", file: file, line: line)
         
         XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasks.count) Tasks", "Expected tasks count text to be '\(model.tasks.count) Tasks') at \(row)", file: file, line: line)
+        
+        let expectedImageData = iconImageProvider.image(byName: model.icon).map({$0.pngData()}) ?? nil
+        let actualImageData = tasksListCell.iconImageView.image.map({$0.pngData()}) ?? nil
+        XCTAssertEqual(actualImageData, expectedImageData, "Expected image to be valid at \(row)", file: file, line: line)
     }
+    
+    fileprivate var iconImageProvider = IconImageProviderMock()
 }
 
 extension HomeView {
@@ -98,4 +105,28 @@ extension HomeView {
     var tasksListSection: Int {
         return 0
     }
+}
+
+public class IconImageProviderMock: IconImageProviderProtocol {
+    public func image(byName name: String) -> UIImage? {
+        UIGraphicsBeginImageContext(CGSize.init(width: 1, height: 1))
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        let hash = name.hash
+        context?.setFillColor(CGColor(
+            red: CGFloat(hash & 0xFF) / 256.0,
+            green: CGFloat((hash >> 16) & 0xFF) / 256.0,
+            blue: CGFloat((hash >> 32) & 0xFF) / 256.0 ,
+            alpha: 1))
+        
+        context?.fill([CGRect(x: 0, y: 0, width: 1, height: 1)])
+        
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    
 }
