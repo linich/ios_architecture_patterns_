@@ -17,10 +17,19 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:ActivityList.xcodeproj",
         "identifier" : "B5150E692BB1C88D0016EF33",
         "name" : "ActivityListUITests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ActivityList.xcodeproj",
+        "identifier" : "B56726332BB5A9F8007DE166",
+        "name" : "ActivityListDataLayerTests"
       }
     }
   ],
