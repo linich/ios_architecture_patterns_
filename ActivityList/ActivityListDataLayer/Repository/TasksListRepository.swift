@@ -8,10 +8,10 @@
 import CoreData
 import ActivityListDomain
 
-public class TaskListRepository: TasksListRepositoryProtocol {
+public class TasksListRepository: TasksListRepositoryProtocol {
     
     lazy var persistentCoordinator: NSPersistentStoreCoordinator = {
-        let bundle = Bundle(for: TaskListRepository.self)
+        let bundle = Bundle(for: TasksListRepository.self)
         guard let modelURL = bundle.url(forResource: "ActivityList",
                                              withExtension: "momd") else {
             fatalError("Failed to find data model")

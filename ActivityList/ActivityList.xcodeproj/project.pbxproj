@@ -32,7 +32,7 @@
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */; };
-		B5B39A0C2BB2ADC90084726F /* TaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */; };
+		B5B39A0C2BB2ADC90084726F /* TasksListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */; };
 		B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */; };
 		B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B39A122BB2BDC60084726F /* HomeViewController.xib */; };
 		B5B39A162BB2C4360084726F /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A152BB2C4360084726F /* CompositionRoot.swift */; };
@@ -151,7 +151,7 @@
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
 		B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActivityList.xcdatamodel; sourceTree = "<group>"; };
-		B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRepository.swift; sourceTree = "<group>"; };
+		B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepository.swift; sourceTree = "<group>"; };
 		B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B5B39A122BB2BDC60084726F /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		B5B39A152BB2C4360084726F /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
@@ -353,7 +353,7 @@
 		B5B39A092BB2AD8A0084726F /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				B5B39A0B2BB2ADC90084726F /* TaskListRepository.swift */,
+				B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -689,7 +689,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B39A0C2BB2ADC90084726F /* TaskListRepository.swift in Sources */,
+				B5B39A0C2BB2ADC90084726F /* TasksListRepository.swift in Sources */,
 				B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */,
 				B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */,
 			);

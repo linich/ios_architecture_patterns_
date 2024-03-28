@@ -21,7 +21,7 @@ internal class CompositionRoot {
     }
     
     var taskListRepository: TasksListRepositoryProtocol {
-        return TaskListRepository(fileUrl: coreDataStoreUrl)
+        return TasksListRepository(fileUrl: coreDataStoreUrl)
     }
     
     var coreDataStoreUrl: URL {
