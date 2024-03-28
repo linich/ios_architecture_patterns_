@@ -18,7 +18,8 @@ public class HomeView: UIView {
         didSet {
             tableViewDataSource.tasksLists = tasksLists
             tableView.reloadData()
-            emptyState.isHidden = tasksLists.count > 0
+            emptyState.isHidden = !tasksLists.isEmpty
+            tableView.isHidden = tasksLists.isEmpty
         }
     }
     
