@@ -22,7 +22,7 @@ final class HomeViewTests: XCTestCase {
     func test_emptyState_shouldNotShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [TasksListModel(id: UUID(), name: "name1", createdDate: Date.now, icon: "icon1")]
+        view.tasksLists = [makeTasksList(name: "name1", icon: "icon1")]
         
         XCTAssertTrue(view.emptyState.isHidden, "Empty state view should be visible if tasksLists is not empty");
     }
@@ -38,16 +38,16 @@ final class HomeViewTests: XCTestCase {
     func test_tasksLists_shouldShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [TasksListModel(id: UUID(), name: "name1", createdDate: Date.now, icon: "icon1")]
+        view.tasksLists = [makeTasksList(name: "name1", icon: "icon1")]
         
         XCTAssertFalse(view.tableView.isHidden, "Tasks Lists view should  be visible if tasksLists is not empty");
     }
     
     func test_tasksLists_renderTasksLists() {
         let sut = createSUT()
-        let tasksList1 = TasksListModel(id: UUID(), name: "name1", createdDate: Date.now, icon: "icon1")
-        let tasksList2 = TasksListModel(id: UUID(), name: "name2", createdDate: Date.now, icon: "icon2")
-        let tasksList3 = TasksListModel(id: UUID(), name: "name3", createdDate: Date.now, icon: "icon3")
+        let tasksList1 = makeTasksList(name: "name1", icon: "icon1")
+        let tasksList2 = makeTasksList(name: "name2", icon: "icon2")
+        let tasksList3 = makeTasksList(name: "name3", icon: "icon3")
         
         sut.tasksLists = [
             tasksList1,

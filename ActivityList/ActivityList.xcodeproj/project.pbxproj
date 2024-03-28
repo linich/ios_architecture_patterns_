@@ -42,6 +42,7 @@
 		B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A1E2BB552910084726F /* HomeViewTests.swift */; };
 		B5B39A242BB554D90084726F /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */; };
 		B5B39A252BB554DF0084726F /* ActivityListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */; };
+		B5B39A272BB565FD0084726F /* XCTestCase+HomeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A262BB565FD0084726F /* XCTestCase+HomeHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		B5B39A1B2BB550FE0084726F /* TasksListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListModel.swift; sourceTree = "<group>"; };
 		B5B39A1E2BB552910084726F /* HomeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewTests.swift; sourceTree = "<group>"; };
 		B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
+		B5B39A262BB565FD0084726F /* XCTestCase+HomeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+HomeHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +426,7 @@
 				B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */,
 				B5B39A1E2BB552910084726F /* HomeViewTests.swift */,
 				B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */,
+				B5B39A262BB565FD0084726F /* XCTestCase+HomeHelpers.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B39A242BB554D90084726F /* XCTestCase+Helpers.swift in Sources */,
+				B5B39A272BB565FD0084726F /* XCTestCase+HomeHelpers.swift in Sources */,
 				B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */,
 				B5B39A252BB554DF0084726F /* ActivityListUITests.swift in Sources */,
 			);

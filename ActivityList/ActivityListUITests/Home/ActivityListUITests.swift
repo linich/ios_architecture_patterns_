@@ -43,9 +43,9 @@ final class HomeViewControllerTests: XCTestCase {
     
     func test_loadTasksListCompletion_renderSuccessufullyLoadedTasksLists() {
         
-        let tasksList1 = TasksListModel(id: UUID(), name: "name1", createdDate: Date.now, icon: "icon1")
-        let tasksList2 = TasksListModel(id: UUID(), name: "name2", createdDate: Date.now, icon: "icon2")
-        let tasksList3 = TasksListModel(id: UUID(), name: "name3", createdDate: Date.now, icon: "icon3")
+        let tasksList1 = makeTasksList(name: "name1", icon: "icon1")
+        let tasksList2 = makeTasksList(name: "name2", icon: "icon2")
+        let tasksList3 = makeTasksList(name: "name3", icon: "icon3")
         
         let (sut, repository) = createSUT()
         sut.loadViewIfNeeded()
@@ -62,13 +62,15 @@ final class HomeViewControllerTests: XCTestCase {
         
         return (homeController, stub)
     }
+    
+
 }
 
 extension TasksListModel: Equatable {
     public static func == (lhs: TasksListModel, rhs: TasksListModel) -> Bool {
         return lhs.id == rhs.id &&
         lhs.icon == rhs.icon &&
-        lhs.createdDate == rhs.createdDate &&
+        lhs.createdAt == rhs.createdAt &&
         lhs.name == rhs.name
     }
     

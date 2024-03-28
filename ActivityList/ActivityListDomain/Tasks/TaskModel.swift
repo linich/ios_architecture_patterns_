@@ -7,10 +7,17 @@
 
 import Foundation
 
-public struct TaskModel {
-    public let id: String
+public class TaskModel {
+    public let id: UUID
     public let name: String
-    public let createdDate: Date
+    public let createdAt: Date
     public let icon: String
+    
+    public init(id: UUID, name: String, createdAt: Date, icon: String) {
+        self.id = id
+        self.name = name
+        self.createdAt = createdAt
+        self.icon = icon
+    }
     
 }

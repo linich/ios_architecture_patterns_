@@ -50,17 +50,10 @@ public class TaskListRepository: TasksListRepositoryProtocol {
     public func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
         viewContext.perform {
             do {
-                let fetchRequest = ToDoList.fetchRequest()
-                let result = try self.viewContext.fetch<TaskList>(fetchRequest)
-                let tasksList = result.map { taskList in
-                    guard let stringId = taskList.id,
-                          let id = UUID(uuidString: stringId),
-                            let name = taskList.name,
-                          let createdAt = taskList.createdAt, let icon = taskList.icon else {
-                        return nil as TasksListModel?
-                    }
-                    return TasksListModel.init(id: id, name: name, createdDate: createdAt, icon: icon)
-                }.compactMap{$0}
+                let fetchRequest = TasksList.fetchRequest()
+                let result = try self.viewContext.fetch<TasksList>(fetchRequest)
+                
+                let tasksList = result.map {$0.toModel()}.compactMap{$0}
                 
                 completion(.success(tasksList))
                 
@@ -68,5 +61,33 @@ public class TaskListRepository: TasksListRepositoryProtocol {
                 completion(.failure(error))
             }
         }
+    }
+}
+
+extension TasksList {
+    func toModel() -> TasksListModel? {
+        guard let stringId = id,
+              let id = UUID(uuidString: stringId),
+                let name = name,
+              let createdAt = createdAt, let icon = icon else {
+            return nil as TasksListModel?
+        }
+        let tasks = tasks.map { tasks in
+            tasks.map{($0 as! Task).toModel()}.compactMap({$0})
+        } ?? []
+        return TasksListModel(id: id, name: name, createdAt: createdAt, icon: icon, tasks: tasks)
+    }
+}
+
+extension Task {
+    func toModel() -> TaskModel? {
+        guard let stringId = id,
+              let id = UUID(uuidString: stringId),
+                let name = name,
+              let createdAt = createdAt, let icon = icon else {
+            return nil as TaskModel?
+        }
+        
+        return TaskModel(id: id, name: name, createdAt: createdAt, icon: icon)
     }
 }
