@@ -153,6 +153,7 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
         }
         let model = tasksLists[indexPath.row]
         tasksListCell.nameLabel.text = model.name
+        tasksListCell.tasksCountLabel.text = "\(model.tasks.count) Tasks"
         return tasksListCell
     }
     
@@ -164,4 +165,5 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
 
 final public class TasksListCell: UITableViewCell {
     public let nameLabel = UILabel()
+    public let tasksCountLabel = UILabel()
 }

@@ -49,7 +49,7 @@ final class HomeViewTests: XCTestCase {
         let tasksLists = [
             makeTasksList(name: "name1", icon: "icon1"),
             makeTasksList(name: "name2", icon: "icon2"),
-            makeTasksList(name: "name3", icon: "icon3")
+            makeTasksList(name: "name3", icon: "icon3", tasksCount: 10)
         ]
         
         sut.tasksLists = tasksLists
@@ -81,6 +81,8 @@ final class HomeViewTests: XCTestCase {
         }
         
         XCTAssertEqual(tasksListCell.nameLabel.text, model.name, "Expected name to be \(String(describing: model.name)) at \(row)", file: file, line: line)
+        
+        XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasks.count) Tasks", "Expected tasks count text to be '\(model.tasks.count) Tasks') at \(row)", file: file, line: line)
     }
 }
 
