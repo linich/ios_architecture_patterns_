@@ -75,7 +75,14 @@ extension TasksList {
         let tasks = tasks.map { tasks in
             tasks.map{($0 as! Task).toModel()}.compactMap({$0})
         } ?? []
-        return TasksListModel(id: id, name: name, createdAt: createdAt, icon: icon, tasks: tasks)
+        return TasksListModel(id: id, name: name, createdAt: createdAt, type: tasksListType(byIcon: icon), tasks: tasks)
+    }
+    
+    func tasksListType(byIcon icon: String) -> TasksListModel.TasksListType {
+        switch icon {
+        default:
+            return .none
+        }
     }
 }
 
@@ -88,6 +95,13 @@ extension Task {
             return nil as TaskModel?
         }
         
-        return TaskModel(id: id, name: name, createdAt: createdAt, icon: icon)
+        return TaskModel(id: id, name: name, createdAt: createdAt, type: taskType(byIcon: icon))
+    }
+    
+    func taskType(byIcon icon: String) -> TaskModel.TaskType {
+        switch icon {
+        default:
+            return .none
+        }
     }
 }

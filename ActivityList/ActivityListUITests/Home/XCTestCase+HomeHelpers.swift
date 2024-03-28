@@ -11,19 +11,20 @@ import ActivityListDomain
 extension XCTestCase {
     func makeTasksList(
         name: String,
-        icon: String,
+        tasksListType: TasksListModel.TasksListType = .game,
+        taskType: TaskModel.TaskType = .shop,
         id:UUID = UUID(),
         createdAt: Date = Date.now,
         tasksCount: Int = 0) -> TasksListModel{
-            let tasks = (0..<tasksCount).map { makeTask(name: "task_\($0)", icon: "icon_\($0)")}
-        return TasksListModel(id: id, name: name, createdAt: createdAt, icon: icon, tasks: tasks)
+            let tasks = (0..<tasksCount).map { makeTask(name: "task_\($0)", type: taskType)}
+        return TasksListModel(id: id, name: name, createdAt: createdAt, type: tasksListType, tasks: tasks)
     }
     
     func makeTask(
         name: String,
-        icon: String,
+        type: TaskModel.TaskType,
         id: UUID = UUID(),
         createdAt: Date = Date.now) -> TaskModel {
-        return TaskModel(id: id, name: name, createdAt: createdAt, icon: icon)
+        return TaskModel(id: id, name: name, createdAt: createdAt, type: type)
     }
 }

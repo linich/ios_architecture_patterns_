@@ -22,7 +22,7 @@ final class HomeViewTests: XCTestCase {
     func test_emptyState_shouldNotShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [makeTasksList(name: "name1", icon: "icon1")]
+        view.tasksLists = [makeTasksList(name: "name1")]
         
         XCTAssertTrue(view.emptyState.isHidden, "Empty state view should be visible if tasksLists is not empty");
     }
@@ -38,7 +38,7 @@ final class HomeViewTests: XCTestCase {
     func test_tasksLists_shouldShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [makeTasksList(name: "name1", icon: "icon1")]
+        view.tasksLists = [makeTasksList(name: "name1", tasksListType: .baseball)]
         
         XCTAssertFalse(view.tableView.isHidden, "Tasks Lists view should  be visible if tasksLists is not empty");
     }
@@ -47,9 +47,9 @@ final class HomeViewTests: XCTestCase {
         let sut = createSUT()
         
         let tasksLists = [
-            makeTasksList(name: "name1", icon: "icon1"),
-            makeTasksList(name: "name2", icon: "icon2"),
-            makeTasksList(name: "name3", icon: "icon3", tasksCount: 10)
+            makeTasksList(name: "name1", tasksListType: .game),
+            makeTasksList(name: "name2", tasksListType: .shop),
+            makeTasksList(name: "name3", tasksListType: .fight, tasksCount: 10)
         ]
         
         sut.tasksLists = tasksLists
@@ -85,7 +85,7 @@ final class HomeViewTests: XCTestCase {
         
         XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasks.count) Tasks", "Expected tasks count text to be '\(model.tasks.count) Tasks') at \(row)", file: file, line: line)
         
-        let expectedImageData = iconImageProvider.image(byName: model.icon).map({$0.pngData()}) ?? nil
+        let expectedImageData = iconImageProvider.image(byTasksListType: model.type).map({$0.pngData()}) ?? nil
         let actualImageData = tasksListCell.iconImageView.image.map({$0.pngData()}) ?? nil
         XCTAssertEqual(actualImageData, expectedImageData, "Expected image to be valid at \(row)", file: file, line: line)
     }
@@ -108,7 +108,7 @@ extension HomeView {
 }
 
 public class IconImageProviderMock: IconImageProviderProtocol {
-    public func image(byName name: String) -> UIImage? {
+    public func image(byTasksListType type: TasksListModel.TasksListType) -> UIImage? {
         UIGraphicsBeginImageContext(CGSize.init(width: 1, height: 1))
         defer {
             UIGraphicsEndImageContext()
@@ -116,7 +116,7 @@ public class IconImageProviderMock: IconImageProviderProtocol {
         
         let context = UIGraphicsGetCurrentContext()
         
-        let hash = name.hash
+        let hash = String(describing: type).hashValue
         context?.setFillColor(CGColor(
             red: CGFloat(hash & 0xFF) / 256.0,
             green: CGFloat((hash >> 16) & 0xFF) / 256.0,

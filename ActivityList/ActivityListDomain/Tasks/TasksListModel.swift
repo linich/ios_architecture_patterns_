@@ -8,21 +8,34 @@
 import Foundation
 
 public struct TasksListModel {
+    public enum TasksListType {
+        case none
+        case game
+        case gym
+        case fight
+        case airplane
+        case shop
+        case baseball
+        case american_football
+        case skiing
+        case swimming
+    }
+    
     public let id: UUID
     public let name: String
     public let createdAt: Date
-    public let icon: String
+    public let type: TasksListType
     public let tasks: [TaskModel]
     
     public init(id: UUID, 
                 name: String,
                 createdAt: Date,
-                icon: String,
+                type: TasksListType,
                 tasks: [TaskModel]) {
         self.id = id
         self.name = name
         self.createdAt = createdAt
-        self.icon = icon
+        self.type = type
         self.tasks = tasks
     }
     
