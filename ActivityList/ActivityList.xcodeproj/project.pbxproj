@@ -26,7 +26,7 @@
 		B56726282BB57AC0007DE166 /* ActivityListDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567262C2BB58231007DE166 /* IconImageProvider.swift */; };
 		B567262F2BB58938007DE166 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B567262E2BB58938007DE166 /* Media.xcassets */; };
-		B56726372BB5A9F8007DE166 /* ActivityListDataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56726362BB5A9F8007DE166 /* ActivityListDataLayerTests.swift */; };
+		B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */; };
 		B56726382BB5A9F8007DE166 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; platformFilter = ios; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
@@ -146,7 +146,7 @@
 		B567262C2BB58231007DE166 /* IconImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageProvider.swift; sourceTree = "<group>"; };
 		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B56726362BB5A9F8007DE166 /* ActivityListDataLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListDataLayerTests.swift; sourceTree = "<group>"; };
+		B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepositoryTests.swift; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -319,7 +319,7 @@
 		B56726352BB5A9F8007DE166 /* ActivityListDataLayerTests */ = {
 			isa = PBXGroup;
 			children = (
-				B56726362BB5A9F8007DE166 /* ActivityListDataLayerTests.swift */,
+				B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */,
 			);
 			path = ActivityListDataLayerTests;
 			sourceTree = "<group>";
@@ -681,7 +681,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B56726372BB5A9F8007DE166 /* ActivityListDataLayerTests.swift in Sources */,
+				B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
