@@ -12,27 +12,17 @@ import ActivityListDataLayer
 
 final class TasksListRepositoryTests: XCTestCase {
     
-    func test_read_fromEmptyReturnsEmptyList() {
+    func test_readTasksList_returnsEmptyListOnCleanDb() {
         let sut = createSUT()
         
-        var actual: [TasksListModel]? = nil
-        
-        let exp = expectation(description: "Loading taks list expectation")
-        sut.readTasksLists {  result in
-            switch result {
-            case let .success(items):
-                actual = items
-            case let .failure(error):
-                XCTFail("Expected success result, but got \(error) instead")
-            }
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertEqual(actual, [], "Expected empty tasks list")
+        expect(sut, toRetreive: .success([]))
     }
     
+    func test_readTasksList_hasNoSideEffectOnCleanDb() {
+        let sut = createSUT()
+        
+        assertThatReadTasksListHasNoSideEffectCleanDb(sut)
+    }
     
     // Mark: - Helpers
     
@@ -43,6 +33,32 @@ final class TasksListRepositoryTests: XCTestCase {
         return TasksListRepository(context: context)
     }
     
+    fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: TasksListRepositoryProtocol.Result, file: StaticString = #filePath, line: UInt = #line) {
+        
+        let exp = expectation(description: "Loading taks list expectation")
+        
+        sut.readTasksLists { result in
+            switch (result, expectedResult) {
+            case (.failure,.failure):
+                break
+            case let (.success(actualTasksList), .success(expectedTasksList)):
+                XCTAssertEqual(actualTasksList, expectedTasksList, "", file: file, line: line)
+            default:
+                XCTFail("Expected to retrieve \(expectedResult), but got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    fileprivate func assertThatReadTasksListHasNoSideEffectCleanDb(_ sut: TasksListRepositoryProtocol, file: StaticString = #filePath, line: UInt = #line) {
+        expect(sut, toRetrieveTwice: .success([]))
+    }
+    
+    func expect(_ sut: TasksListRepositoryProtocol, toRetrieveTwice expected: TasksListRepositoryProtocol.Result, file: StaticString = #filePath, line: UInt = #line) {
+        expect(sut, toRetreive: expected)
+        expect(sut, toRetreive: expected)
+    }
     fileprivate func createPersistanceStoreCoordinator(storeUrl: URL) -> NSPersistentStoreCoordinator {
         
             let bundle = Bundle(for: TasksListRepository.self)
