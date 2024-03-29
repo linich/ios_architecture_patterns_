@@ -9,10 +9,32 @@ import CoreData
 import ActivityListDomain
 
 public class TasksListRepository: TasksListRepositoryProtocol {
+    public func insertTasksList(withId id:UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping (InsertionResult) -> Void) {
+        let currentDate = self.currentDate
+        let context = self.context
+        context.perform {
+            completion(Swift.Result {
+                let tasksList = TasksList(context: context)
+                tasksList.id = id.uuidString
+                tasksList.createdAt = currentDate()
+                tasksList.name = name
+                tasksList.tasksListType = TasksList.getTasksListType(by: type)
+                try context.save()
+                return ()
+            })
+        }
+        
+    }
+    
     
     private let context: NSManagedObjectContext
-    public init(context: NSManagedObjectContext) {
+    private let currentDate: () -> Date
+    public init(
+        context: NSManagedObjectContext,
+        currentDate: @escaping  () -> Date
+    ) {
         self.context = context
+        self.currentDate = currentDate
     }
     
     public func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
@@ -37,19 +59,30 @@ extension TasksList {
         guard let stringId = id,
               let id = UUID(uuidString: stringId),
                 let name = name,
-              let createdAt = createdAt, let icon = icon else {
+              let createdAt = createdAt, let type = tasksListType else {
             return nil as TasksListModel?
         }
         let tasks = tasks.map { tasks in
             tasks.map{($0 as! Task).toModel()}.compactMap({$0})
         } ?? []
-        return TasksListModel(id: id, name: name, createdAt: createdAt, type: tasksListType(byIcon: icon), tasks: tasks)
+        return TasksListModel(id: id, name: name, createdAt: createdAt, type: TasksList.tasksListType(byType: type), tasks: tasks)
     }
     
-    func tasksListType(byIcon icon: String) -> TasksListModel.TasksListType {
-        switch icon {
+    static func tasksListType(byType type: String) -> TasksListModel.TasksListType {
+        switch type {
+        case "airplane":
+            return .airplane
         default:
             return .none
+        }
+    }
+    
+    static func getTasksListType(by type: TasksListModel.TasksListType) -> String {
+        switch type {
+        case .airplane:
+            return "airplane"
+        default:
+            return "none"
         }
     }
 }
@@ -63,11 +96,11 @@ extension Task {
             return nil as TaskModel?
         }
         
-        return TaskModel(id: id, name: name, createdAt: createdAt, type: taskType(byIcon: icon))
+        return TaskModel(id: id, name: name, createdAt: createdAt, type: Task.taskType(byType: icon))
     }
     
-    func taskType(byIcon icon: String) -> TaskModel.TaskType {
-        switch icon {
+    static func taskType(byType type: String) -> TaskModel.TaskType {
+        switch type {
         default:
             return .none
         }

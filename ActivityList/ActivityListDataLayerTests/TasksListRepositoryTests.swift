@@ -24,15 +24,37 @@ final class TasksListRepositoryTests: XCTestCase {
         assertThatReadTasksListHasNoSideEffectCleanDb(sut)
     }
     
+    func test_readTasksList_deliverResultOnNonEmptyDb() {
+        
+        let tasksListCreationDate = Date.now
+        let sut = createSUT( currentDate: {tasksListCreationDate})
+        let tasksListId = UUID()
+        insertTasksList(withId: tasksListId, name: "name1", type: .airplane, into: sut)
+        expect(sut, toRetreive: .success([TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane, tasks: [])]))
+        
+    }
     // Mark: - Helpers
     
-    fileprivate func createSUT(storePath: String = "/dev/null") -> TasksListRepositoryProtocol {
+    fileprivate func createSUT(storePath: String = "/dev/null", currentDate: @escaping () -> Date = Date.init) -> TasksListRepositoryProtocol {
         let coordinator = createPersistanceStoreCoordinator(storeUrl: URL(fileURLWithPath: storePath))
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
-        return TasksListRepository(context: context)
+        return TasksListRepository(context: context, currentDate: currentDate)
     }
     
+    fileprivate func insertTasksList(withId id: UUID, name: String, type: TasksListModel.TasksListType, into  sut: TasksListRepositoryProtocol) {
+        let exp = expectation(description: "Wait for create tasks list")
+        sut.insertTasksList(withId: id, name: name, type: type) { result in
+            switch result {
+            case .success:
+                break;
+            case let .failure(error):
+                XCTFail("Expected insert successfully, but got \(error)")
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout:  1.0)
+    }
     fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: TasksListRepositoryProtocol.Result, file: StaticString = #filePath, line: UInt = #line) {
         
         let exp = expectation(description: "Loading taks list expectation")

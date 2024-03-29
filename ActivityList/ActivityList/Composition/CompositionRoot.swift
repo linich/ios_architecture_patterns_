@@ -53,7 +53,7 @@ internal class CompositionRoot {
     }
     
     var taskListRepository: TasksListRepositoryProtocol {
-        return TasksListRepository(context: viewContext)
+        return TasksListRepository(context: viewContext, currentDate: { Date.now})
     }
     
     var coreDataStoreUrl: URL {

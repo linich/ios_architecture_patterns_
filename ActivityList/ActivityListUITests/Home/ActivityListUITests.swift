@@ -11,6 +11,10 @@ import ActivityListUI
 
 
 private class TasksListRepositoryStub: TasksListRepositoryProtocol {
+    func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {
+        completion(.success(()))
+    }
+    
     typealias Completion = (TasksListRepositoryProtocol.Result) -> Void
     
     public var readTasksListCount: Int {
