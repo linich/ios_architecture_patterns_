@@ -21,8 +21,7 @@ public struct TasksListInfo {
 }
 
 public protocol HomeServiceProtocol {
-    typealias Result = Swift.Result<[TasksListInfo], Error>
-    typealias Completion = (Result) -> Void
+    typealias Result = [TasksListInfo]
     
-    func readTasksInfos(completion: @escaping Completion) -> Void
+    func readTasksInfos() async throws -> Result
 }

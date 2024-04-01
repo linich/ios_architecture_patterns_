@@ -8,21 +8,32 @@
 import XCTest
 import ActivityListDomain
 
+
 class HomeService: HomeServiceProtocol {
-    
+    public enum Error: Swift.Error {
+        case ReadTaskFromRepository
+    }
+
     private let tasksListRepository: TasksListRepositoryProtocol
     init(tasksListRepository: TasksListRepositoryProtocol) {
         self.tasksListRepository = tasksListRepository
     }
     
-    func readTasksInfos(completion: @escaping HomeService.Completion) {
-        tasksListRepository.readTasksLists { result in
-            switch result {
-            case let .success(tasks):
-                completion(.success(tasks.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)})))
-            case let .failure(error):
-                completion(.failure(error))
+    func readTasksInfos() async throws -> HomeServiceProtocol.Result {
+        do {
+            return try await withCheckedThrowingContinuation { continuation in
+                tasksListRepository.readTasksLists { result in
+                    switch result {
+                    case let .success(tasks):
+                        continuation.resume(returning:tasks.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)}))
+                    case .failure:
+                        continuation.resume(throwing: Error.ReadTaskFromRepository)
+                    }
+                }
             }
+        }
+        catch {
+            throw error
         }
     }
 }
@@ -56,29 +67,76 @@ final class HomeServiceTests: XCTestCase {
         ]
         
         assert(sut, receive: expectedTasksInfos, onAction: {repositoryStub.completeReadTasksList(withTasks: [tasksListModel1])})
-        
     }
     
+    func test_readTasksInfo_returnsErrorWhenReceiveErrorFromRepository() {
+        let (sut, repositoryStub) = makeSUT()
+        
+        let tasksListModel1 = makeTasksList(name: "Name1")
+        let expectedTasksInfos = [
+            TasksListInfo(
+                id: tasksListModel1.id,
+                name: tasksListModel1.name,
+                type: tasksListModel1.type,
+                tasksCount: 0)
+        ]
+        
+        assert(sut, receiveError: HomeService.Error.ReadTaskFromRepository) {
+            repositoryStub.completeReadTasksList(withError: anyNSError())
+        }
+    }
     
     // Mark: - Helpers
     
     fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onAction action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Loading tasks list infos")
-        sut.readTasksInfos { result in
-            switch result {
-            case let .success(items):
+        let createTaskExpectation = expectation(description: "Creating read tasks task")
+        Task.detached(operation: {
+            defer { exp.fulfill() }
+            do {
+                async let task = sut.readTasksInfos()
+                createTaskExpectation.fulfill()
+                let items = try await task
                 XCTAssertEqual(items, expectedTasksInfos, "Expected to receive tasks")
-            default:
-                XCTFail("Expected \([TasksListInfo].self), but got \(result) instead")
             }
-            exp.fulfill()
-        }
+            catch {
+                XCTFail("Expect list of tasks, but go \(error)")
+            }
+        })
         
+        wait(for: [createTaskExpectation], timeout: 1.0)
         action()
+        
         wait(for: [exp], timeout: 1.0)
-        
-        
     }
+    
+    fileprivate func assert(_ sut: HomeService, receiveError expectedError: HomeService.Error, onAction action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "Loading tasks list infos")
+        let createTaskExpectation = expectation(description: "Creating read tasks task")
+        Task.detached(operation: {
+            defer { exp.fulfill() }
+            do {
+                async let task = sut.readTasksInfos()
+                createTaskExpectation.fulfill()
+                let items = try await task
+                XCTFail("Expect to get error, but got \(items)")
+                
+            }
+            catch {
+                guard let homeError = error as? HomeService.Error else {
+                    XCTFail("Expect to get error HomeService.Error, but got \(error)")
+                    return
+                }
+                XCTAssertEqual(homeError, expectedError)
+            }
+        })
+        
+        wait(for: [createTaskExpectation], timeout: 1.0)
+        action()
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     
     fileprivate func makeSUT( file: StaticString = #filePath, line: UInt = #line) -> (HomeService, TasksListRepositoryStub) {
         let tasksListRepository = TasksListRepositoryStub()
@@ -104,6 +162,10 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
 
     public func completeReadTasksList(withTasks tasks: [TasksListModel], at index: Int = 0) -> Void {
         readQuery[index](.success(tasks))
+    }
+    
+    public func completeReadTasksList(withError error: Error, at index: Int = 0) -> Void {
+        readQuery[index](.failure(error))
     }
     
     func readTasksLists(completion: @escaping ReadCompletion) -> Void {
