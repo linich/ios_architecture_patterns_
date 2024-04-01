@@ -15,13 +15,14 @@ class HomeService: HomeServiceProtocol {
     }
     
     func readTasksInfos(completion: HomeServiceProtocol.Completion) {
-        
+        completion(.success([]))
     }
     
     
 }
 
 final class HomeServiceTests: XCTestCase {
+    
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
         let (_, tasksListRepository) = makeSUT()
         
@@ -30,7 +31,22 @@ final class HomeServiceTests: XCTestCase {
     }
     
     func test_readTasksInfo_returnsEmptyOnTasksList() {
+        let (sut, repository) = makeSUT()
         
+        let exp = expectation(description: "Loading tasks list infos")
+        var tasksInfos: [TasksListInfo]? = nil
+        sut.readTasksInfos { result in
+            switch result {
+            case let .success(items):
+                tasksInfos = items
+            default:
+                XCTFail("Expected \([TasksListInfo].self), but got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertEqual(tasksInfos?.count, 0, "Tasks infos list should be empty on empty tasks list")
     }
     
     // Mark: - Helpers
