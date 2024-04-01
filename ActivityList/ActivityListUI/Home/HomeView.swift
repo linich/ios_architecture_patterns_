@@ -13,7 +13,7 @@ internal protocol HomeViewDelegate: AnyObject {
 }
 
 public protocol IconImageProviderProtocol{
-    func image(byTasksListType: TasksListModel.TasksListType) -> UIImage?
+    func image(byActivityType: ActivityType) -> UIImage?
 }
 
 public class HomeView: UIView {
@@ -165,7 +165,7 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
         let model = tasksLists[indexPath.row]
         tasksListCell.nameLabel.text = model.name
         tasksListCell.tasksCountLabel.text = "\(model.tasks.count) Tasks"
-        tasksListCell.iconImageView.image = iconImageProvider?.image(byTasksListType: model.type)
+        tasksListCell.iconImageView.image = iconImageProvider?.image(byActivityType: model.type)
         return tasksListCell
     }
     

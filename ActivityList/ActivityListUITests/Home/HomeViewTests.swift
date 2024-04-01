@@ -85,7 +85,7 @@ final class HomeViewTests: XCTestCase {
         
         XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasks.count) Tasks", "Expected tasks count text to be '\(model.tasks.count) Tasks') at \(row)", file: file, line: line)
         
-        let expectedImageData = iconImageProvider.image(byTasksListType: model.type).map({$0.pngData()}) ?? nil
+        let expectedImageData = iconImageProvider.image(byActivityType: model.type).map({$0.pngData()}) ?? nil
         let actualImageData = tasksListCell.iconImageView.image.map({$0.pngData()}) ?? nil
         XCTAssertEqual(actualImageData, expectedImageData, "Expected image to be valid at \(row)", file: file, line: line)
     }
@@ -108,7 +108,7 @@ extension HomeView {
 }
 
 public class IconImageProviderMock: IconImageProviderProtocol {
-    public func image(byTasksListType type: TasksListModel.TasksListType) -> UIImage? {
+    public func image(byActivityType type: ActivityType) -> UIImage? {
         UIGraphicsBeginImageContext(CGSize.init(width: 1, height: 1))
         defer {
             UIGraphicsEndImageContext()

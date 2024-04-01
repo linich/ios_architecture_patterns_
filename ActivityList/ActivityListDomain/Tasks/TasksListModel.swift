@@ -7,20 +7,21 @@
 
 import Foundation
 
+public enum ActivityType {
+    case none
+    case game
+    case gym
+    case fight
+    case airplane
+    case shop
+    case baseball
+    case american_football
+    case skiing
+    case swimming
+}
+
 public struct TasksListModel {
-    public enum TasksListType {
-        case none
-        case game
-        case gym
-        case fight
-        case airplane
-        case shop
-        case baseball
-        case american_football
-        case skiing
-        case swimming
-    }
-    
+    public typealias TasksListType = ActivityType
     public let id: UUID
     public let name: String
     public let createdAt: Date

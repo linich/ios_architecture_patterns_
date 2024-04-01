@@ -11,7 +11,7 @@ import ActivityListUI
 
 
 private class TasksListRepositoryStub: TasksListRepositoryProtocol {
-    func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {
+    func insertTasksList(withId: UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {
         completion(.success(()))
     }
     

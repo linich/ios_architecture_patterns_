@@ -8,8 +8,72 @@
 import CoreData
 import ActivityListDomain
 
+public enum ActivityTypeInner: Int16 {
+    case none
+    case game
+    case gym
+    case fight
+    case airplane
+    case shop
+    case baseball
+    case american_football
+    case skiing
+    case swimming
+    
+    static func from(activityType: ActivityType) -> ActivityTypeInner {
+        switch activityType {
+        case .none:
+            return .none
+        case .game:
+            return .game
+        case .gym:
+            return .gym
+        case .fight:
+            return .fight
+        case .airplane:
+            return .airplane
+        case .shop:
+            return .shop
+        case .baseball:
+            return .baseball
+        case .american_football:
+            return .american_football
+        case .skiing:
+            return .skiing
+        case .swimming:
+            return .swimming
+        }
+    }
+    
+    func toDomainType() -> ActivityType {
+        switch self {
+        case .none:
+            return .none
+        case .game:
+            return .game
+        case .gym:
+            return .gym
+        case .fight:
+            return .fight
+        case .airplane:
+            return .airplane
+        case .shop:
+            return .shop
+        case .baseball:
+            return .baseball
+        case .american_football:
+            return .american_football
+        case .skiing:
+            return .skiing
+        case .swimming:
+            return .swimming
+        }
+    }
+}
+
+
 public class TasksListRepository: TasksListRepositoryProtocol {
-    public func insertTasksList(withId id:UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping (InsertionResult) -> Void) {
+    public func insertTasksList(withId id:UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping (InsertionResult) -> Void) {
         let currentDate = self.currentDate
         let context = self.context
         context.perform {
@@ -18,7 +82,7 @@ public class TasksListRepository: TasksListRepositoryProtocol {
                 tasksList.id = id.uuidString
                 tasksList.createdAt = currentDate()
                 tasksList.name = name
-                tasksList.tasksListType = TasksList.getTasksListType(by: type)
+                tasksList.tasksListType = ActivityTypeInner.from(activityType: type).rawValue
                 try context.save()
                 return ()
             })
@@ -59,25 +123,17 @@ extension TasksList {
         guard let stringId = id,
               let id = UUID(uuidString: stringId),
                 let name = name,
-              let createdAt = createdAt, let type = tasksListType else {
+              let type = ActivityTypeInner.init(rawValue: tasksListType)?.toDomainType(),
+              let createdAt = createdAt else {
             return nil as TasksListModel?
         }
         let tasks = tasks.map { tasks in
             tasks.map{($0 as! Task).toModel()}.compactMap({$0})
         } ?? []
-        return TasksListModel(id: id, name: name, createdAt: createdAt, type: TasksList.tasksListType(byType: type), tasks: tasks)
+        return TasksListModel(id: id, name: name, createdAt: createdAt, type: type, tasks: tasks)
     }
     
-    static func tasksListType(byType type: String) -> TasksListModel.TasksListType {
-        switch type {
-        case "airplane":
-            return .airplane
-        default:
-            return .none
-        }
-    }
-    
-    static func getTasksListType(by type: TasksListModel.TasksListType) -> String {
+    static func getTasksListType(by type: ActivityType) -> String {
         switch type {
         case .airplane:
             return "airplane"

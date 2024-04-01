@@ -9,13 +9,13 @@ import UIKit
 import ActivityListDomain
 
 public class IconImageProvider: IconImageProviderProtocol {
-    public func image(byTasksListType type: TasksListModel.TasksListType) -> UIImage? {
+    public func image(byActivityType type: ActivityType) -> UIImage? {
         return UIImage(named:  type.iconName)
     }
 }
 
 
-extension TasksListModel.TasksListType {
+extension ActivityType {
     var iconName: String {
         switch (self){
         case .airplane:
