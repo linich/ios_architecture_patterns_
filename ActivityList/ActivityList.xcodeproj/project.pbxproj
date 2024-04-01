@@ -30,6 +30,7 @@
 		B56726382BB5A9F8007DE166 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; platformFilter = ios; };
 		B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */; };
 		B57594602BBAA49E00BCE59A /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945F2BBAA49E00BCE59A /* HomeService.swift */; };
+		B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594632BBAA77700BCE59A /* HomeServiceTests.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -151,6 +152,7 @@
 		B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepositoryTests.swift; sourceTree = "<group>"; };
 		B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTypeInner.swift; sourceTree = "<group>"; };
 		B575945F2BBAA49E00BCE59A /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		B57594632BBAA77700BCE59A /* HomeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServiceTests.swift; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -277,7 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				B575945E2BBAA49300BCE59A /* Services */,
-				B5150E452BB1BB8C0016EF33 /* Repository */,
+				B5150E452BB1BB8C0016EF33 /* Repositories */,
 				B5150E422BB1BAD80016EF33 /* Tasks */,
 				B5150E272BB1BACA0016EF33 /* ActivityListDomain.h */,
 				B5150E282BB1BACA0016EF33 /* ActivityListDomain.docc */,
@@ -294,12 +296,12 @@
 			path = Tasks;
 			sourceTree = "<group>";
 		};
-		B5150E452BB1BB8C0016EF33 /* Repository */ = {
+		B5150E452BB1BB8C0016EF33 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
 				B5150E462BB1BBAC0016EF33 /* TasksListRepositoryProtocol.swift */,
 			);
-			path = Repository;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		B5150E622BB1C88C0016EF33 /* ActivityListUI */ = {
@@ -324,7 +326,8 @@
 		B56726352BB5A9F8007DE166 /* ActivityListDataLayerTests */ = {
 			isa = PBXGroup;
 			children = (
-				B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */,
+				B57594622BBAA71400BCE59A /* Repositories */,
+				B57594612BBAA70700BCE59A /* Services */,
 			);
 			path = ActivityListDataLayerTests;
 			sourceTree = "<group>";
@@ -335,6 +338,22 @@
 				B575945F2BBAA49E00BCE59A /* HomeService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B57594612BBAA70700BCE59A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B57594632BBAA77700BCE59A /* HomeServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B57594622BBAA71400BCE59A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		B5B399CE2BB2A9F60084726F /* ActivityListDataLayer */ = {
@@ -696,6 +715,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */,
 				B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
