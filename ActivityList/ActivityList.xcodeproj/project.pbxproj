@@ -31,7 +31,8 @@
 		B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */; };
 		B57594602BBAA49E00BCE59A /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945F2BBAA49E00BCE59A /* HomeService.swift */; };
 		B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594632BBAA77700BCE59A /* HomeServiceTests.swift */; };
-		B57594662BBAACC600BCE59A /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */; };
+		B57594662BBAACC600BCE59A /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */; };
+		B57594682BBAAF5C00BCE59A /* XCTestCase+TasksListCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -44,9 +45,9 @@
 		B5B39A192BB44FB90084726F /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; platformFilter = ios; };
 		B5B39A1C2BB550FE0084726F /* TasksListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A1B2BB550FE0084726F /* TasksListModel.swift */; };
 		B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A1E2BB552910084726F /* HomeViewTests.swift */; };
-		B5B39A242BB554D90084726F /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */; };
+		B5B39A242BB554D90084726F /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */; };
 		B5B39A252BB554DF0084726F /* ActivityListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */; };
-		B5B39A272BB565FD0084726F /* XCTestCase+HomeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A262BB565FD0084726F /* XCTestCase+HomeHelpers.swift */; };
+		B5B39A272BB565FD0084726F /* XCTestCase+TasksListCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,8 +167,8 @@
 		B5B39A1A2BB451170084726F /* ActivityListUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ActivityListUI.xctestplan; sourceTree = "<group>"; };
 		B5B39A1B2BB550FE0084726F /* TasksListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListModel.swift; sourceTree = "<group>"; };
 		B5B39A1E2BB552910084726F /* HomeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewTests.swift; sourceTree = "<group>"; };
-		B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
-		B5B39A262BB565FD0084726F /* XCTestCase+HomeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+HomeHelpers.swift"; sourceTree = "<group>"; };
+		B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeak.swift"; sourceTree = "<group>"; };
+		B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TasksListCreation.swift"; sourceTree = "<group>"; };
 		B5B39A282BB575340084726F /* ActivityList.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ActivityList.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +228,7 @@
 		B5150D522BB1ABA60016EF33 = {
 			isa = PBXGroup;
 			children = (
+				B57594672BBAAF3200BCE59A /* TestsHelpers */,
 				B5B39A282BB575340084726F /* ActivityList.xctestplan */,
 				B5B39A1A2BB451170084726F /* ActivityListUI.xctestplan */,
 				B5150D5D2BB1ABA60016EF33 /* ActivityList */,
@@ -357,6 +359,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		B57594672BBAAF3200BCE59A /* TestsHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */,
+				B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */,
+			);
+			path = TestsHelpers;
+			sourceTree = "<group>";
+		};
 		B5B399CE2BB2A9F60084726F /* ActivityListDataLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,8 +427,6 @@
 			children = (
 				B5150E712BB1C88D0016EF33 /* ActivityListUITests.swift */,
 				B5B39A1E2BB552910084726F /* HomeViewTests.swift */,
-				B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */,
-				B5B39A262BB565FD0084726F /* XCTestCase+HomeHelpers.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -705,8 +714,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B39A242BB554D90084726F /* XCTestCase+Helpers.swift in Sources */,
-				B5B39A272BB565FD0084726F /* XCTestCase+HomeHelpers.swift in Sources */,
+				B5B39A242BB554D90084726F /* XCTestCase+MemoryLeak.swift in Sources */,
+				B5B39A272BB565FD0084726F /* XCTestCase+TasksListCreation.swift in Sources */,
 				B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */,
 				B5B39A252BB554DF0084726F /* ActivityListUITests.swift in Sources */,
 			);
@@ -716,7 +725,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B57594662BBAACC600BCE59A /* XCTestCase+Helpers.swift in Sources */,
+				B57594662BBAACC600BCE59A /* XCTestCase+MemoryLeak.swift in Sources */,
+				B57594682BBAAF5C00BCE59A /* XCTestCase+TasksListCreation.swift in Sources */,
 				B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */,
 				B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */,
 			);
