@@ -49,11 +49,15 @@ internal class CompositionRoot {
     }
     
     var home: HomeViewController {
-        return HomeViewController(taskListRepository: taskListRepository)
+        return HomeViewController(homeService: homeService)
     }
     
     var taskListRepository: TasksListRepositoryProtocol {
         return TasksListRepository(context: viewContext, currentDate: { Date.now})
+    }
+    
+    var homeService: HomeServiceProtocol {
+        return HomeService(tasksListRepository: taskListRepository)
     }
     
     var coreDataStoreUrl: URL {

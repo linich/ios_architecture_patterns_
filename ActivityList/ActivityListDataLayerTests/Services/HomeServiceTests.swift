@@ -8,36 +8,6 @@
 import XCTest
 import ActivityListDomain
 
-
-class HomeService: HomeServiceProtocol {
-    public enum Error: Swift.Error {
-        case ReadTaskFromRepository
-    }
-
-    private let tasksListRepository: TasksListRepositoryProtocol
-    init(tasksListRepository: TasksListRepositoryProtocol) {
-        self.tasksListRepository = tasksListRepository
-    }
-    
-    func readTasksInfos() async throws -> HomeServiceProtocol.Result {
-        do {
-            return try await withCheckedThrowingContinuation { continuation in
-                tasksListRepository.readTasksLists { result in
-                    switch result {
-                    case let .success(tasks):
-                        continuation.resume(returning:tasks.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)}))
-                    case .failure:
-                        continuation.resume(throwing: Error.ReadTaskFromRepository)
-                    }
-                }
-            }
-        }
-        catch {
-            throw error
-        }
-    }
-}
-
 final class HomeServiceTests: XCTestCase {
     
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
@@ -175,15 +145,4 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
     func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {
         self.insertQuery.append(completion)
     }
-}
-
-extension TasksListInfo: Equatable {
-    public static func == (lhs: TasksListInfo, rhs: TasksListInfo) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.name == rhs.name &&
-        lhs.type == rhs.type &&
-        lhs.tasksCount == rhs.tasksCount
-    }
-    
-    
 }

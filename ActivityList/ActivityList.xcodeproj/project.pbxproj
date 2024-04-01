@@ -29,12 +29,15 @@
 		B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */; };
 		B56726382BB5A9F8007DE166 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; platformFilter = ios; };
 		B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */; };
-		B57594602BBAA49E00BCE59A /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945F2BBAA49E00BCE59A /* HomeService.swift */; };
+		B57594602BBAA49E00BCE59A /* HomeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945F2BBAA49E00BCE59A /* HomeServiceProtocol.swift */; };
 		B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594632BBAA77700BCE59A /* HomeServiceTests.swift */; };
 		B57594662BBAACC600BCE59A /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */; };
 		B57594682BBAAF5C00BCE59A /* XCTestCase+TasksListCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */; };
 		B575946A2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */; };
 		B575946B2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */; };
+		B575946D2BBAE6AD00BCE59A /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575946C2BBAE6AD00BCE59A /* HomeService.swift */; };
+		B57594702BBAF29300BCE59A /* TasksListInfo+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */; };
+		B57594712BBAF29500BCE59A /* TasksListInfo+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -155,9 +158,11 @@
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepositoryTests.swift; sourceTree = "<group>"; };
 		B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTypeInner.swift; sourceTree = "<group>"; };
-		B575945F2BBAA49E00BCE59A /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		B575945F2BBAA49E00BCE59A /* HomeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServiceProtocol.swift; sourceTree = "<group>"; };
 		B57594632BBAA77700BCE59A /* HomeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServiceTests.swift; sourceTree = "<group>"; };
 		B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelper.swift; sourceTree = "<group>"; };
+		B575946C2BBAE6AD00BCE59A /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TasksListInfo+Equatable.swift"; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -341,7 +346,8 @@
 		B575945E2BBAA49300BCE59A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B575945F2BBAA49E00BCE59A /* HomeService.swift */,
+				B575945F2BBAA49E00BCE59A /* HomeServiceProtocol.swift */,
+				B575946C2BBAE6AD00BCE59A /* HomeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 				B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */,
 				B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */,
 				B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */,
+				B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */,
 			);
 			path = TestsHelpers;
 			sourceTree = "<group>";
@@ -695,11 +702,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B575946D2BBAE6AD00BCE59A /* HomeService.swift in Sources */,
 				B5150E442BB1BB1F0016EF33 /* TaskModel.swift in Sources */,
 				B5150E292BB1BACA0016EF33 /* ActivityListDomain.docc in Sources */,
 				B5B39A1C2BB550FE0084726F /* TasksListModel.swift in Sources */,
 				B5150E472BB1BBAC0016EF33 /* TasksListRepositoryProtocol.swift in Sources */,
-				B57594602BBAA49E00BCE59A /* HomeService.swift in Sources */,
+				B57594602BBAA49E00BCE59A /* HomeServiceProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +729,7 @@
 				B5B39A242BB554D90084726F /* XCTestCase+MemoryLeak.swift in Sources */,
 				B5B39A272BB565FD0084726F /* XCTestCase+TasksListCreation.swift in Sources */,
 				B575946A2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,
+				B57594702BBAF29300BCE59A /* TasksListInfo+Equatable.swift in Sources */,
 				B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */,
 				B5B39A252BB554DF0084726F /* ActivityListUITests.swift in Sources */,
 			);
@@ -733,6 +742,7 @@
 				B57594662BBAACC600BCE59A /* XCTestCase+MemoryLeak.swift in Sources */,
 				B57594682BBAAF5C00BCE59A /* XCTestCase+TasksListCreation.swift in Sources */,
 				B575946B2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,
+				B57594712BBAF29500BCE59A /* TasksListInfo+Equatable.swift in Sources */,
 				B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */,
 				B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */,
 			);

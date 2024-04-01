@@ -9,6 +9,15 @@ import XCTest
 import ActivityListDomain
 
 extension XCTestCase {
+    func makeTasksListInfo(
+        name: String,
+        tasksListType: TasksListModel.TasksListType = .game,
+        taskType: TaskModel.TaskType = .shop,
+        id:UUID = UUID(),
+        tasksCount: Int = 0) -> TasksListInfo{
+        return TasksListInfo(id: id, name: name, type: tasksListType, tasksCount: tasksCount)
+    }
+    
     func makeTasksList(
         name: String,
         tasksListType: TasksListModel.TasksListType = .game,

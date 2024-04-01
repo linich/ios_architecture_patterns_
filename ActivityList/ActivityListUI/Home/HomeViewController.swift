@@ -10,11 +10,11 @@ import ActivityListDomain
 
 final public class HomeViewController: UIViewController {
     @IBOutlet public weak var homeView: HomeView!
-    public var taskListRepository: TasksListRepositoryProtocol?
+    public var homeService: HomeServiceProtocol?
     
-    public convenience init(taskListRepository: TasksListRepositoryProtocol) {
+    public convenience init(homeService: HomeServiceProtocol) {
         self.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
-        self.taskListRepository = taskListRepository
+        self.homeService = homeService
     }
     
     public override func viewDidLoad() {
@@ -23,13 +23,18 @@ final public class HomeViewController: UIViewController {
         homeView.emptyListMessage = "Press 'Add List' to start"
         homeView.addListButtonText = "Add List"
         
-        taskListRepository?.readTasksLists(completion: { [weak self] result in
-            switch result {
-            case let .success(items):
-                self?.homeView.tasksLists = items
-            case let .failure(error):
+        Task { [weak self] in
+            do {
+                let items = try await self?.homeService?.readTasksInfos()
+                self?.update(tasksListInfos: items ?? [])
+            } catch {
                 print("\(error)")
             }
-        })
+        }
+    }
+    
+    @MainActor
+    private func update(tasksListInfos items: [TasksListInfo]) {
+        homeView.tasksLists = items
     }
 }

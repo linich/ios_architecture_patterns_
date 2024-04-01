@@ -25,7 +25,7 @@ public class HomeView: UIView {
         }
     }
     
-    public var tasksLists: [TasksListModel] = [] {
+    public var tasksLists: [TasksListInfo] = [] {
         didSet {
             tableViewDataSource.tasksLists = tasksLists
             tableView.reloadData()
@@ -155,7 +155,7 @@ public class HomeView: UIView {
 
 
 internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
-    public var tasksLists = [TasksListModel]()
+    public var tasksLists = [TasksListInfo]()
     public var iconImageProvider: IconImageProviderProtocol?
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -164,7 +164,7 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
         }
         let model = tasksLists[indexPath.row]
         tasksListCell.nameLabel.text = model.name
-        tasksListCell.tasksCountLabel.text = "\(model.tasks.count) Tasks"
+        tasksListCell.tasksCountLabel.text = "\(model.tasksCount) Tasks"
         tasksListCell.iconImageView.image = iconImageProvider?.image(byActivityType: model.type)
         return tasksListCell
     }

@@ -22,7 +22,7 @@ final class HomeViewTests: XCTestCase {
     func test_emptyState_shouldNotShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [makeTasksList(name: "name1")]
+        view.tasksLists = [makeTasksListInfo(name: "name1")]
         
         XCTAssertTrue(view.emptyState.isHidden, "Empty state view should be visible if tasksLists is not empty");
     }
@@ -38,7 +38,7 @@ final class HomeViewTests: XCTestCase {
     func test_tasksLists_shouldShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [makeTasksList(name: "name1", tasksListType: .baseball)]
+        view.tasksLists = [makeTasksListInfo(name: "name1", tasksListType: .baseball)]
         
         XCTAssertFalse(view.tableView.isHidden, "Tasks Lists view should  be visible if tasksLists is not empty");
     }
@@ -47,9 +47,9 @@ final class HomeViewTests: XCTestCase {
         let sut = createSUT()
         
         let tasksLists = [
-            makeTasksList(name: "name1", tasksListType: .game),
-            makeTasksList(name: "name2", tasksListType: .shop),
-            makeTasksList(name: "name3", tasksListType: .fight, tasksCount: 10)
+            makeTasksListInfo(name: "name1", tasksListType: .game),
+            makeTasksListInfo(name: "name2", tasksListType: .shop),
+            makeTasksListInfo(name: "name3", tasksListType: .fight, tasksCount: 10)
         ]
         
         sut.tasksLists = tasksLists
@@ -66,7 +66,7 @@ final class HomeViewTests: XCTestCase {
         return view
     }
     
-    fileprivate func assertThat(sut: HomeView, configuredFor models: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assertThat(sut: HomeView, configuredFor models: [TasksListInfo], file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(sut.numberOfRenderedTasksLists, models.count);
         
         for ( index, model) in models.enumerated(){
@@ -74,7 +74,7 @@ final class HomeViewTests: XCTestCase {
         }
     }
     
-    fileprivate func assertThat(sut: HomeView, hasConfiguredCellFor model: TasksListModel, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assertThat(sut: HomeView, hasConfiguredCellFor model: TasksListInfo, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
         let cell = sut.tasksListView(at: row)
         guard let tasksListCell = cell as? TasksListCell else {
             XCTFail("Expected \(TasksListCell.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
@@ -83,7 +83,7 @@ final class HomeViewTests: XCTestCase {
         
         XCTAssertEqual(tasksListCell.nameLabel.text, model.name, "Expected name to be \(String(describing: model.name)) at \(row)", file: file, line: line)
         
-        XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasks.count) Tasks", "Expected tasks count text to be '\(model.tasks.count) Tasks') at \(row)", file: file, line: line)
+        XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasksCount) Tasks", "Expected tasks count text to be '\(model.tasksCount) Tasks') at \(row)", file: file, line: line)
         
         let expectedImageData = iconImageProvider.image(byActivityType: model.type).map({$0.pngData()}) ?? nil
         let actualImageData = tasksListCell.iconImageView.image.map({$0.pngData()}) ?? nil

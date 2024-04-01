@@ -10,26 +10,35 @@ import ActivityListDomain
 import ActivityListUI
 
 
-private class TasksListRepositoryStub: TasksListRepositoryProtocol {
-    func insertTasksList(withId: UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {
-        completion(.success(()))
+private class HomeServiceStub: HomeServiceProtocol {
+    fileprivate class Completion {
+        var completion: ((HomeService.Result) -> Void)?
+        
+        public init(completion: ((HomeService.Result) -> Void)?) {
+            self.completion = completion
+        }
     }
     
-    typealias Completion = (TasksListRepositoryProtocol.Result) -> Void
+    func readTasksInfos() async throws -> HomeServiceProtocol.Result {
+        let a = Completion( completion: nil)
+        self.readTasksInfosRequests.append(a)
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            a.completion =  { result in continuation.resume(returning:result)}
+        }
+    }
     
     public var readTasksListCount: Int {
-        return readTasksListsRequests.count
+        return readTasksInfosRequests.count
     }
     
-    func readTasksLists(completion: @escaping Completion) {
-        readTasksListsRequests.append(completion)
+    func completeReadTasksInfos(with items: HomeService.Result, at:Int = 0) {
+        RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 1))
+        readTasksInfosRequests[at].completion!(items)
+        RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 1))
     }
     
-    func completeReadTasksLists(with tasksLists: [TasksListModel], at:Int = 0) {
-        readTasksListsRequests[at](.success(tasksLists))
-    }
-    
-    private var readTasksListsRequests: [Completion] = []
+    private var readTasksInfosRequests = [Completion]()
     
 }
 
@@ -42,26 +51,28 @@ final class HomeViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+        
         XCTAssertEqual(repository.readTasksListCount, 1, "Expected loading request once view is loaded")
     }
     
     func test_loadTasksListCompletion_renderSuccessufullyLoadedTasksLists() {
         
-        let tasksList1 = makeTasksList(name: "name1", tasksListType: .airplane)
-        let tasksList2 = makeTasksList(name: "name2", tasksListType: .american_football)
-        let tasksList3 = makeTasksList(name: "name3", tasksListType: .fight)
+        let tasksList1 = makeTasksListInfo(name: "name1", tasksListType: .airplane)
+        let tasksList2 = makeTasksListInfo(name: "name2", tasksListType: .american_football)
+        let tasksList3 = makeTasksListInfo(name: "name3", tasksListType: .fight)
         
         let (sut, repository) = createSUT()
         sut.loadViewIfNeeded()
         
-        repository.completeReadTasksLists(with: [tasksList1, tasksList2, tasksList3])
+        repository.completeReadTasksInfos(with: [tasksList1, tasksList2, tasksList3])
         
         XCTAssertEqual(sut.homeView.tasksLists, [tasksList1, tasksList2, tasksList3])
     }
     
-    fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController, TasksListRepositoryStub) {
-        let stub = TasksListRepositoryStub()
-        let homeController = HomeViewController.init(taskListRepository: stub)
+    fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController, HomeServiceStub) {
+        let stub = HomeServiceStub()
+        let homeController = HomeViewController(homeService: stub)
         trackMemoryLeak(homeController, file: file, line: line)
         
         return (homeController, stub)
