@@ -8,91 +8,11 @@
 import CoreData
 import ActivityListDomain
 
-public enum ActivityTypeInner: Int16 {
-    case none
-    case game
-    case gym
-    case fight
-    case airplane
-    case shop
-    case baseball
-    case american_football
-    case skiing
-    case swimming
-    
-    static func from(activityType: ActivityType) -> ActivityTypeInner {
-        switch activityType {
-        case .none:
-            return .none
-        case .game:
-            return .game
-        case .gym:
-            return .gym
-        case .fight:
-            return .fight
-        case .airplane:
-            return .airplane
-        case .shop:
-            return .shop
-        case .baseball:
-            return .baseball
-        case .american_football:
-            return .american_football
-        case .skiing:
-            return .skiing
-        case .swimming:
-            return .swimming
-        }
-    }
-    
-    func toDomainType() -> ActivityType {
-        switch self {
-        case .none:
-            return .none
-        case .game:
-            return .game
-        case .gym:
-            return .gym
-        case .fight:
-            return .fight
-        case .airplane:
-            return .airplane
-        case .shop:
-            return .shop
-        case .baseball:
-            return .baseball
-        case .american_football:
-            return .american_football
-        case .skiing:
-            return .skiing
-        case .swimming:
-            return .swimming
-        }
-    }
-}
-
-
 public class TasksListRepository: TasksListRepositoryProtocol {
-    public func insertTasksList(withId id:UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping (InsertionResult) -> Void) {
-        let currentDate = self.currentDate
-        let context = self.context
-        context.perform {
-            completion(Swift.Result {
-                let tasksList = TasksList(context: context)
-                tasksList.id = id.uuidString
-                tasksList.createdAt = currentDate()
-                tasksList.name = name
-                tasksList.tasksListType = ActivityTypeInner.from(activityType: type).rawValue
-                try context.save()
-                return ()
-            })
-        }
-        
-    }
-    
     
     private let context: NSManagedObjectContext
     private let currentDate: () -> Date
+    
     public init(
         context: NSManagedObjectContext,
         currentDate: @escaping  () -> Date
@@ -115,6 +35,23 @@ public class TasksListRepository: TasksListRepositoryProtocol {
                 completion(.failure(error))
             }
         }
+    }
+    
+    public func insertTasksList(withId id:UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping (InsertionResult) -> Void) {
+        let currentDate = self.currentDate
+        let context = self.context
+        context.perform {
+            completion(Swift.Result {
+                let tasksList = TasksList(context: context)
+                tasksList.id = id.uuidString
+                tasksList.createdAt = currentDate()
+                tasksList.name = name
+                tasksList.tasksListType = ActivityTypeInner.from(activityType: type).rawValue
+                try context.save()
+                return ()
+            })
+        }
+        
     }
 }
 

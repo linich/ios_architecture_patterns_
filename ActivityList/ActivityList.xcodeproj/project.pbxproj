@@ -28,6 +28,7 @@
 		B567262F2BB58938007DE166 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B567262E2BB58938007DE166 /* Media.xcassets */; };
 		B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */; };
 		B56726382BB5A9F8007DE166 /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; platformFilter = ios; };
+		B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -147,6 +148,7 @@
 		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B56726362BB5A9F8007DE166 /* TasksListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepositoryTests.swift; sourceTree = "<group>"; };
+		B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTypeInner.swift; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */,
+				B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B39A0C2BB2ADC90084726F /* TasksListRepository.swift in Sources */,
+				B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */,
 				B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */,
 				B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */,
 			);
