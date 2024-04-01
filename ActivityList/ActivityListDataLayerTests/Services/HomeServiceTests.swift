@@ -23,15 +23,25 @@ class HomeService: HomeServiceProtocol {
 
 final class HomeServiceTests: XCTestCase {
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
-        let tasksListRepository = TasksListRepositoryStub()
-        let sut = HomeService(tasksListRepository: tasksListRepository)
+        let (_, tasksListRepository) = makeSUT()
         
         XCTAssertEqual(tasksListRepository.readQueryCount, 0, "Home service should not call read tasks lists method")
-        XCTAssertEqual(tasksListRepository.insertQueryCount, 0, "Home service should not call insert tasks list method")
+        XCTAssertEqual(tasksListRepository.insertQueryCount, 0, "Home service should not call insert task list method")
     }
     
     func test_readTasksInfo_returnsEmptyOnTasksList() {
         
+    }
+    
+    // Mark: - Helpers
+    
+    fileprivate func makeSUT( file: StaticString = #filePath, line: UInt = #line) -> (HomeService, TasksListRepositoryStub) {
+        let tasksListRepository = TasksListRepositoryStub()
+        let sut = HomeService(tasksListRepository: tasksListRepository)
+
+        trackMemoryLeak(sut, file: file, line: line)
+        
+        return (sut, tasksListRepository)
     }
 }
 

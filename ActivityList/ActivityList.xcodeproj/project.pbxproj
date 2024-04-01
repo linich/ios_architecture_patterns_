@@ -31,6 +31,7 @@
 		B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */; };
 		B57594602BBAA49E00BCE59A /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575945F2BBAA49E00BCE59A /* HomeService.swift */; };
 		B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594632BBAA77700BCE59A /* HomeServiceTests.swift */; };
+		B57594662BBAACC600BCE59A /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+Helpers.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -715,6 +716,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57594662BBAACC600BCE59A /* XCTestCase+Helpers.swift in Sources */,
 				B57594642BBAA77700BCE59A /* HomeServiceTests.swift in Sources */,
 				B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */,
 			);
