@@ -9,6 +9,6 @@ import Foundation
 
 public extension RunLoop {
     func runForDistanceFuture() {
-        RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 0.0007))
+        RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 0.001))
     }
 }
