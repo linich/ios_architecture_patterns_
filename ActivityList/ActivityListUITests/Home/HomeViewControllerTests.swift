@@ -9,32 +9,6 @@ import XCTest
 import ActivityListDomain
 import ActivityListUI
 
-
-
-private class HomeServiceStub: HomeServiceProtocol {    
-    func readTasksInfos() async throws -> HomeServiceProtocol.Result {
-        let completionHolder = CompletionHolder<HomeService.Result>( completion: nil)
-        self.readTasksInfosRequests.append(completionHolder)
-        
-        return try await withCheckedThrowingContinuation { continuation in
-            completionHolder.completion =  { result in continuation.resume(returning:result)}
-        }
-    }
-    
-    public var readTasksListCount: Int {
-        return readTasksInfosRequests.count
-    }
-    
-    func completeReadTasksInfos(with items: HomeService.Result, at:Int = 0) {
-        RunLoop.current.runForDistanceFuture()
-        readTasksInfosRequests[at].completion!(items)
-        RunLoop.current.runForDistanceFuture()
-    }
-    
-    private var readTasksInfosRequests = [CompletionHolder<HomeService.Result>]()
-    
-}
-
 final class HomeViewControllerTests: XCTestCase {
     
     func test_loadTasksLists_requestTasksListFromRepository() {
@@ -70,8 +44,6 @@ final class HomeViewControllerTests: XCTestCase {
         
         return (homeController, stub)
     }
-    
-
 }
 
 extension TasksListModel: Equatable {
@@ -81,6 +53,27 @@ extension TasksListModel: Equatable {
         lhs.createdAt == rhs.createdAt &&
         lhs.name == rhs.name
     }
+}
+
+private class HomeServiceStub: HomeServiceProtocol {
+    func readTasksInfos() async throws -> HomeServiceProtocol.Result {
+        let completionHolder = CompletionHolder<HomeService.Result>( completion: nil)
+        self.readTasksInfosRequests.append(completionHolder)
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            completionHolder.completion =  { result in continuation.resume(returning:result)}
+        }
+    }
     
+    public var readTasksListCount: Int {
+        return readTasksInfosRequests.count
+    }
     
+    func completeReadTasksInfos(with items: HomeService.Result, at:Int = 0) {
+        RunLoop.current.runForDistanceFuture()
+        readTasksInfosRequests[at].completion!(items)
+        RunLoop.current.runForDistanceFuture()
+    }
+    
+    private var readTasksInfosRequests = [CompletionHolder<HomeService.Result>]()
 }
