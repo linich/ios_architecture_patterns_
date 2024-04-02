@@ -10,6 +10,7 @@ import ActivityListDomain
 import ActivityListUI
 
 
+
 private class HomeServiceStub: HomeServiceProtocol {
     fileprivate class Completion {
         var completion: ((HomeService.Result) -> Void)?
@@ -33,9 +34,9 @@ private class HomeServiceStub: HomeServiceProtocol {
     }
     
     func completeReadTasksInfos(with items: HomeService.Result, at:Int = 0) {
-        RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 1))
+        RunLoop.current.runForDistanceFuture()
         readTasksInfosRequests[at].completion!(items)
-        RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 1))
+        RunLoop.current.runForDistanceFuture()
     }
     
     private var readTasksInfosRequests = [Completion]()
@@ -51,7 +52,7 @@ final class HomeViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         
-        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+        RunLoop.current.runForDistanceFuture()
         
         XCTAssertEqual(repository.readTasksListCount, 1, "Expected loading request once view is loaded")
     }

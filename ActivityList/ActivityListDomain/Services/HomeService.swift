@@ -9,7 +9,7 @@ import Foundation
 
 public class HomeService: HomeServiceProtocol {
     public enum Error: Swift.Error {
-        case ReadTaskFromRepository
+        case ReadFromRepository
     }
 
     private let tasksListRepository: TasksListRepositoryProtocol
@@ -25,7 +25,7 @@ public class HomeService: HomeServiceProtocol {
                     case let .success(tasks):
                         continuation.resume(returning:tasks.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)}))
                     case .failure:
-                        continuation.resume(throwing: Error.ReadTaskFromRepository)
+                        continuation.resume(throwing: Error.ReadFromRepository)
                     }
                 }
             }

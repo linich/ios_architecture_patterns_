@@ -38,6 +38,8 @@
 		B575946D2BBAE6AD00BCE59A /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575946C2BBAE6AD00BCE59A /* HomeService.swift */; };
 		B57594702BBAF29300BCE59A /* TasksListInfo+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */; };
 		B57594712BBAF29500BCE59A /* TasksListInfo+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */; };
+		B57594732BBBE71800BCE59A /* RunLoop+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594722BBBE71800BCE59A /* RunLoop+TestHelpers.swift */; };
+		B57594742BBBE71800BCE59A /* RunLoop+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594722BBBE71800BCE59A /* RunLoop+TestHelpers.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -163,6 +165,7 @@
 		B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelper.swift; sourceTree = "<group>"; };
 		B575946C2BBAE6AD00BCE59A /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TasksListInfo+Equatable.swift"; sourceTree = "<group>"; };
+		B57594722BBBE71800BCE59A /* RunLoop+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RunLoop+TestHelpers.swift"; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -375,6 +378,7 @@
 				B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */,
 				B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */,
 				B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */,
+				B57594722BBBE71800BCE59A /* RunLoop+TestHelpers.swift */,
 			);
 			path = TestsHelpers;
 			sourceTree = "<group>";
@@ -726,6 +730,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57594732BBBE71800BCE59A /* RunLoop+TestHelpers.swift in Sources */,
 				B5B39A242BB554D90084726F /* XCTestCase+MemoryLeak.swift in Sources */,
 				B5B39A272BB565FD0084726F /* XCTestCase+TasksListCreation.swift in Sources */,
 				B575946A2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,
@@ -739,6 +744,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57594742BBBE71800BCE59A /* RunLoop+TestHelpers.swift in Sources */,
 				B57594662BBAACC600BCE59A /* XCTestCase+MemoryLeak.swift in Sources */,
 				B57594682BBAAF5C00BCE59A /* XCTestCase+TasksListCreation.swift in Sources */,
 				B575946B2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,

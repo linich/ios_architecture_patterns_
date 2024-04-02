@@ -17,11 +17,10 @@ final class HomeServiceTests: XCTestCase {
         XCTAssertEqual(tasksListRepository.insertQueryCount, 0, "Home service should not call insert task list method")
     }
     
-    func test_readTasksInfo_returnsEmptyOnTasksList() {
+    func test_readTasksInfo_returnsEmptyTasksInfosOnEmptyTasksList() {
         let (sut, repositoryStub) = makeSUT()
         
         assert(sut, receive: [], onAction: {repositoryStub.completeReadTasksList(withTasks: [])})
-        
     }
     
     func test_readTasksInfo_returnsTasksListInfoOnNonEmptyTasksList() {
@@ -29,11 +28,7 @@ final class HomeServiceTests: XCTestCase {
         
         let tasksListModel1 = makeTasksList(name: "Name1")
         let expectedTasksInfos = [
-            TasksListInfo(
-                id: tasksListModel1.id,
-                name: tasksListModel1.name,
-                type: tasksListModel1.type,
-                tasksCount: 0)
+            makeTasksListInfo(name: tasksListModel1.name, id: tasksListModel1.id)
         ]
         
         assert(sut, receive: expectedTasksInfos, onAction: {repositoryStub.completeReadTasksList(withTasks: [tasksListModel1])})
@@ -41,17 +36,8 @@ final class HomeServiceTests: XCTestCase {
     
     func test_readTasksInfo_returnsErrorWhenReceiveErrorFromRepository() {
         let (sut, repositoryStub) = makeSUT()
-        
-        let tasksListModel1 = makeTasksList(name: "Name1")
-        let expectedTasksInfos = [
-            TasksListInfo(
-                id: tasksListModel1.id,
-                name: tasksListModel1.name,
-                type: tasksListModel1.type,
-                tasksCount: 0)
-        ]
-        
-        assert(sut, receiveError: HomeService.Error.ReadTaskFromRepository) {
+                
+        assert(sut, receiveError: HomeService.Error.ReadFromRepository) {
             repositoryStub.completeReadTasksList(withError: anyNSError())
         }
     }
@@ -60,12 +46,10 @@ final class HomeServiceTests: XCTestCase {
     
     fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onAction action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Loading tasks list infos")
-        let createTaskExpectation = expectation(description: "Creating read tasks task")
-        Task.detached(operation: {
+        Task(operation: {
             defer { exp.fulfill() }
             do {
                 async let task = sut.readTasksInfos()
-                createTaskExpectation.fulfill()
                 let items = try await task
                 XCTAssertEqual(items, expectedTasksInfos, "Expected to receive tasks")
             }
@@ -73,8 +57,7 @@ final class HomeServiceTests: XCTestCase {
                 XCTFail("Expect list of tasks, but go \(error)")
             }
         })
-        
-        wait(for: [createTaskExpectation], timeout: 1.0)
+        RunLoop.current.runForDistanceFuture()
         action()
         
         wait(for: [exp], timeout: 1.0)
