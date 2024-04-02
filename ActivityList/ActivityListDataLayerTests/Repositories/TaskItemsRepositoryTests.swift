@@ -58,44 +58,17 @@ final class TaskItemsRepositoryTests: XCTestCase {
     func test_readTasks_returnsEmptyTasksListOnEmptyData() {
         let (sut, _) = createSUT()
         
-        let exp = expectation(description: "Loading task items")
-        Task {
-            defer {exp.fulfill()}
-            do {
-                let tasks = try await sut.readTasks()
-                XCTAssertEqual(tasks, [], "Should return empty task list")
-            } catch {
-                XCTFail("Expected task items, but got \(error)")
-            }
-        }
-        wait(for: [exp], timeout: 1.0)
+        assert(sut, receivesTasks: [])
     }
     
     func test_readTasks_returnsTasksUseOnlyOneTasksList() {
         let (sut, context) = createSUT()
         let tasksList1 = createTasksList(name: "tasks list 1", inContext: context)
-        let tasksList2 = createTasksList(name: "tasks list 2", inContext: context)
-        
         let taskItem1_1 = createTaskItem(forTaskslist: tasksList1, inContext: context)
         
-        var tasks  = [TaskModel]()
-        
-        let exp = expectation(description: "Loading task items")
-        Task {
-            defer { exp.fulfill() }
-            do {
-            let tasks = try await sut.readTasks()
-            
-            XCTAssertEqual(tasks, [
-                taskModel(from: taskItem1_1)
-            ])
-            } catch {
-                XCTFail("Expected task items, but got \(error)")
-            }
-            
-        }
-        
-        wait(for: [exp], timeout: 1.0)
+        assert(sut, receivesTasks: [
+            taskModel(from: taskItem1_1)
+        ])
     }
     
     // Mark: - Helpers
@@ -109,6 +82,21 @@ final class TaskItemsRepositoryTests: XCTestCase {
         trackMemoryLeak(managedObjectContext)
         
         return (sut, managedObjectContext)
+    }
+    
+    fileprivate func assert(_ sut: TaskItemRepository, receivesTasks expected: [TaskModel], file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "Loading task items")
+        Task {
+            defer { exp.fulfill() }
+            do {
+                let tasks = try await sut.readTasks()
+                XCTAssertEqual(tasks, expected, "Expect to receive taks models", file: file, line: line)
+            } catch {
+                XCTFail("Expected task items, but got \(error)")
+            }
+        }
+        
+        wait(for: [exp], timeout: 1.0)
     }
     
     fileprivate func createTasksList(id: UUID = UUID(), name: String = "Tasks List", inContext context: NSManagedObjectContext) -> TasksList {
