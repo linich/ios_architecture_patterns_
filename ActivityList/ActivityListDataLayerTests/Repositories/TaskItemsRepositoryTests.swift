@@ -28,9 +28,9 @@ class TaskItemRepository {
             return try await withCheckedThrowingContinuation { continuation in
                 self.context.perform {
                     let request = TaskItem.fetchRequest()
+                    request.predicate = NSPredicate(format: "%K.id == %@", #keyPath(TaskItem.taskList), self.tasksListId.uuidString as CVarArg)
                     do {
                         let result = try self.context.fetch(request)
-                        
                         let taskItems = result.map({
                             guard
                                 let itemId = $0.id,
@@ -62,12 +62,31 @@ final class TaskItemsRepositoryTests: XCTestCase {
     }
     
     func test_readTasks_returnsTasksUseOnlyOneTasksList() {
-        let (sut, context) = createSUT()
-        let tasksList1 = createTasksList(name: "tasks list 1", inContext: context)
+        let parentId = UUID()
+        let (sut, context) = createSUT(tasksListId: parentId)
+
+        let tasksList1 = createTasksList(id: parentId, name: "tasks list 1", inContext: context)
         let taskItem1_1 = createTaskItem(forTaskslist: tasksList1, inContext: context)
         
         assert(sut, receivesTasks: [
             taskModel(from: taskItem1_1)
+        ])
+    }
+    
+    func test_readTasks_returnsValidTasksWhenMultipleTasksListExists() {
+        let parentId = UUID()
+        let (sut, context) = createSUT(tasksListId: parentId)
+        let tasksList1 = createTasksList(name: "tasks list 1", inContext: context)
+        let tasksList2 = createTasksList(id: parentId, name: "tasks list 2", inContext: context)
+        
+        let taskItem1_1 = createTaskItem(forTaskslist: tasksList1, inContext: context)
+        
+        let taskItem2_1 = createTaskItem(forTaskslist: tasksList2, inContext: context)
+        let taskItem2_2 = createTaskItem(forTaskslist: tasksList2, inContext: context)
+        
+        assert(sut, receivesTasks: [
+            taskModel(from: taskItem2_1),
+            taskModel(from: taskItem2_2),
         ])
     }
     
@@ -90,7 +109,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
             defer { exp.fulfill() }
             do {
                 let tasks = try await sut.readTasks()
-                XCTAssertEqual(tasks, expected, "Expect to receive taks models", file: file, line: line)
+                XCTAssertEqual(tasks, expected, file: file, line: line)
             } catch {
                 XCTFail("Expected task items, but got \(error)")
             }
