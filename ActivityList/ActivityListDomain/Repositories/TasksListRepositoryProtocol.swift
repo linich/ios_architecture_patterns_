@@ -6,12 +6,8 @@
 //
 
 public protocol TasksListRepositoryProtocol {
-    typealias ReadResult = [TasksListModel]
     
-    typealias InsertionResult = Swift.Result<Void, Error>
-    typealias InsertionCompletion = (InsertionResult) -> Void
-    
-    func readTasksLists() async throws -> ReadResult
+    func readTasksLists() async throws -> [TasksListModel]
     
     func insertTasksList(withId: UUID, name: String, type: TasksListModel.TasksListType) async throws -> Void
 }

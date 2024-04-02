@@ -44,13 +44,13 @@ public class TasksListRepository: TasksListRepositoryProtocol {
         }
     }
     
-    public func insertTasksList(withId id: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType) async throws {
+    public func insertTasksList(withId id: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType) async throws -> Void {
         do {
             try await withCheckedThrowingContinuation({continuation in
                 self.insertTasksList(withId: id, name: name, type: type) { result in
                     switch result {
-                    case .success:
-                        continuation.resume(returning: ())
+                    case let .success(data):
+                        continuation.resume(returning: data)
                     case let .failure(error):
                         continuation.resume(throwing: error)
                     }
@@ -77,7 +77,7 @@ public class TasksListRepository: TasksListRepositoryProtocol {
         }
     }
     
-    public func insertTasksList(withId id:UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping (InsertionResult) -> Void) {
+    private func insertTasksList(withId id:UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping (Result<Void, Error>) -> Void) {
         let currentDate = self.currentDate
         let context = self.context
         context.perform {

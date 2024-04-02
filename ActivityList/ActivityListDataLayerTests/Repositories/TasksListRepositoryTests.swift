@@ -82,7 +82,7 @@ final class TasksListRepositoryTests: XCTestCase {
         expect(sut, toRetrieveTwice: [])
     }
     
-    func expect(_ sut: TasksListRepositoryProtocol, toRetrieveTwice expected: TasksListRepositoryProtocol.ReadResult, file: StaticString = #filePath, line: UInt = #line) {
+    func expect(_ sut: TasksListRepositoryProtocol, toRetrieveTwice expected: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetreive: expected)
         expect(sut, toRetreive: expected)
     }
