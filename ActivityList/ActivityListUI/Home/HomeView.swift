@@ -159,9 +159,8 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
     public var iconImageProvider: IconImageProviderProtocol?
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(TasksListCell.self)", for: indexPath) as? TasksListCell else {
-            fatalError("Can't get cell for item at \(indexPath)")
-        }
+        let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(TasksListCell.self)", for: indexPath) as! TasksListCell
+        
         let model = tasksLists[indexPath.row]
         tasksListCell.nameLabel.text = model.name
         tasksListCell.tasksCountLabel.text = "\(model.tasksCount) Tasks"
