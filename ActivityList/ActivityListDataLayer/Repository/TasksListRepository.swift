@@ -9,7 +9,7 @@ import CoreData
 import ActivityListDomain
 
 public class TasksListRepository: TasksListRepositoryProtocol {
-    
+        
     private let context: NSManagedObjectContext
     private let currentDate: () -> Date
     
@@ -21,7 +21,29 @@ public class TasksListRepository: TasksListRepositoryProtocol {
         self.currentDate = currentDate
     }
     
-    public func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
+    public enum TasksListRepositoryError: Error {
+        case ReadTasksLists
+    }
+    
+    public func readTasksLists() async throws -> [TasksListModel] {
+        do {
+            let items = try await withCheckedThrowingContinuation({continuation in
+                self.readTasksLists { result in
+                    switch result {
+                    case let .success(items):
+                        continuation.resume(returning: items)
+                    case let .failure(error):
+                        continuation.resume(throwing: error)
+                    }
+                }
+            })
+            
+            return items
+        } catch {
+            throw TasksListRepositoryError.ReadTasksLists
+        }
+    }
+    private func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
         context.perform {
             do {
                 let fetchRequest = TasksList.fetchRequest()
@@ -65,7 +87,7 @@ extension TasksList {
             return nil as TasksListModel?
         }
         let tasks = tasks.map { tasks in
-            tasks.map{($0 as! Task).toModel()}.compactMap({$0})
+            tasks.map{($0 as! TaskItem).toModel()}.compactMap({$0})
         } ?? []
         return TasksListModel(id: id, name: name, createdAt: createdAt, type: type, tasks: tasks)
     }
@@ -80,7 +102,7 @@ extension TasksList {
     }
 }
 
-extension Task {
+extension TaskItem {
     func toModel() -> TaskModel? {
         guard let stringId = id,
               let id = UUID(uuidString: stringId),
@@ -89,7 +111,7 @@ extension Task {
             return nil as TaskModel?
         }
         
-        return TaskModel(id: id, name: name, createdAt: createdAt, type: Task.taskType(byType: icon))
+        return TaskModel(id: id, name: name, createdAt: createdAt, type: TaskItem.taskType(byType: icon))
     }
     
     static func taskType(byType type: String) -> TaskModel.TaskType {

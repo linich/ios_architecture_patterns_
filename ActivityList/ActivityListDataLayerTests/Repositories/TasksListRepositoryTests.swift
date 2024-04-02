@@ -15,7 +15,7 @@ final class TasksListRepositoryTests: XCTestCase {
     func test_readTasksList_returnsEmptyListOnCleanDb() {
         let sut = createSUT()
         
-        expect(sut, toRetreive: .success([]))
+        expect(sut, toRetreive: [])
     }
     
     func test_readTasksList_hasNoSideEffectOnCleanDb() {
@@ -30,7 +30,7 @@ final class TasksListRepositoryTests: XCTestCase {
         let sut = createSUT( currentDate: {tasksListCreationDate})
         let tasksListId = UUID()
         insertTasksList(withId: tasksListId, name: "name1", type: .airplane, into: sut)
-        expect(sut, toRetreive: .success([TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane, tasks: [])]))
+        expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane, tasks: [])])
         
     }
     // Mark: - Helpers
@@ -55,29 +55,30 @@ final class TasksListRepositoryTests: XCTestCase {
         }
         wait(for: [exp], timeout:  1.0)
     }
-    fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: TasksListRepositoryProtocol.Result, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
         
-        let exp = expectation(description: "Loading taks list expectation")
-        
-        sut.readTasksLists { result in
-            switch (result, expectedResult) {
-            case (.failure,.failure):
-                break
-            case let (.success(actualTasksList), .success(expectedTasksList)):
-                XCTAssertEqual(actualTasksList, expectedTasksList, "", file: file, line: line)
-            default:
-                XCTFail("Expected to retrieve \(expectedResult), but got \(result) instead")
+        let exp = expectation(description: "Loading taks lists")
+       
+        Task {
+            defer { exp.fulfill() }
+            do {
+                let actualTasksList = try await sut.readTasksLists()
+                XCTAssertEqual(actualTasksList, expectedResult, "", file: file, line: line)
+            } catch {
+                XCTFail("Expect list of tasks, but go \(error)")
             }
-            exp.fulfill()
         }
+        
+        RunLoop.current.runForDistanceFuture()
+                
         wait(for: [exp], timeout: 1.0)
     }
     
     fileprivate func assertThatReadTasksListHasNoSideEffectCleanDb(_ sut: TasksListRepositoryProtocol, file: StaticString = #filePath, line: UInt = #line) {
-        expect(sut, toRetrieveTwice: .success([]))
+        expect(sut, toRetrieveTwice: [])
     }
     
-    func expect(_ sut: TasksListRepositoryProtocol, toRetrieveTwice expected: TasksListRepositoryProtocol.Result, file: StaticString = #filePath, line: UInt = #line) {
+    func expect(_ sut: TasksListRepositoryProtocol, toRetrieveTwice expected: TasksListRepositoryProtocol.ReadResult, file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetreive: expected)
         expect(sut, toRetreive: expected)
     }

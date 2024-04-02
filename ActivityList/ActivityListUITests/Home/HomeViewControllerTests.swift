@@ -11,21 +11,13 @@ import ActivityListUI
 
 
 
-private class HomeServiceStub: HomeServiceProtocol {
-    fileprivate class Completion {
-        var completion: ((HomeService.Result) -> Void)?
-        
-        public init(completion: ((HomeService.Result) -> Void)?) {
-            self.completion = completion
-        }
-    }
-    
+private class HomeServiceStub: HomeServiceProtocol {    
     func readTasksInfos() async throws -> HomeServiceProtocol.Result {
-        let a = Completion( completion: nil)
-        self.readTasksInfosRequests.append(a)
+        let completionHolder = CompletionHolder<HomeService.Result>( completion: nil)
+        self.readTasksInfosRequests.append(completionHolder)
         
         return try await withCheckedThrowingContinuation { continuation in
-            a.completion =  { result in continuation.resume(returning:result)}
+            completionHolder.completion =  { result in continuation.resume(returning:result)}
         }
     }
     
@@ -39,7 +31,7 @@ private class HomeServiceStub: HomeServiceProtocol {
         RunLoop.current.runForDistanceFuture()
     }
     
-    private var readTasksInfosRequests = [Completion]()
+    private var readTasksInfosRequests = [CompletionHolder<HomeService.Result>]()
     
 }
 

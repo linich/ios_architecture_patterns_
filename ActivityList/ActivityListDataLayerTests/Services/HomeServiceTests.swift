@@ -102,11 +102,12 @@ final class HomeServiceTests: XCTestCase {
 }
 
 fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
-    private var readQuery = [ReadCompletion]()
+    private var readTasksInfosRequests = [CompletionHolder<Result<[TasksListModel], Error>>]()
+    
     private var insertQuery = [InsertionCompletion]()
     
     public var readQueryCount: Int {
-        return readQuery.count
+        return readTasksInfosRequests.count
     }
     
     public var insertQueryCount: Int {
@@ -114,15 +115,29 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
     }
 
     public func completeReadTasksList(withTasks tasks: [TasksListModel], at index: Int = 0) -> Void {
-        readQuery[index](.success(tasks))
+        readTasksInfosRequests[index].completion?(.success(tasks))
     }
     
     public func completeReadTasksList(withError error: Error, at index: Int = 0) -> Void {
-        readQuery[index](.failure(error))
+        readTasksInfosRequests[index].completion?(.failure(error))
     }
     
-    func readTasksLists(completion: @escaping ReadCompletion) -> Void {
-        self.readQuery.append(completion)
+    func readTasksLists() async throws -> [TasksListModel] {
+        let completion = CompletionHolder<Result<[TasksListModel], Error>>( completion: nil)
+        self.readTasksInfosRequests.append(completion)
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            completion.completion =  { result in
+                switch result {
+                case let .success(items):
+                    continuation.resume(returning:items)
+                case let .failure(error):
+                    continuation.resume(throwing: error)
+                }
+                
+            }
+        }
+
     }
     
     func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {

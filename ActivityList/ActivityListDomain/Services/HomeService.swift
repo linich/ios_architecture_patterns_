@@ -19,19 +19,11 @@ public class HomeService: HomeServiceProtocol {
     
     public func readTasksInfos() async throws -> HomeServiceProtocol.Result {
         do {
-            return try await withCheckedThrowingContinuation { continuation in
-                tasksListRepository.readTasksLists { result in
-                    switch result {
-                    case let .success(tasks):
-                        continuation.resume(returning:tasks.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)}))
-                    case .failure:
-                        continuation.resume(throwing: Error.ReadFromRepository)
-                    }
-                }
-            }
+            let tasksLists = try await tasksListRepository.readTasksLists()
+            return tasksLists.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)})
         }
         catch {
-            throw error
+            throw Error.ReadFromRepository
         }
     }
 }
