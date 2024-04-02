@@ -127,6 +127,4 @@ public class IconImageProviderMock: IconImageProviderProtocol {
         
         return UIGraphicsGetImageFromCurrentImageContext()
     }
-    
-    
 }
