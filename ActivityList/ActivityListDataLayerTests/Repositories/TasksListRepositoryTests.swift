@@ -86,31 +86,6 @@ final class TasksListRepositoryTests: XCTestCase {
         expect(sut, toRetreive: expected)
         expect(sut, toRetreive: expected)
     }
-
-    fileprivate func createPersistanceStoreCoordinator(storeUrl: URL) -> NSPersistentStoreCoordinator {
-        
-            let bundle = Bundle(for: TasksListRepository.self)
-            guard let modelURL = bundle.url(forResource: "ActivityList",
-                                                 withExtension: "momd") else {
-                fatalError("Failed to find data model")
-            }
-            
-            guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                fatalError("Failed to create model from file: \(modelURL)")
-            }
-            
-            let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-            do {
-                _ = try coordinator.addPersistentStore(
-                    type: .sqlite,
-                    at: storeUrl,
-                    options: nil)
-            } catch {
-                fatalError("Failed to add persistent store: \(error.localizedDescription)")
-            }
-            
-            return coordinator
-    }
 }
 
 extension TasksListModel: Equatable {
