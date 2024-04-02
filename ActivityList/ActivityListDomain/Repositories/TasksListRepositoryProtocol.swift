@@ -13,6 +13,5 @@ public protocol TasksListRepositoryProtocol {
     
     func readTasksLists() async throws -> ReadResult
     
-    func insertTasksList(withId: UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping InsertionCompletion) -> Void
-    
+    func insertTasksList(withId: UUID, name: String, type: TasksListModel.TasksListType) async throws -> Void
 }

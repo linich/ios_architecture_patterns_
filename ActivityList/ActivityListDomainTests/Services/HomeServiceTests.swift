@@ -102,9 +102,10 @@ final class HomeServiceTests: XCTestCase {
 }
 
 fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
+        
     private var readTasksInfosRequests = [CompletionHolder<Result<[TasksListModel], Error>>]()
     
-    private var insertQuery = [InsertionCompletion]()
+    private var insertQuery = [CompletionHolder<Result<(), Error>>]()
     
     public var readQueryCount: Int {
         return readTasksInfosRequests.count
@@ -137,10 +138,24 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
                 
             }
         }
-
     }
     
-    func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping InsertionCompletion) {
-        self.insertQuery.append(completion)
+    func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType) async throws {
+        let completionHolder = CompletionHolder<Result<(), Error>>( completion: nil)
+        self.insertQuery.append(completionHolder)
+        return try await withCheckingContinuation(completionHolder:completionHolder)
+    }
+    
+    func withCheckingContinuation<T>(completionHolder: CompletionHolder<Result<T, Error>>) async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            completionHolder.completion =  { result in
+                switch result {
+                case let .success(items):
+                    continuation.resume(returning: ())
+                case let .failure(error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 }

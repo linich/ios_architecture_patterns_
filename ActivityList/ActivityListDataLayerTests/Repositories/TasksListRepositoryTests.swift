@@ -46,15 +46,16 @@ final class TasksListRepositoryTests: XCTestCase {
     
     fileprivate func insertTasksList(withId id: UUID, name: String, type: TasksListModel.TasksListType, into  sut: TasksListRepositoryProtocol) {
         let exp = expectation(description: "Wait for create tasks list")
-        sut.insertTasksList(withId: id, name: name, type: type) { result in
-            switch result {
-            case .success:
-                break;
-            case let .failure(error):
+        Task {
+            defer { exp.fulfill() }
+            do {
+                try await sut.insertTasksList(withId: id, name: name, type: type)
+            }
+            catch {
                 XCTFail("Expected insert successfully, but got \(error)")
             }
-            exp.fulfill()
         }
+        
         wait(for: [exp], timeout:  1.0)
     }
 
@@ -66,7 +67,7 @@ final class TasksListRepositoryTests: XCTestCase {
             defer { exp.fulfill() }
             do {
                 let actualTasksList = try await sut.readTasksLists()
-                XCTAssertEqual(actualTasksList, expectedResult, "", file: file, line: line)
+                XCTAssertEqual(actualTasksList, expectedResult, file: file, line: line)
             } catch {
                 XCTFail("Expect list of tasks, but go \(error)")
             }
