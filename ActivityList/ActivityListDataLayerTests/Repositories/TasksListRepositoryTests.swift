@@ -29,7 +29,9 @@ final class TasksListRepositoryTests: XCTestCase {
         let tasksListCreationDate = Date.now
         let sut = createSUT( currentDate: {tasksListCreationDate})
         let tasksListId = UUID()
+        
         insertTasksList(withId: tasksListId, name: "name1", type: .airplane, into: sut)
+        
         expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane, tasks: [])])
         
     }
@@ -55,6 +57,7 @@ final class TasksListRepositoryTests: XCTestCase {
         }
         wait(for: [exp], timeout:  1.0)
     }
+
     fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
         
         let exp = expectation(description: "Loading taks lists")
@@ -82,6 +85,7 @@ final class TasksListRepositoryTests: XCTestCase {
         expect(sut, toRetreive: expected)
         expect(sut, toRetreive: expected)
     }
+
     fileprivate func createPersistanceStoreCoordinator(storeUrl: URL) -> NSPersistentStoreCoordinator {
         
             let bundle = Bundle(for: TasksListRepository.self)
@@ -125,6 +129,4 @@ extension TaskModel: Equatable {
         lhs.name == rhs.name &&
         lhs.type == rhs.type
     }
-    
-    
 }
