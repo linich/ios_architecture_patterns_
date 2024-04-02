@@ -43,6 +43,7 @@ public class TasksListRepository: TasksListRepositoryProtocol {
             throw TasksListRepositoryError.ReadTasksLists
         }
     }
+
     private func readTasksLists(completion: @escaping (Result<[TasksListModel], Error>) -> Void) {
         context.perform {
             do {
@@ -73,7 +74,6 @@ public class TasksListRepository: TasksListRepositoryProtocol {
                 return ()
             })
         }
-        
     }
 }
 

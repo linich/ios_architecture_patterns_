@@ -51,10 +51,10 @@ final class HomeServiceTests: XCTestCase {
             do {
                 async let task = sut.readTasksInfos()
                 let items = try await task
-                XCTAssertEqual(items, expectedTasksInfos, "Expected to receive tasks")
+                XCTAssertEqual(items, expectedTasksInfos, "Expected to receive tasks", file: file, line: line)
             }
             catch {
-                XCTFail("Expect list of tasks, but go \(error)")
+                XCTFail("Expect list of tasks, but go \(error)", file: file, line: line)
             }
         })
         RunLoop.current.runForDistanceFuture()

@@ -50,7 +50,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B5150E2D2BB1BACA0016EF33"
+               BlueprintIdentifier = "B575947C2BBBFF5200BCE59A"
                BuildableName = "ActivityListDomainTests.xctest"
                BlueprintName = "ActivityListDomainTests"
                ReferencedContainer = "container:ActivityList.xcodeproj">
