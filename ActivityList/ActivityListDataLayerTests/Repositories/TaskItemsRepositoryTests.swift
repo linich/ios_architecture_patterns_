@@ -18,8 +18,8 @@ class TaskItemRepository {
 
 final class TaskItemsRepositoryTests: XCTestCase {
     
-    func test_read_returnsEmptyTasksListOnEmptyData() {
-        let sut = TaskItemRepository()
+    func test_readTasks_returnsEmptyTasksListOnEmptyData() {
+        let (sut, _) = createSUT()
         
         let exp = expectation(description: "Loading task items")
         Task {
@@ -29,5 +29,18 @@ final class TaskItemsRepositoryTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+//    func test_readTasks_returnsAllTasksOnNonEmptyStorage() {
+//
+//    }
+    
+    // Mark: - Helpers
+    
+    fileprivate func createSUT(storeURL: URL = URL(fileURLWithPath: "/dev/null")) -> (TaskItemRepository, NSManagedObjectContext) {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = createPersistanceStoreCoordinator(storeUrl: storeURL)
+        
+        return (TaskItemRepository(), managedObjectContext)
     }
 }
