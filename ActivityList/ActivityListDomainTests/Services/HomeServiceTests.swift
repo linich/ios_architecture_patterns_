@@ -150,7 +150,7 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
         return try await withCheckedThrowingContinuation { continuation in
             completionHolder.completion =  { result in
                 switch result {
-                case let .success(items):
+                case .success:
                     continuation.resume(returning: ())
                 case let .failure(error):
                     continuation.resume(throwing: error)
