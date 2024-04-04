@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ActivityType {
+public enum ActivityType: CaseIterable {
     case none
     case game
     case gym

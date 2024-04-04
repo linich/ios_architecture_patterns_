@@ -26,21 +26,25 @@ final class TasksListRepositoryTests: XCTestCase {
     
     func test_readTasksList_deliverResultOnNonEmptyDb() {
         
-        let tasksListCreationDate = Date.now
-        let sut = createSUT()
-        let tasksListId = UUID()
+        for expectedType in ActivityType.allCases {
+            let tasksListCreationDate = Date.now
+            let sut = createSUT()
+            let tasksListId = UUID()
+            
+            insertTasksList(
+                withId: tasksListId,
+                name: "name1",
+                createdAt: tasksListCreationDate,
+                type: expectedType,
+                into: sut
+            )
+            
+            expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: expectedType)])
+        }
         
-        insertTasksList(
-            withId: tasksListId,
-            name: "name1",
-            createdAt: tasksListCreationDate,
-            type: .airplane,
-            into: sut
-        )
-        
-        expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane)])
         
     }
+    
     // Mark: - Helpers
     
     fileprivate func createSUT(storePath: String = "/dev/null") -> TasksListRepositoryProtocol {
