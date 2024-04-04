@@ -19,43 +19,47 @@ final class TaskItemsRepositoryTests: XCTestCase {
     }
 
     func test_readTasks_returnsTasksWhenOnlyOneTasksListExists() {
-        let parentId = anyUUID()
         let (sut, context) = createSUT()
 
-        createTasksList(id: parentId, name: "tasks list 1", inContext: context)
+        let tasksListId = anyUUID()
+        createTasksList(id: tasksListId, name: "tasks list 1", inContext: context)
+
         let taskId = UUID()
         let createdAt = Date.init(timeIntervalSince1970: 100)
         let task = TaskModel(id: taskId, name: "Task Name", createdAt: createdAt, type: .american_football)
-        insert(task: task, into: sut, tasksListId: parentId)
+        
+        insert(task: task, into: sut, tasksListId: tasksListId)
 
-        assert(sut, receivesTasks:
-            [TaskModel.init(id: taskId, name: "Task Name", createdAt: createdAt, type: .american_football)]
-        , ofTasksListWithId: parentId)
+        let expectedTasks = [
+            TaskModel.init(id: taskId, name: "Task Name", createdAt: createdAt, type: .american_football)
+        ]
+        assert(sut, receivesTasks: expectedTasks, ofTasksListWithId: tasksListId)
     }
     
     func test_readTasks_returnsValidTasksWhenMultipleTasksListsExists() {
-        let parentId = anyUUID()
-        let tasksListId = anyUUID()
+        
         let (sut, context) = createSUT()
+
+        let tasksListId1 = anyUUID()
+        let tasksListId2 = anyUUID()
+        createTasksList(id: tasksListId2, name: "tasks list 1", inContext: context)
+        createTasksList(id: tasksListId1, name: "tasks list 2", inContext: context)
         
-        createTasksList(id: tasksListId, name: "tasks list 1", inContext: context)
-        createTasksList(id: parentId, name: "tasks list 2", inContext: context)
         
-        
-        insert(task: TaskModel(id: anyUUID(), name: "name 1", createdAt: anyDate(), type: .american_football), into: sut, tasksListId: tasksListId)
+        insert(task: TaskModel(id: anyUUID(), name: "name 1", createdAt: anyDate(), type: .american_football), into: sut, tasksListId: tasksListId2)
         
         let taskId1 = anyUUID()
         let taskId2 = anyUUID()
         let createdAt = anyDate()
         
-        insert(task: TaskModel(id: taskId1, name: "name 1", createdAt: createdAt, type: .airplane), into: sut, tasksListId: parentId)
+        insert(task: TaskModel(id: taskId1, name: "name 1", createdAt: createdAt, type: .airplane), into: sut, tasksListId: tasksListId1)
 
-        insert(task: TaskModel(id: taskId2, name: "name 2", createdAt: createdAt, type: .game), into: sut, tasksListId: parentId)
+        insert(task: TaskModel(id: taskId2, name: "name 2", createdAt: createdAt, type: .game), into: sut, tasksListId: tasksListId1)
 
         assert(sut, receivesTasks: [
             TaskModel(id: taskId1, name: "name 1", createdAt: createdAt, type: .airplane),
             TaskModel(id: taskId2, name: "name 2", createdAt: createdAt, type: .game),
-        ], ofTasksListWithId: parentId)
+        ], ofTasksListWithId: tasksListId1)
     }
     
     func test_insert_readTaskItemAfterInsertion() {
