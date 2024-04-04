@@ -10,8 +10,8 @@ import ActivityListDataLayer
 import CoreData
 
 extension XCTestCase {
-    func createPersistanceStoreCoordinator(storeUrl: URL) -> NSPersistentStoreCoordinator {
-        
+    
+    static  var model: NSManagedObjectModel = {
         let bundle = Bundle(for: TasksListRepository.self)
         guard let modelURL = bundle.url(forResource: "ActivityList",
                                         withExtension: "momd") else {
@@ -21,11 +21,26 @@ extension XCTestCase {
         guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
             fatalError("Failed to create model from file: \(modelURL)")
         }
-        
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+        return model
+    }()
+    
+    var documentDirectory: URL? {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    }
+    
+    func generateTempFileURL() -> URL {
+        let uuid = UUID()
+        guard let url = URL(string: "\(uuid.uuidString).sqlite", relativeTo: documentDirectory) else {
+            fatalError("Failed to create store url")
+        }
+        return url
+    }
+    
+    func createPersistanceStoreCoordinator(storeUrl: URL) -> NSPersistentStoreCoordinator {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: XCTestCase.model)
         do {
             _ = try coordinator.addPersistentStore(
-                type: .sqlite,
+                type: .inMemory,
                 at: storeUrl,
                 options: nil)
         } catch {

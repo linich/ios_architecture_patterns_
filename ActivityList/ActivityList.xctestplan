@@ -9,11 +9,12 @@
     }
   ],
   "defaultOptions" : {
-    "targetForVariableExpansion" : {
-      "containerPath" : "container:ActivityList.xcodeproj",
-      "identifier" : "B5150D5A2BB1ABA60016EF33",
-      "name" : "ActivityList"
-    }
+    "environmentVariableEntries" : [
+      {
+        "key" : "IDEPreferLogStreaming",
+        "value" : "YES"
+      }
+    ]
   },
   "testTargets" : [
     {
