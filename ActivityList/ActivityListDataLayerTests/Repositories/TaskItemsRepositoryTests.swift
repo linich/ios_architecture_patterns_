@@ -16,7 +16,12 @@ public enum TaskItemRepositoryError: Error {
     case InsertTaskItem(Error)
 }
 
-class TaskItemRepository {
+protocol TaskItemRepositoryProtocol {
+    func readTasksOfTasksList(withId tasksListId: UUID) async throws -> [TaskModel]
+    func insert(task: TaskModel, tasksListId: UUID) async throws -> Void
+}
+
+class TaskItemRepository: TaskItemRepositoryProtocol {
     private let context: NSManagedObjectContext
     
     public init(context: NSManagedObjectContext) {
@@ -34,12 +39,12 @@ class TaskItemRepository {
                         let taskItems = result.map({ $0.toModel()}).compactMap({$0})
                         continuation.resume(returning: taskItems)
                     } catch {
-                        continuation.resume(throwing: error)
+                        continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems(error))
                     }
                 }
             }
         } catch {
-            throw TaskItemRepositoryError.ReadTaskItems(error)
+            throw error
         }
     }
     
@@ -71,6 +76,7 @@ class TaskItemRepository {
         }
     }
 }
+
 extension TaskItem {
     func toModel() -> TaskModel? {
         guard
@@ -95,6 +101,7 @@ extension TaskItem {
         return taskItem
     }
 }
+
 final class TaskItemsRepositoryTests: XCTestCase {
     
     func test_readTasks_returnsEmptyTasksListOnEmptyData() {
@@ -104,13 +111,14 @@ final class TaskItemsRepositoryTests: XCTestCase {
     }
 
     func test_readTasks_returnsTasksWhenOnlyOneTasksListExists() {
-        let parentId = UUID()
+        let parentId = anyUUID()
         let (sut, context) = createSUT()
 
         createTasksList(id: parentId, name: "tasks list 1", inContext: context)
         let taskId = UUID()
         let createdAt = Date.init(timeIntervalSince1970: 100)
-        insertTaskInto(sut, withId: taskId, name: "Task Name", type: .american_football, createdAt: createdAt, tasksListId: parentId)
+        let task = TaskModel(id: taskId, name: "Task Name", createdAt: createdAt, type: .american_football)
+        insert(task: task, into: sut, tasksListId: parentId)
 
         assert(sut, receivesTasks:
             [TaskModel.init(id: taskId, name: "Task Name", createdAt: createdAt, type: .american_football)]
@@ -125,14 +133,17 @@ final class TaskItemsRepositoryTests: XCTestCase {
         createTasksList(id: tasksListId, name: "tasks list 1", inContext: context)
         createTasksList(id: parentId, name: "tasks list 2", inContext: context)
         
-        insertTaskInto(sut, withId: anyUUID(), name: "name 1", type: .american_football, createdAt: Date.now, tasksListId: tasksListId)
+        
+        insert(task: TaskModel(id: anyUUID(), name: "name 1", createdAt: anyDate(), type: .american_football), into: sut, tasksListId: tasksListId)
         
         let taskId1 = anyUUID()
         let taskId2 = anyUUID()
         let createdAt = anyDate()
         
-        insertTaskInto(sut, withId: taskId1, name: "name 1", type: .airplane, createdAt: createdAt, tasksListId: parentId)
-        insertTaskInto(sut, withId: taskId2, name: "name 2", type: .game, createdAt: createdAt, tasksListId: parentId)
+        insert(task: TaskModel(id: taskId1, name: "name 1", createdAt: createdAt, type: .airplane), into: sut, tasksListId: parentId)
+
+        insert(task: TaskModel(id: taskId2, name: "name 2", createdAt: createdAt, type: .game), into: sut, tasksListId: parentId)
+
         assert(sut, receivesTasks: [
             TaskModel(id: taskId1, name: "name 1", createdAt: createdAt, type: .airplane),
             TaskModel(id: taskId2, name: "name 2", createdAt: createdAt, type: .game),
@@ -150,7 +161,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
             let createdAt = Date.now
             let taskName = "task name 1"
             
-            insertTaskInto(sut, withId: taskId, name: taskName, type: type, createdAt: createdAt, tasksListId: parentId)
+            insert(task: TaskModel(id: taskId, name: taskName, createdAt: createdAt, type: type), into: sut, tasksListId: parentId)
             
             let expectedTasks = [TaskModel(id: taskId, name: "task name 1", createdAt: createdAt, type: type)]
             
@@ -188,7 +199,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
     
     // Mark: - Helpers
     
-    fileprivate func createSUT(storeURL: URL = URL(fileURLWithPath: "/dev/null")) -> (TaskItemRepository, NSManagedObjectContext) {
+    fileprivate func createSUT(storeURL: URL = URL(fileURLWithPath: "/dev/null")) -> (TaskItemRepositoryProtocol, NSManagedObjectContext) {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = createPersistanceStoreCoordinator(storeUrl: storeURL)
         let sut = TaskItemRepository(context: managedObjectContext)
@@ -199,7 +210,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
         return (sut, managedObjectContext)
     }
     
-    fileprivate func assert(_ sut: TaskItemRepository, receivesTasks expected: [TaskModel], ofTasksListWithId tasksListId: UUID, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assert(_ sut: TaskItemRepositoryProtocol, receivesTasks expected: [TaskModel], ofTasksListWithId tasksListId: UUID, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Loading task items")
         Task {
             defer { exp.fulfill() }
@@ -214,12 +225,11 @@ final class TaskItemsRepositoryTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
-    fileprivate func insertTaskInto(_ sut: TaskItemRepository, withId id: UUID, name: String, type: ActivityType, createdAt: Date, tasksListId: UUID, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func insert(task: TaskModel, into sut: TaskItemRepositoryProtocol, tasksListId: UUID, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Insert task item")
         Task {
             defer { exp.fulfill()}
             do {
-                let task = TaskModel(id: id, name: name, createdAt: createdAt, type: type)
                 try await sut.insert(task: task, tasksListId: tasksListId)
             } catch {
                 XCTFail("Expected to not throw, but got \(error)", file: file, line: line)
@@ -236,16 +246,12 @@ final class TaskItemsRepositoryTests: XCTestCase {
             tasksList.id = id.uuidString
             tasksList.createdAt = Date.now
             tasksList.name = name
-            tasksList.tasksListType = 1
+            tasksList.tasksListType = 0
 
             try! context.save()
         }
         
         return tasksList
-    }
-    
-    fileprivate func taskModel(from taskItem: TaskItem) -> TaskModel {
-        return TaskModel(id: UUID(uuidString: taskItem.id!)!, name: taskItem.name!, createdAt: taskItem.createdAt!, type: .airplane)
     }
 }
 
@@ -256,6 +262,4 @@ extension TaskModel: Equatable {
         lhs.createdAt == rhs.createdAt &&
         lhs.type == rhs.type
     }
-    
-    
 }
