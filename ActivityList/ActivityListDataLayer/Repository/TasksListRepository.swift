@@ -10,15 +10,11 @@ import ActivityListDomain
 
 public class TasksListRepository: TasksListRepositoryProtocol {
     
-    private let context: NSManagedObjectContext
-    private let currentDate: () -> Date
     
-    public init(
-        context: NSManagedObjectContext,
-        currentDate: @escaping  () -> Date
-    ) {
+    private let context: NSManagedObjectContext
+    
+    public init(context: NSManagedObjectContext) {
         self.context = context
-        self.currentDate = currentDate
     }
     
     public enum TasksListRepositoryError: Error {
@@ -44,10 +40,10 @@ public class TasksListRepository: TasksListRepositoryProtocol {
         }
     }
     
-    public func insertTasksList(withId id: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType) async throws -> Void {
+    public func insertTasksList(withId id: UUID, name: String, createdAt: Date, type: ActivityListDomain.TasksListModel.TasksListType) async throws -> Void {
         do {
             try await withCheckedThrowingContinuation({continuation in
-                self.insertTasksList(withId: id, name: name, type: type) { result in
+                self.insertTasksList(withId: id, name: name, createdAt: createdAt, type: type) { result in
                     switch result {
                     case let .success(data):
                         continuation.resume(returning: data)
@@ -66,25 +62,21 @@ public class TasksListRepository: TasksListRepositoryProtocol {
             do {
                 let fetchRequest = TasksList.fetchRequest()
                 let result = try self.context.fetch<TasksList>(fetchRequest)
-                
                 let tasksList = result.map {$0.toModel()}.compactMap{$0}
-                
                 completion(.success(tasksList))
-                
             } catch {
                 completion(.failure(error))
             }
         }
     }
     
-    private func insertTasksList(withId id:UUID, name: String, type: TasksListModel.TasksListType, completion: @escaping (Result<Void, Error>) -> Void) {
-        let currentDate = self.currentDate
+    private func insertTasksList(withId id: UUID, name: String, createdAt: Date, type: ActivityListDomain.TasksListModel.TasksListType, completion: @escaping (Result<Void, Error>) -> Void) {
         let context = self.context
         context.perform {
             completion(Swift.Result {
                 let tasksList = TasksList(context: context)
                 tasksList.id = id.uuidString
-                tasksList.createdAt = currentDate()
+                tasksList.createdAt = createdAt
                 tasksList.name = name
                 tasksList.tasksListType = ActivityTypeInner.from(activityType: type).rawValue
                 try context.save()

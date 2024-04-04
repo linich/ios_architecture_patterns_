@@ -27,29 +27,35 @@ final class TasksListRepositoryTests: XCTestCase {
     func test_readTasksList_deliverResultOnNonEmptyDb() {
         
         let tasksListCreationDate = Date.now
-        let sut = createSUT( currentDate: {tasksListCreationDate})
+        let sut = createSUT()
         let tasksListId = UUID()
         
-        insertTasksList(withId: tasksListId, name: "name1", type: .airplane, into: sut)
+        insertTasksList(
+            withId: tasksListId,
+            name: "name1",
+            createdAt: tasksListCreationDate,
+            type: .airplane,
+            into: sut
+        )
         
         expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane, tasks: [])])
         
     }
     // Mark: - Helpers
     
-    fileprivate func createSUT(storePath: String = "/dev/null", currentDate: @escaping () -> Date = Date.init) -> TasksListRepositoryProtocol {
+    fileprivate func createSUT(storePath: String = "/dev/null") -> TasksListRepositoryProtocol {
         let coordinator = createPersistanceStoreCoordinator(storeUrl: URL(fileURLWithPath: storePath))
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
-        return TasksListRepository(context: context, currentDate: currentDate)
+        return TasksListRepository(context: context)
     }
     
-    fileprivate func insertTasksList(withId id: UUID, name: String, type: TasksListModel.TasksListType, into  sut: TasksListRepositoryProtocol) {
+    fileprivate func insertTasksList(withId id: UUID, name: String, createdAt: Date = Date.now, type: TasksListModel.TasksListType, into  sut: TasksListRepositoryProtocol) {
         let exp = expectation(description: "Wait for create tasks list")
         Task {
             defer { exp.fulfill() }
             do {
-                try await sut.insertTasksList(withId: id, name: name, type: type)
+                try await sut.insertTasksList(withId: id, name: name,createdAt: createdAt, type: type)
             }
             catch {
                 XCTFail("Expected insert successfully, but got \(error)")

@@ -9,5 +9,5 @@ public protocol TasksListRepositoryProtocol {
     
     func readTasksLists() async throws -> [TasksListModel]
     
-    func insertTasksList(withId: UUID, name: String, type: TasksListModel.TasksListType) async throws -> Void
+    func insertTasksList(withId: UUID, name: String, createdAt: Date, type: TasksListModel.TasksListType) async throws -> Void
 }

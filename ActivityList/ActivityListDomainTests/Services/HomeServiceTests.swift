@@ -140,7 +140,7 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
         }
     }
     
-    func insertTasksList(withId: UUID, name: String, type: ActivityListDomain.TasksListModel.TasksListType) async throws {
+    func insertTasksList(withId: UUID, name: String, createdAt: Date, type: ActivityListDomain.TasksListModel.TasksListType) async throws {
         let completionHolder = CompletionHolder<Result<(), Error>>( completion: nil)
         self.insertQuery.append(completionHolder)
         return try await withCheckingContinuation(completionHolder:completionHolder)

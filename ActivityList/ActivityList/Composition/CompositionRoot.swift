@@ -53,7 +53,7 @@ internal class CompositionRoot {
     }
     
     var taskListRepository: TasksListRepositoryProtocol {
-        return TasksListRepository(context: viewContext, currentDate: { Date.now})
+        return TasksListRepository(context: viewContext)
     }
     
     var homeService: HomeServiceProtocol {
