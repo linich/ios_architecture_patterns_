@@ -43,7 +43,7 @@ class TaskItemRepository {
         }
     }
     
-    func insertTask(withId id: UUID, name: String, type: ActivityType, createdAt: Date, tasksListId: UUID) async throws -> Void {
+    func insert(task: TaskModel, tasksListId: UUID) async throws -> Void {
         do {
             return try await withCheckedThrowingContinuation { continuation in
                 self.context.perform {
@@ -56,14 +56,8 @@ class TaskItemRepository {
                         continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems(error))
                     }
                     
+                    let taskItem = TaskItem.from(model: task, tasksList: tasksList, inContext: self.context)
                     
-                    let taskItem = TaskItem(context: self.context)
-                    
-                    taskItem.id = id.uuidString
-                    taskItem.name = name
-                    taskItem.createdAt = createdAt
-                    taskItem.taskType = ActivityTypeInner.from(activityType: type).rawValue
-                    taskItem.taskList = tasksList
                     do {
                         try self.context.save()
                         continuation.resume(returning: ())
@@ -88,6 +82,17 @@ extension TaskItem {
             return nil
         }
         return TaskModel(id: id, name: name, createdAt: createdAt, type: type)
+    }
+    
+    static func from(model: TaskModel, tasksList: TasksList?, inContext context: NSManagedObjectContext) -> TaskItem {
+        let taskItem = TaskItem(context: context)
+        
+        taskItem.id = model.id.uuidString
+        taskItem.name = model.name
+        taskItem.createdAt = model.createdAt
+        taskItem.taskType = ActivityTypeInner.from(activityType: model.type).rawValue
+        taskItem.taskList = tasksList
+        return taskItem
     }
 }
 final class TaskItemsRepositoryTests: XCTestCase {
@@ -160,11 +165,9 @@ final class TaskItemsRepositoryTests: XCTestCase {
         Task {
             defer { exp.fulfill()}
             do {
-                try await sut.insertTask(withId:anyUUID(),
-                                         name:name,
-                                         type: .fight,
-                                         createdAt: anyDate(),
-                                         tasksListId: anyUUID())
+                let task = TaskModel(id: anyUUID(), name:name,
+                                     createdAt: anyDate(), type: .fight)
+                try await sut.insert(task: task, tasksListId: anyUUID())
                 XCTFail("Expected to fail, but finish without error")
             } catch let error as TaskItemRepositoryError {
                 switch error {
@@ -216,11 +219,8 @@ final class TaskItemsRepositoryTests: XCTestCase {
         Task {
             defer { exp.fulfill()}
             do {
-                try await sut.insertTask(withId:id,
-                                         name:name,
-                                         type: type,
-                                         createdAt: createdAt,
-                                         tasksListId: tasksListId)
+                let task = TaskModel(id: id, name: name, createdAt: createdAt, type: type)
+                try await sut.insert(task: task, tasksListId: tasksListId)
             } catch {
                 XCTFail("Expected to not throw, but got \(error)", file: file, line: line)
             }
