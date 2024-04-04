@@ -57,6 +57,7 @@ class TaskItemRepository {
             return try await withCheckedThrowingContinuation { continuation in
                 self.context.perform {
                     let tasksListRequest = TasksList.fetchRequest()
+                    tasksListRequest.predicate  = NSPredicate(format: "id == %@", tasksListId.uuidString as CVarArg)
                     let tasksList = try! self.context.fetch(tasksListRequest).first
                     
                     let taskItem = TaskItem(context: self.context)
@@ -88,32 +89,38 @@ final class TaskItemsRepositoryTests: XCTestCase {
         assert(sut, receivesTasks: [], ofTasksListWithId: UUID())
     }
 
-    func test_readTasks_returnsTasksUseOnlyOneTasksList() {
+    func test_readTasks_returnsTasksWhenOnlyOneTasksListExists() {
         let parentId = UUID()
         let (sut, context) = createSUT()
 
-        let tasksList1 = createTasksList(id: parentId, name: "tasks list 1", inContext: context)
-        let taskItem1_1 = createTaskItem(forTaskslist: tasksList1, inContext: context)
-        
-        assert(sut, receivesTasks: [
-            taskModel(from: taskItem1_1)
-        ], ofTasksListWithId: parentId)
+        createTasksList(id: parentId, name: "tasks list 1", inContext: context)
+        let taskId = UUID()
+        let createdAt = Date.init(timeIntervalSince1970: 100)
+        insertTaskInto(sut, withId: taskId, name: "Task Name", type: .american_football, createdAt: createdAt, tasksListId: parentId)
+
+        assert(sut, receivesTasks:
+            [TaskModel.init(id: taskId, name: "Task Name", createdAt: createdAt, type: .american_football)]
+        , ofTasksListWithId: parentId)
     }
     
-    func test_readTasks_returnsValidTasksWhenMultipleTasksListExists() {
-        let parentId = UUID()
+    func test_readTasks_returnsValidTasksWhenMultipleTasksListsExists() {
+        let parentId = anyUUID()
         let (sut, context) = createSUT()
-        let tasksList1 = createTasksList(name: "tasks list 1", inContext: context)
-        let tasksList2 = createTasksList(id: parentId, name: "tasks list 2", inContext: context)
         
-        insertTaskInto(sut, withId: UUID(), name: "name 1", type: .american_football, createdAt: Date.now, tasksListId: UUID())
+        createTasksList(name: "tasks list 1", inContext: context)
+        createTasksList(id: parentId, name: "tasks list 2", inContext: context)
         
-        let taskItem2_1 = createTaskItem(forTaskslist: tasksList2, inContext: context)
-        let taskItem2_2 = createTaskItem(forTaskslist: tasksList2, inContext: context)
+        insertTaskInto(sut, withId: anyUUID(), name: "name 1", type: .american_football, createdAt: Date.now, tasksListId: anyUUID())
         
+        let taskId1 = anyUUID()
+        let taskId2 = anyUUID()
+        let createdAt = anyDate()
+        
+        insertTaskInto(sut, withId: taskId1, name: "name 1", type: .airplane, createdAt: createdAt, tasksListId: parentId)
+        insertTaskInto(sut, withId: taskId2, name: "name 2", type: .game, createdAt: createdAt, tasksListId: parentId)
         assert(sut, receivesTasks: [
-            taskModel(from: taskItem2_1),
-            taskModel(from: taskItem2_2),
+            TaskModel(id: taskId1, name: "name 1", createdAt: createdAt, type: .airplane),
+            TaskModel(id: taskId2, name: "name 2", createdAt: createdAt, type: .game),
         ], ofTasksListWithId: parentId)
     }
     
@@ -123,7 +130,6 @@ final class TaskItemsRepositoryTests: XCTestCase {
             let (sut, context) = createSUT()
             
             createTasksList(id: parentId, name: "tasks list 1", inContext: context)
-            
             
             let taskId = UUID()
             let createdAt = Date.now
@@ -201,23 +207,6 @@ final class TaskItemsRepositoryTests: XCTestCase {
     
     fileprivate func taskModel(from taskItem: TaskItem) -> TaskModel {
         return TaskModel(id: UUID(uuidString: taskItem.id!)!, name: taskItem.name!, createdAt: taskItem.createdAt!, type: .airplane)
-    }
-    
-    @discardableResult
-    fileprivate func createTaskItem(forTaskslist tasksList: TasksList, id: UUID = UUID(), name: String = "Tasks List", inContext context: NSManagedObjectContext) -> TaskItem {
-        let taskItem = TaskItem(context: context)
-
-        context.performAndWait {
-            taskItem.id = id.uuidString
-            taskItem.createdAt = Date.now
-            taskItem.name = name
-            taskItem.taskList = tasksList
-            taskItem.taskType = ActivityTypeInner.airplane.rawValue
-
-            try! context.save()
-        }
-        
-        return taskItem
     }
 }
 

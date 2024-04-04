@@ -14,3 +14,11 @@ func anyNSError() -> NSError {
 func anyURL() -> URL {
     return URL(string: "http://any-url.com")!
 }
+
+func anyDate() -> Date {
+    return Date.now
+}
+
+func anyUUID() -> UUID {
+    return UUID()
+}
