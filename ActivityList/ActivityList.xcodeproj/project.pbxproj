@@ -163,8 +163,6 @@
 		B5150D672BB1ABA80016EF33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5150D6A2BB1ABA80016EF33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5150D6C2BB1ABA80016EF33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5150D7F2BB1ABA90016EF33 /* ActivityListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListUITests.swift; sourceTree = "<group>"; };
-		B5150D812BB1ABA90016EF33 /* ActivityListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150E272BB1BACA0016EF33 /* ActivityListDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDomain.h; sourceTree = "<group>"; };
 		B5150E282BB1BACA0016EF33 /* ActivityListDomain.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDomain.docc; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 				B5B39A282BB575340084726F /* ActivityList.xctestplan */,
 				B5B39A1A2BB451170084726F /* ActivityListUI.xctestplan */,
 				B5150D5D2BB1ABA60016EF33 /* ActivityList */,
-				B5150D7E2BB1ABA90016EF33 /* ActivityListUITests */,
 				B5150E262BB1BACA0016EF33 /* ActivityListDomain */,
 				B5150E622BB1C88C0016EF33 /* ActivityListUI */,
 				B5150E702BB1C88D0016EF33 /* ActivityListUITests */,
@@ -314,15 +311,6 @@
 				B5150D6C2BB1ABA80016EF33 /* Info.plist */,
 			);
 			path = ActivityList;
-			sourceTree = "<group>";
-		};
-		B5150D7E2BB1ABA90016EF33 /* ActivityListUITests */ = {
-			isa = PBXGroup;
-			children = (
-				B5150D7F2BB1ABA90016EF33 /* ActivityListUITests.swift */,
-				B5150D812BB1ABA90016EF33 /* ActivityListUITestsLaunchTests.swift */,
-			);
-			path = ActivityListUITests;
 			sourceTree = "<group>";
 		};
 		B5150E262BB1BACA0016EF33 /* ActivityListDomain */ = {

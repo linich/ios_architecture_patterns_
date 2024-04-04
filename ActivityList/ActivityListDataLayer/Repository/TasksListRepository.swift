@@ -86,6 +86,7 @@ public class TasksListRepository: TasksListRepositoryProtocol {
 
 extension TasksList {
     func toModel() -> TasksListModel? {
+        // ToDo Should it fail in case invalid data? Will it be better to send some information
         guard let stringId = id,
               let id = UUID(uuidString: stringId),
               let name = name,
