@@ -12,7 +12,8 @@ import ActivityListDomain
 
 
 public enum TaskItemRepositoryError: Error {
-    case ReadTaskItems
+    case ReadTaskItems(Error)
+    case InsertTaskItem(Error)
 }
 
 class TaskItemRepository {
@@ -30,17 +31,7 @@ class TaskItemRepository {
                     taskItemsRequest.predicate = NSPredicate(format: "%K.id == %@", #keyPath(TaskItem.taskList), tasksListId.uuidString as CVarArg)
                     do {
                         let result = try self.context.fetch(taskItemsRequest)
-                        let taskItems = result.map({
-                            guard
-                                let itemId = $0.id,
-                                let name = $0.name,
-                                let id = UUID(uuidString: itemId),
-                                let createdAt = $0.createdAt,
-                                let type = ActivityTypeInner(rawValue: $0.taskType)?.toDomainType() else {
-                                return nil as TaskModel?
-                            }
-                            return TaskModel(id: id, name: name, createdAt: createdAt, type: type)
-                        }).compactMap({$0})
+                        let taskItems = result.map({ $0.toModel()}).compactMap({$0})
                         continuation.resume(returning: taskItems)
                     } catch {
                         continuation.resume(throwing: error)
@@ -48,7 +39,7 @@ class TaskItemRepository {
                 }
             }
         } catch {
-            throw TaskItemRepositoryError.ReadTaskItems
+            throw TaskItemRepositoryError.ReadTaskItems(error)
         }
     }
     
@@ -58,7 +49,13 @@ class TaskItemRepository {
                 self.context.perform {
                     let tasksListRequest = TasksList.fetchRequest()
                     tasksListRequest.predicate  = NSPredicate(format: "id == %@", tasksListId.uuidString as CVarArg)
-                    let tasksList = try! self.context.fetch(tasksListRequest).first
+                    var tasksList: TasksList? = nil
+                    do {
+                        tasksList = try self.context.fetch(tasksListRequest).first
+                    } catch {
+                        continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems(error))
+                    }
+                    
                     
                     let taskItem = TaskItem(context: self.context)
                     
@@ -71,16 +68,28 @@ class TaskItemRepository {
                         try self.context.save()
                         continuation.resume(returning: ())
                     } catch {
-                        continuation.resume(throwing: error)
+                        continuation.resume(throwing: TaskItemRepositoryError.InsertTaskItem(error as NSError))
                     }
                 }
             }
         } catch {
-            throw TaskItemRepositoryError.ReadTaskItems
+            throw error
         }
     }
 }
-
+extension TaskItem {
+    func toModel() -> TaskModel? {
+        guard
+            let itemId = id,
+            let name = name,
+            let id = UUID(uuidString: itemId),
+            let createdAt = createdAt,
+            let type = ActivityTypeInner(rawValue: taskType)?.toDomainType() else {
+            return nil
+        }
+        return TaskModel(id: id, name: name, createdAt: createdAt, type: type)
+    }
+}
 final class TaskItemsRepositoryTests: XCTestCase {
     
     func test_readTasks_returnsEmptyTasksListOnEmptyData() {
@@ -105,12 +114,13 @@ final class TaskItemsRepositoryTests: XCTestCase {
     
     func test_readTasks_returnsValidTasksWhenMultipleTasksListsExists() {
         let parentId = anyUUID()
+        let tasksListId = anyUUID()
         let (sut, context) = createSUT()
         
-        createTasksList(name: "tasks list 1", inContext: context)
+        createTasksList(id: tasksListId, name: "tasks list 1", inContext: context)
         createTasksList(id: parentId, name: "tasks list 2", inContext: context)
         
-        insertTaskInto(sut, withId: anyUUID(), name: "name 1", type: .american_football, createdAt: Date.now, tasksListId: anyUUID())
+        insertTaskInto(sut, withId: anyUUID(), name: "name 1", type: .american_football, createdAt: Date.now, tasksListId: tasksListId)
         
         let taskId1 = anyUUID()
         let taskId2 = anyUUID()
@@ -143,6 +153,35 @@ final class TaskItemsRepositoryTests: XCTestCase {
         }
     }
 
+    func test_insert_throwsAnErrorIfTasksListNotExist() {
+        let (sut, _) = createSUT()
+        
+        let exp = expectation(description: "Insert task item")
+        Task {
+            defer { exp.fulfill()}
+            do {
+                try await sut.insertTask(withId:anyUUID(),
+                                         name:name,
+                                         type: .fight,
+                                         createdAt: anyDate(),
+                                         tasksListId: anyUUID())
+                XCTFail("Expected to fail, but finish without error")
+            } catch let error as TaskItemRepositoryError {
+                switch error {
+                case .InsertTaskItem:
+                    break;
+                default:
+                    XCTFail("Expected TaskItemRepositoryError.InsertTaskItem error, but got error \(error)")
+                }
+                
+            } catch {
+                XCTFail("Expected TaskItemRepositoryError.InsertTaskItem error, but got error \(error)")
+            }
+
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     
     // Mark: - Helpers
     
@@ -172,7 +211,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
-    fileprivate func insertTaskInto(_ sut: TaskItemRepository, withId id: UUID, name: String, type: ActivityType, createdAt: Date, tasksListId: UUID) {
+    fileprivate func insertTaskInto(_ sut: TaskItemRepository, withId id: UUID, name: String, type: ActivityType, createdAt: Date, tasksListId: UUID, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Insert task item")
         Task {
             defer { exp.fulfill()}
@@ -183,7 +222,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
                                          createdAt: createdAt,
                                          tasksListId: tasksListId)
             } catch {
-                XCTFail("Expected to not throw expection, but got \(error)")
+                XCTFail("Expected to not throw, but got \(error)", file: file, line: line)
             }
         }
         wait(for: [exp], timeout: 1.0)
