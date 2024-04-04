@@ -79,7 +79,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
         let tasksList1 = createTasksList(name: "tasks list 1", inContext: context)
         let tasksList2 = createTasksList(id: parentId, name: "tasks list 2", inContext: context)
         
-        let taskItem1_1 = createTaskItem(forTaskslist: tasksList1, inContext: context)
+        createTaskItem(forTaskslist: tasksList1, inContext: context)
         
         let taskItem2_1 = createTaskItem(forTaskslist: tasksList2, inContext: context)
         let taskItem2_2 = createTaskItem(forTaskslist: tasksList2, inContext: context)
@@ -137,6 +137,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
         return TaskModel(id: UUID(uuidString: taskItem.id!)!, name: taskItem.name!, createdAt: taskItem.createdAt!, type: .airplane)
     }
     
+    @discardableResult
     fileprivate func createTaskItem(forTaskslist tasksList: TasksList, id: UUID = UUID(), name: String = "Tasks List", inContext context: NSManagedObjectContext) -> TaskItem {
         let taskItem = TaskItem(context: context)
 
