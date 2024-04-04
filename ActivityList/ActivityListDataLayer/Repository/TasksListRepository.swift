@@ -97,13 +97,4 @@ extension TasksList {
         }
         return TasksListModel(id: id, name: name, createdAt: createdAt, type: type)
     }
-    
-    static func getTasksListType(by type: ActivityType) -> String {
-        switch type {
-        case .airplane:
-            return "airplane"
-        default:
-            return "none"
-        }
-    }
 }
