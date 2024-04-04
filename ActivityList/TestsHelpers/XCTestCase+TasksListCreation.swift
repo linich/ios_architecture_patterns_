@@ -25,7 +25,6 @@ extension XCTestCase {
         id:UUID = UUID(),
         createdAt: Date = Date.now,
         tasksCount: Int = 0) -> TasksListModel{
-            let tasks = (0..<tasksCount).map { makeTask(name: "task_\($0)", type: taskType)}
         return TasksListModel(id: id, name: name, createdAt: createdAt, type: tasksListType)
     }
     
