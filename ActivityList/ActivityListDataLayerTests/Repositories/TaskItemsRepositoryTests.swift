@@ -8,7 +8,7 @@
 import XCTest
 import CoreData
 import ActivityListDomain
-@testable import ActivityListDataLayer
+import ActivityListDataLayer
 
 final class TaskItemsRepositoryTests: XCTestCase {
     
