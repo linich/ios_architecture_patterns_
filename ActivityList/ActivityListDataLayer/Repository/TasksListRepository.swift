@@ -9,8 +9,6 @@ import CoreData
 import ActivityListDomain
 
 public class TasksListRepository: TasksListRepositoryProtocol {
-    
-    
     private let context: NSManagedObjectContext
     
     public init(context: NSManagedObjectContext) {
@@ -90,7 +88,7 @@ extension TasksList {
     func toModel() -> TasksListModel? {
         guard let stringId = id,
               let id = UUID(uuidString: stringId),
-                let name = name,
+              let name = name,
               let type = ActivityTypeInner.init(rawValue: tasksListType)?.toDomainType(),
               let createdAt = createdAt else {
             return nil as TasksListModel?
