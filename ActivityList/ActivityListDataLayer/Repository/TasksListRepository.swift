@@ -95,10 +95,7 @@ extension TasksList {
               let createdAt = createdAt else {
             return nil as TasksListModel?
         }
-        let tasks = tasks.map { tasks in
-            tasks.map{($0 as! TaskItem).toModel()}.compactMap({$0})
-        } ?? []
-        return TasksListModel(id: id, name: name, createdAt: createdAt, type: type, tasks: tasks)
+        return TasksListModel(id: id, name: name, createdAt: createdAt, type: type)
     }
     
     static func getTasksListType(by type: ActivityType) -> String {
@@ -107,26 +104,6 @@ extension TasksList {
             return "airplane"
         default:
             return "none"
-        }
-    }
-}
-
-extension TaskItem {
-    func toModel() -> TaskModel? {
-        guard let stringId = id,
-              let id = UUID(uuidString: stringId),
-                let name = name,
-              let createdAt = createdAt, let icon = icon else {
-            return nil as TaskModel?
-        }
-        
-        return TaskModel(id: id, name: name, createdAt: createdAt, type: TaskItem.taskType(byType: icon))
-    }
-    
-    static func taskType(byType type: String) -> TaskModel.TaskType {
-        switch type {
-        default:
-            return .none
         }
     }
 }

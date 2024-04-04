@@ -38,7 +38,7 @@ final class TasksListRepositoryTests: XCTestCase {
             into: sut
         )
         
-        expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane, tasks: [])])
+        expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: .airplane)])
         
     }
     // Mark: - Helpers
@@ -99,16 +99,6 @@ extension TasksListModel: Equatable {
         return lhs.name == rhs.name &&
         lhs.createdAt == rhs.createdAt &&
         lhs.id == rhs.id &&
-        lhs.type == rhs.type &&
-        lhs.tasks == rhs.tasks
-    }
-}
-
-extension TaskModel: Equatable {
-    public static func == (lhs: ActivityListDomain.TaskModel, rhs: ActivityListDomain.TaskModel) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.createdAt == rhs.createdAt &&
-        lhs.name == rhs.name &&
         lhs.type == rhs.type
     }
 }

@@ -26,18 +26,15 @@ public struct TasksListModel {
     public let name: String
     public let createdAt: Date
     public let type: TasksListType
-    public let tasks: [TaskModel]
     
     public init(id: UUID, 
                 name: String,
                 createdAt: Date,
-                type: TasksListType,
-                tasks: [TaskModel]) {
+                type: TasksListType) {
         self.id = id
         self.name = name
         self.createdAt = createdAt
         self.type = type
-        self.tasks = tasks
     }
     
 }

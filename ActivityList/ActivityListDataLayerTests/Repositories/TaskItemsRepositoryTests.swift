@@ -152,3 +152,14 @@ final class TaskItemsRepositoryTests: XCTestCase {
         return taskItem
     }
 }
+
+extension TaskModel: Equatable {
+    public static func == (lhs: ActivityListDomain.TaskModel, rhs: ActivityListDomain.TaskModel) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.name == rhs.name &&
+        lhs.createdAt == rhs.createdAt &&
+        lhs.type == rhs.type
+    }
+    
+    
+}

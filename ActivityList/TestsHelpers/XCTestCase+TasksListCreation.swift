@@ -12,26 +12,26 @@ extension XCTestCase {
     func makeTasksListInfo(
         name: String,
         tasksListType: TasksListModel.TasksListType = .game,
-        taskType: TaskModel.TaskType = .shop,
+        taskType: ActivityType = .shop,
         id:UUID = UUID(),
         tasksCount: Int = 0) -> TasksListInfo{
         return TasksListInfo(id: id, name: name, type: tasksListType, tasksCount: tasksCount)
     }
     
-    func makeTasksList(
+    func  makeTasksList(
         name: String,
         tasksListType: TasksListModel.TasksListType = .game,
-        taskType: TaskModel.TaskType = .shop,
+        taskType: ActivityType = .shop,
         id:UUID = UUID(),
         createdAt: Date = Date.now,
         tasksCount: Int = 0) -> TasksListModel{
             let tasks = (0..<tasksCount).map { makeTask(name: "task_\($0)", type: taskType)}
-        return TasksListModel(id: id, name: name, createdAt: createdAt, type: tasksListType, tasks: tasks)
+        return TasksListModel(id: id, name: name, createdAt: createdAt, type: tasksListType)
     }
     
     func makeTask(
         name: String,
-        type: TaskModel.TaskType,
+        type: ActivityType,
         id: UUID = UUID(),
         createdAt: Date = Date.now) -> TaskModel {
         return TaskModel(id: id, name: name, createdAt: createdAt, type: type)
