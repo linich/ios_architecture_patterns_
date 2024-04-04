@@ -49,15 +49,10 @@ public class TaskItemRepository: TaskItemRepositoryProtocol {
                     tasksListRequest.predicate  = NSPredicate(format: "id == %@", tasksListId.uuidString as CVarArg)
                     var tasksList: TasksList? = nil
                     do {
+                        let taskItem = TaskItem.createFrom(model: task, inContext: self.context)
                         tasksList = try self.context.fetch(tasksListRequest).first
-                    } catch {
-                        continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems(error))
-                    }
-                    
-                    let taskItem = TaskItem.createFrom(model: task, inContext: self.context)
-                    taskItem.taskList = tasksList
-                    
-                    do {
+                        taskItem.taskList = tasksList
+                        
                         try self.context.save()
                         continuation.resume(returning: ())
                     } catch {
