@@ -54,7 +54,8 @@ public class TaskItemRepository: TaskItemRepositoryProtocol {
                         continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems(error))
                     }
                     
-                    let taskItem = TaskItem.from(model: task, tasksList: tasksList, inContext: self.context)
+                    let taskItem = TaskItem.createFrom(model: task, inContext: self.context)
+                    taskItem.taskList = tasksList
                     
                     do {
                         try self.context.save()
@@ -83,14 +84,12 @@ extension TaskItem {
         return TaskModel(id: id, name: name, createdAt: createdAt, type: type)
     }
     
-    static func from(model: TaskModel, tasksList: TasksList?, inContext context: NSManagedObjectContext) -> TaskItem {
+    static func createFrom(model: TaskModel, inContext context: NSManagedObjectContext) -> TaskItem {
         let taskItem = TaskItem(context: context)
-        
         taskItem.id = model.id.uuidString
         taskItem.name = model.name
         taskItem.createdAt = model.createdAt
         taskItem.taskType = ActivityTypeInner.from(activityType: model.type).rawValue
-        taskItem.taskList = tasksList
         return taskItem
     }
 }
