@@ -23,6 +23,7 @@
 		B5150E762BB1C88D0016EF33 /* ActivityListUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E612BB1C88C0016EF33 /* ActivityListUI.framework */; };
 		B5150E772BB1C88D0016EF33 /* ActivityListUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E612BB1C88C0016EF33 /* ActivityListUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B54F74EF2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */; };
+		B54F74F12BBEF01500CE0CC7 /* TaskItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */; };
 		B56726272BB57AC0007DE166 /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; };
 		B56726282BB57AC0007DE166 /* ActivityListDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567262C2BB58231007DE166 /* IconImageProvider.swift */; };
@@ -175,6 +176,7 @@
 		B5150E6A2BB1C88D0016EF33 /* ActivityListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150E712BB1C88D0016EF33 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepositoryProtocol.swift; sourceTree = "<group>"; };
+		B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepository.swift; sourceTree = "<group>"; };
 		B567262C2BB58231007DE166 /* IconImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageProvider.swift; sourceTree = "<group>"; };
 		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -467,6 +469,7 @@
 			children = (
 				B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */,
 				B575945C2BBAA37200BCE59A /* ActivityTypeInner.swift */,
+				B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B39A0C2BB2ADC90084726F /* TasksListRepository.swift in Sources */,
+				B54F74F12BBEF01500CE0CC7 /* TaskItemRepository.swift in Sources */,
 				B575945D2BBAA37200BCE59A /* ActivityTypeInner.swift in Sources */,
 				B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */,
 				B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */,
