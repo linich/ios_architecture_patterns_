@@ -22,6 +22,7 @@
 		B5150E732BB1C88D0016EF33 /* ActivityListUI.h in Headers */ = {isa = PBXBuildFile; fileRef = B5150E632BB1C88C0016EF33 /* ActivityListUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5150E762BB1C88D0016EF33 /* ActivityListUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E612BB1C88C0016EF33 /* ActivityListUI.framework */; };
 		B5150E772BB1C88D0016EF33 /* ActivityListUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E612BB1C88C0016EF33 /* ActivityListUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B54F74EF2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */; };
 		B56726272BB57AC0007DE166 /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; };
 		B56726282BB57AC0007DE166 /* ActivityListDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567262C2BB58231007DE166 /* IconImageProvider.swift */; };
@@ -173,6 +174,7 @@
 		B5150E642BB1C88D0016EF33 /* ActivityListUI.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListUI.docc; sourceTree = "<group>"; };
 		B5150E6A2BB1C88D0016EF33 /* ActivityListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5150E712BB1C88D0016EF33 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepositoryProtocol.swift; sourceTree = "<group>"; };
 		B567262C2BB58231007DE166 /* IconImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageProvider.swift; sourceTree = "<group>"; };
 		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				B5150E462BB1BBAC0016EF33 /* TasksListRepositoryProtocol.swift */,
+				B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 			files = (
 				B575946D2BBAE6AD00BCE59A /* HomeService.swift in Sources */,
 				B5150E442BB1BB1F0016EF33 /* TaskModel.swift in Sources */,
+				B54F74EF2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift in Sources */,
 				B5150E292BB1BACA0016EF33 /* ActivityListDomain.docc in Sources */,
 				B5B39A1C2BB550FE0084726F /* TasksListModel.swift in Sources */,
 				B5150E472BB1BBAC0016EF33 /* TasksListRepositoryProtocol.swift in Sources */,

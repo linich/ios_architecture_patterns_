@@ -16,11 +16,6 @@ public enum TaskItemRepositoryError: Error {
     case InsertTaskItem(Error)
 }
 
-protocol TaskItemRepositoryProtocol {
-    func readTasksOfTasksList(withId tasksListId: UUID) async throws -> [TaskModel]
-    func insert(task: TaskModel, tasksListId: UUID) async throws -> Void
-}
-
 class TaskItemRepository: TaskItemRepositoryProtocol {
     private let context: NSManagedObjectContext
     
