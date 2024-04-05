@@ -75,7 +75,7 @@ final class TasksListRepositoryTests: XCTestCase {
         
         let validTaskId = UUID()
         let createdAt = Date.now
-        insertTasksList(withId: validTaskId, name: "name 1", type: .airplane, into: sut)
+        insertTasksList(withId: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane, into: sut)
         
         expect(sut, toRetreive: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
     }
