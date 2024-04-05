@@ -115,6 +115,41 @@ final class TaskItemsRepositoryTests: XCTestCase {
         }
     }
     
+    func test_readTaskItems_deliverTaskItemsWithoutItemWithInvalidUUID() {
+        let (sut, context) = createSUT()
+        
+        let tasksListId = anyUUID()
+        let tasksList = createTasksList(id: tasksListId, name: "tasks list 1", inContext: context)
+        let taskItem = TaskItem(context: context)
+        taskItem.id = "invalid_id"
+        taskItem.taskList = tasksList
+        
+        try! context.save()
+
+        let taskModel = anyTaskModel()
+        insert(task: taskModel, into: sut, tasksListId: tasksListId)
+        
+        assert(sut, receivesTasks: [taskModel], ofTasksListWithId: tasksListId)
+    }
+    
+    func test_readTaskItems_deliverTaskItemWithoutItemWithInvalidType() {
+        let (sut, context) = createSUT()
+        
+        let tasksListId = anyUUID()
+        let tasksList = createTasksList(id: tasksListId, name: "tasks list 1", inContext: context)
+        let taskItem = TaskItem(context: context)
+        taskItem.id = anyUUID().uuidString
+        taskItem.taskList = tasksList
+        taskItem.taskType = Int16.max
+        
+        try! context.save()
+
+        let taskModel = anyTaskModel()
+        insert(task: taskModel, into: sut, tasksListId: tasksListId)
+        
+        assert(sut, receivesTasks: [taskModel], ofTasksListWithId: tasksListId)
+    }
+    
     // Mark: - Helpers
     
     fileprivate func createSUT(storeURL: URL = URL(fileURLWithPath: "/dev/null"), storeType: NSPersistentStore.StoreType = .inMemory) -> (TaskItemRepositoryProtocol, NSManagedObjectContext) {
@@ -143,6 +178,10 @@ final class TaskItemsRepositoryTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
+    fileprivate func anyTaskModel() -> TaskModel {
+        return TaskModel(id: anyUUID(), name: "name \(UUID().uuidString)", createdAt: Date.now, type: .fight)
+    }
+    
     fileprivate func insert(task: TaskModel, into sut: TaskItemRepositoryProtocol, tasksListId: UUID, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Insert task item")
         Task {
