@@ -12,6 +12,10 @@ import ActivityListDataLayer
 
 final class TaskItemsRepositoryTests: XCTestCase {
     
+    override class func setUp() {
+        NSPersistentStoreCoordinator.registerStoreClass(ErrorProneStore.self, forStoreType: ErrorProneStoreType.rawValue)
+    }
+
     func test_readTasks_returnsEmptyTasksListOnEmptyData() {
         let (sut, _) = createSUT()
         
@@ -83,37 +87,39 @@ final class TaskItemsRepositoryTests: XCTestCase {
 
     func test_insert_throwsAnErrorIfTasksListNotExist() {
         let (sut, _) = createSUT()
-        
-        let exp = expectation(description: "Insert task item")
-        Task {
-            defer { exp.fulfill()}
-            do {
-                let task = TaskModel(id: anyUUID(), name:name,
-                                     createdAt: anyDate(), type: .fight)
-                try await sut.insert(task: task, tasksListId: anyUUID())
-                XCTFail("Expected to fail, but finish without error")
-            } catch let error as TaskItemRepositoryError {
-                switch error {
-                case .InsertTaskItem:
-                    break;
-                default:
-                    XCTFail("Expected TaskItemRepositoryError.InsertTaskItem error, but got error \(error)")
-                }
                 
-            } catch {
-                XCTFail("Expected TaskItemRepositoryError.InsertTaskItem error, but got error \(error)")
-            }
-
+        expect(receiveError: TaskItemRepositoryError.InsertTaskItem) {
+            let task = TaskModel(id: anyUUID(), name: "name",
+                                 createdAt: anyDate(), type: .fight)
+            try await sut.insert(task: task, tasksListId: anyUUID())
         }
-        wait(for: [exp], timeout: 1.0)
     }
     
+    func test_insert_throwsAnErrorIfCoreDateThrowError() {
+        let (sut, _) = createSUT(storeType: ErrorProneStoreType)
+        
+        
+        expect(receiveError: TaskItemRepositoryError.InsertTaskItem) {
+            let task = TaskModel(id: anyUUID(), name:"name",
+                                 createdAt: anyDate(), type: .fight)
+            try await sut.insert(task: task, tasksListId: anyUUID())
+        }
+    }
+    
+    func test_readTaskItems_throwsAnErrorIfCoreDateThrowError() {
+        let (sut, _) = createSUT(storeType: ErrorProneStoreType)
+        
+        
+        expect(receiveError: TaskItemRepositoryError.ReadTaskItems) {
+            let _ = try await sut.readTasksOfTasksList(withId: anyUUID())
+        }
+    }
     
     // Mark: - Helpers
     
-    fileprivate func createSUT(storeURL: URL = URL(fileURLWithPath: "/dev/null")) -> (TaskItemRepositoryProtocol, NSManagedObjectContext) {
+    fileprivate func createSUT(storeURL: URL = URL(fileURLWithPath: "/dev/null"), storeType: NSPersistentStore.StoreType = .inMemory) -> (TaskItemRepositoryProtocol, NSManagedObjectContext) {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = createPersistanceStoreCoordinator(storeUrl: storeURL)
+        managedObjectContext.persistentStoreCoordinator = createPersistanceStoreCoordinator(storeUrl: storeURL, storeType: storeType)
         let sut = TaskItemRepository(context: managedObjectContext)
         
         trackMemoryLeak(sut)

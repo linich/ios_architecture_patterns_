@@ -10,8 +10,8 @@ import ActivityListDomain
 import CoreData
 
 public enum TaskItemRepositoryError: Error {
-    case ReadTaskItems(Error)
-    case InsertTaskItem(Error)
+    case ReadTaskItems
+    case InsertTaskItem
 }
 
 public class TaskItemRepository: TaskItemRepositoryProtocol {
@@ -32,7 +32,7 @@ public class TaskItemRepository: TaskItemRepositoryProtocol {
                         let taskItems = result.map({ $0.toModel()}).compactMap({$0})
                         continuation.resume(returning: taskItems)
                     } catch {
-                        continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems(error))
+                        continuation.resume(throwing: TaskItemRepositoryError.ReadTaskItems)
                     }
                 }
             }
@@ -56,7 +56,7 @@ public class TaskItemRepository: TaskItemRepositoryProtocol {
                         try self.context.save()
                         continuation.resume(returning: ())
                     } catch {
-                        continuation.resume(throwing: TaskItemRepositoryError.InsertTaskItem(error as NSError))
+                        continuation.resume(throwing: TaskItemRepositoryError.InsertTaskItem)
                     }
                 }
             }

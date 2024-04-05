@@ -25,6 +25,7 @@
 		B54F74EF2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */; };
 		B54F74F12BBEF01500CE0CC7 /* TaskItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */; };
 		B54F74F32BBFEB7600CE0CC7 /* ErrorProneStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */; };
+		B54F74F52BBFFDCF00CE0CC7 /* XCTestCase+ErrorChecking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74F42BBFFDCF00CE0CC7 /* XCTestCase+ErrorChecking.swift */; };
 		B56726272BB57AC0007DE166 /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; };
 		B56726282BB57AC0007DE166 /* ActivityListDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567262C2BB58231007DE166 /* IconImageProvider.swift */; };
@@ -177,6 +178,7 @@
 		B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepositoryProtocol.swift; sourceTree = "<group>"; };
 		B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepository.swift; sourceTree = "<group>"; };
 		B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorProneStore.swift; sourceTree = "<group>"; };
+		B54F74F42BBFFDCF00CE0CC7 /* XCTestCase+ErrorChecking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+ErrorChecking.swift"; sourceTree = "<group>"; };
 		B567262C2BB58231007DE166 /* IconImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageProvider.swift; sourceTree = "<group>"; };
 		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -400,6 +402,7 @@
 				B575946E2BBAF27B00BCE59A /* TasksListInfo+Equatable.swift */,
 				B57594722BBBE71800BCE59A /* RunLoop+TestHelpers.swift */,
 				B57594752BBBF35900BCE59A /* CompletionHolder.swift */,
+				B54F74F42BBFFDCF00CE0CC7 /* XCTestCase+ErrorChecking.swift */,
 			);
 			path = TestsHelpers;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				B575946B2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,
 				B57594712BBAF29500BCE59A /* TasksListInfo+Equatable.swift in Sources */,
 				B56726372BB5A9F8007DE166 /* TasksListRepositoryTests.swift in Sources */,
+				B54F74F52BBFFDCF00CE0CC7 /* XCTestCase+ErrorChecking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
