@@ -21,7 +21,7 @@ public class HomeService: HomeServiceProtocol {
         do {
             let tasksLists = try await tasksListRepository.readTasksLists()
             let counts = try await tasksListRepository.readTaskItemsCount(forTasksListsWithIds: tasksLists.map({$0.id}))
-            return tasksLists.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)})
+            return tasksLists.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: counts[$0.id] ?? 0)})
         }
         catch {
             throw Error.ReadFromRepository

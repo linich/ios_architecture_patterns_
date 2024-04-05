@@ -39,7 +39,7 @@ final class HomeServiceTests: XCTestCase {
         
         assert(sut, receive: expectedTasksInfos, onActions: [
             { repositoryStub.completeReadTasksList(withTasks: [tasksListModel1]) },
-            { repositoryStub.completeReadTasksCount(withTasksCount: [tasksListModel1.id: 2]) }
+            { repositoryStub.completeReadTasksCount(withTasksCount: [:]) }
         ])
     }
     
@@ -49,6 +49,23 @@ final class HomeServiceTests: XCTestCase {
         assert(sut, receiveError: HomeService.Error.ReadFromRepository) {
             repositoryStub.completeReadTasksList(withError: anyNSError())
         }
+    }
+    
+    func test_readTasksInfo_returnsTasksListInfoWithTasksCountInfo() {
+        let (sut, repositoryStub) = makeSUT()
+        
+        let tasksListModel1 = makeTasksList(name: "Name1")
+        let tasksListModel2 = makeTasksList(name: "Name2")
+        
+        let expectedTasksInfos = [
+            makeTasksListInfo(name: tasksListModel1.name, id: tasksListModel1.id, tasksCount: 1),
+            makeTasksListInfo(name: tasksListModel2.name, id: tasksListModel2.id, tasksCount: 3),
+        ]
+        
+        assert(sut, receive: expectedTasksInfos, onActions: [
+            { repositoryStub.completeReadTasksList(withTasks: [tasksListModel1, tasksListModel2]) },
+            { repositoryStub.completeReadTasksCount(withTasksCount: [tasksListModel1.id: 1, tasksListModel2.id: 3]) }
+        ])
     }
     
     // Mark: - Helpers
