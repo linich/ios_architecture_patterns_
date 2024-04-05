@@ -12,6 +12,10 @@ import ActivityListDataLayer
 
 final class TasksListRepositoryTests: XCTestCase {
     
+    override class func setUp() {
+        NSPersistentStoreCoordinator.registerStoreClass(ErrorProneStore.self, forStoreType: ErrorProneStoreType.rawValue)
+    }
+        
     func test_readTasksList_returnsEmptyListOnCleanDb() {
         let sut = createSUT()
         
@@ -41,14 +45,20 @@ final class TasksListRepositoryTests: XCTestCase {
             
             expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: expectedType)])
         }
+    }
         
+    func test_readTasksList_deliverAnErrorOnErrorFromCoreDate() {
+        let (sut) = createSUT(storeType: ErrorProneStoreType)
         
+        expect(receiveError: TasksListRepositoryError.ReadTasksLists, onAction: {
+            let _ = try await sut.readTasksLists()
+        })
     }
     
     // Mark: - Helpers
     
-    fileprivate func createSUT(storePath: String = "/dev/null") -> TasksListRepositoryProtocol {
-        let coordinator = createPersistanceStoreCoordinator(storeUrl: URL(fileURLWithPath: storePath))
+    fileprivate func createSUT(storePath: String = "/dev/null", storeType: NSPersistentStore.StoreType = .inMemory) -> TasksListRepositoryProtocol {
+        let coordinator = createPersistanceStoreCoordinator(storeUrl: URL(fileURLWithPath: storePath), storeType: storeType)
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
         return TasksListRepository(context: context)
@@ -67,6 +77,23 @@ final class TasksListRepositoryTests: XCTestCase {
         }
         
         wait(for: [exp], timeout:  1.0)
+    }
+    
+    fileprivate func expect(receiveError expectedError: TasksListRepositoryError, onAction action: @escaping () async throws -> (Void), file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "Loading tasks list")
+        Task {
+            defer { exp.fulfill() }
+            
+            do {
+                try await action()
+                XCTFail("Expected receive an error \(expectedError), but got result instead.", file: file, line: line)
+            } catch let error as TasksListRepositoryError {
+                XCTAssertEqual(error,  expectedError, file: file, line: line)
+            } catch {
+                XCTFail("Expected reveive TasksListRepositoryError error, but got \(error) instead", file: file, line: line)
+            }
+        }
+        wait(for: [exp], timeout: 1.0)
     }
 
     fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {

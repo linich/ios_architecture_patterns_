@@ -24,6 +24,7 @@
 		B5150E772BB1C88D0016EF33 /* ActivityListUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E612BB1C88C0016EF33 /* ActivityListUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B54F74EF2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */; };
 		B54F74F12BBEF01500CE0CC7 /* TaskItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */; };
+		B54F74F32BBFEB7600CE0CC7 /* ErrorProneStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */; };
 		B56726272BB57AC0007DE166 /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; };
 		B56726282BB57AC0007DE166 /* ActivityListDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B567262D2BB58231007DE166 /* IconImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567262C2BB58231007DE166 /* IconImageProvider.swift */; };
@@ -175,6 +176,7 @@
 		B5150E712BB1C88D0016EF33 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepositoryProtocol.swift; sourceTree = "<group>"; };
 		B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepository.swift; sourceTree = "<group>"; };
+		B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorProneStore.swift; sourceTree = "<group>"; };
 		B567262C2BB58231007DE166 /* IconImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageProvider.swift; sourceTree = "<group>"; };
 		B567262E2BB58938007DE166 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B56726342BB5A9F8007DE166 /* ActivityListDataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -422,6 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				B57594952BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift */,
+				B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				B57594932BBC0C8200BCE59A /* TaskItemsRepositoryTests.swift in Sources */,
 				B57594772BBBF35900BCE59A /* CompletionHolder.swift in Sources */,
 				B57594662BBAACC600BCE59A /* XCTestCase+MemoryLeak.swift in Sources */,
+				B54F74F32BBFEB7600CE0CC7 /* ErrorProneStore.swift in Sources */,
 				B57594682BBAAF5C00BCE59A /* XCTestCase+TasksListCreation.swift in Sources */,
 				B575946B2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,
 				B57594712BBAF29500BCE59A /* TasksListInfo+Equatable.swift in Sources */,

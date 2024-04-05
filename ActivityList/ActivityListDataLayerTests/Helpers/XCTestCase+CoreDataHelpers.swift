@@ -36,11 +36,11 @@ extension XCTestCase {
         return url
     }
     
-    func createPersistanceStoreCoordinator(storeUrl: URL) -> NSPersistentStoreCoordinator {
+    func createPersistanceStoreCoordinator(storeUrl: URL, storeType: NSPersistentStore.StoreType = .inMemory) -> NSPersistentStoreCoordinator {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: XCTestCase.model)
         do {
             _ = try coordinator.addPersistentStore(
-                type: .inMemory,
+                type: storeType,
                 at: storeUrl,
                 options: nil)
         } catch {

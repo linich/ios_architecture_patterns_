@@ -8,17 +8,17 @@
 import CoreData
 import ActivityListDomain
 
+public enum TasksListRepositoryError: Error {
+    case ReadTasksLists
+}
+
 public class TasksListRepository: TasksListRepositoryProtocol {
     private let context: NSManagedObjectContext
     
     public init(context: NSManagedObjectContext) {
         self.context = context
     }
-    
-    public enum TasksListRepositoryError: Error {
-        case ReadTasksLists
-    }
-    
+        
     public func readTasksLists() async throws -> [TasksListModel] {
         do {
             let items = try await withCheckedThrowingContinuation({continuation in
