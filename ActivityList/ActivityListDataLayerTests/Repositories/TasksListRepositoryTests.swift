@@ -97,21 +97,6 @@ final class TasksListRepositoryTests: XCTestCase {
         assertThat(sut, retreivesTasksLists: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
     }
     
-    fileprivate func assertThatReadTaskItemsCount(_ sut: TasksListRepositoryProtocol, forTasksListIds tasksListIds: [UUID], returns expectedTasksCounts: [UUID : Int]) {
-        let exp = expectation(description: "Reading tasks items count")
-        Task {
-            defer { exp.fulfill()}
-            do {
-                let actualCounts = try await sut.readTaskItemsCount(forTasksListsWithIds: tasksListIds)
-                XCTAssertEqual(actualCounts, expectedTasksCounts, "Expected tasks counts \(expectedTasksCounts), but got \(actualCounts)")
-            } catch {
-                XCTFail("Expected to receive task items count, but got error \(error)")
-            }
-        }
-        
-        wait(for: [exp], timeout: 1.0)
-    }
-    
     func test_readTaskItemsCount_deliverValidTaskItemsCountAggregatedByTasksList() {
         let (sut, context) = createSUT()
         
@@ -125,6 +110,21 @@ final class TasksListRepositoryTests: XCTestCase {
         add(taskItemNumber: 3, toTasksListWithId: tasksListId2, inContext: context)
         
         assertThatReadTaskItemsCount(sut, forTasksListIds: [tasksListId1, tasksListId2], returns: [tasksListId1:7, tasksListId2: 3])
+    }
+    
+    func test_readTaskItemsCount_deliverValidTaskItemsCountAggregatedByTasksListForOneTasksList() {
+        let (sut, context) = createSUT()
+        
+        let tasksListId1 = UUID()
+        let tasksListId2 = UUID()
+        
+        insertTasksList(withId: tasksListId1, name: "name", type: .airplane, into: sut)
+        insertTasksList(withId: tasksListId2, name: "name", type: .airplane, into: sut)
+        
+        add(taskItemNumber: 7, toTasksListWithId: tasksListId1, inContext: context)
+        add(taskItemNumber: 3, toTasksListWithId: tasksListId2, inContext: context)
+        
+        assertThatReadTaskItemsCount(sut, forTasksListIds: [tasksListId1], returns: [tasksListId1:7])
     }
     
     // Mark: - Helpers
@@ -167,6 +167,21 @@ final class TasksListRepositoryTests: XCTestCase {
             try! context.save()
         }
         
+    }
+    
+    fileprivate func assertThatReadTaskItemsCount(_ sut: TasksListRepositoryProtocol, forTasksListIds tasksListIds: [UUID], returns expectedTasksCounts: [UUID : Int]) {
+        let exp = expectation(description: "Reading tasks items count")
+        Task {
+            defer { exp.fulfill()}
+            do {
+                let actualCounts = try await sut.readTaskItemsCount(forTasksListsWithIds: tasksListIds)
+                XCTAssertEqual(actualCounts, expectedTasksCounts, "Expected tasks counts \(expectedTasksCounts), but got \(actualCounts)")
+            } catch {
+                XCTFail("Expected to receive task items count, but got error \(error)")
+            }
+        }
+        
+        wait(for: [exp], timeout: 1.0)
     }
     
     fileprivate func assertThat(_ sut: TasksListRepositoryProtocol, retreivesTasksLists expectedResult: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {

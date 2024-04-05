@@ -169,7 +169,7 @@ final class TaskItemsRepositoryTests: XCTestCase {
             defer { exp.fulfill() }
             do {
                 let tasks = try await sut.readTasksOfTasksList(withId: tasksListId)
-                XCTAssertEqual(tasks, expected, "Actual tasks \(String(describing: tasks)) not equal to expected tasks \(expected)", file: file, line: line)
+                XCTAssertEqual(tasks, expected, "Actual tasks not equal to expected tasks", file: file, line: line)
             } catch {
                 XCTFail("Expected task items, but got \(error)")
             }
