@@ -55,6 +55,14 @@ final class TasksListRepositoryTests: XCTestCase {
         })
     }
     
+    func test_readTasksList_deliverAnErrorOnInsertTasksList() {
+        let (sut) = createSUT(storeType: ErrorProneStoreType)
+        
+        expect(receiveError: TasksListRepositoryError.ReadTasksLists, onAction: {
+            let _ = try await sut.insertTasksList(withId: anyUUID(), name: "name1", createdAt: Date.now, type: .airplane)
+        })
+    }
+    
     // Mark: - Helpers
     
     fileprivate func createSUT(storePath: String = "/dev/null", storeType: NSPersistentStore.StoreType = .inMemory) -> TasksListRepositoryProtocol {
