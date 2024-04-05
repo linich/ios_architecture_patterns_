@@ -13,14 +13,20 @@ final class HomeServiceTests: XCTestCase {
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
         let (_, tasksListRepository) = makeSUT()
         
-        XCTAssertEqual(tasksListRepository.readQueryCount, 0, "Home service should not call read tasks lists method")
-        XCTAssertEqual(tasksListRepository.insertQueryCount, 0, "Home service should not call insert task list method")
+        XCTAssertEqual(tasksListRepository.readQueryCallCount, 0, "Home service should not call read tasks lists method")
+        XCTAssertEqual(tasksListRepository.insertQueryCallCount, 0, "Home service should not call insert task list method")
+        XCTAssertEqual(tasksListRepository.readTaskItemsCountCallCount, 0, "Home service should not call read task items count")
     }
     
     func test_readTasksInfo_returnsEmptyTasksInfosOnEmptyTasksList() {
         let (sut, repositoryStub) = makeSUT()
         
-        assert(sut, receive: [], onAction: {repositoryStub.completeReadTasksList(withTasks: [])})
+        assert(sut, receive: [], onActions: [{
+            repositoryStub.completeReadTasksList(withTasks: [])
+        },
+         {
+            repositoryStub.completeReadTasksCount(withTasksCount: [:])
+         }])
     }
     
     func test_readTasksInfo_returnsTasksListInfoOnNonEmptyTasksList() {
@@ -28,10 +34,13 @@ final class HomeServiceTests: XCTestCase {
         
         let tasksListModel1 = makeTasksList(name: "Name1")
         let expectedTasksInfos = [
-            makeTasksListInfo(name: tasksListModel1.name, id: tasksListModel1.id)
+            makeTasksListInfo(name: tasksListModel1.name, id: tasksListModel1.id, tasksCount: 0)
         ]
         
-        assert(sut, receive: expectedTasksInfos, onAction: {repositoryStub.completeReadTasksList(withTasks: [tasksListModel1])})
+        assert(sut, receive: expectedTasksInfos, onActions: [
+            { repositoryStub.completeReadTasksList(withTasks: [tasksListModel1]) },
+            { repositoryStub.completeReadTasksCount(withTasksCount: [tasksListModel1.id: 2]) }
+        ])
     }
     
     func test_readTasksInfo_returnsErrorWhenReceiveErrorFromRepository() {
@@ -44,7 +53,11 @@ final class HomeServiceTests: XCTestCase {
     
     // Mark: - Helpers
     
-    fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onAction action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onAction action: @escaping() -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        assert(sut, receive: expectedTasksInfos, onActions: [action])
+    }
+    
+    fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onActions actions: [() -> Void], file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Loading tasks list infos")
         Task(operation: {
             defer { exp.fulfill() }
@@ -58,7 +71,10 @@ final class HomeServiceTests: XCTestCase {
             }
         })
         RunLoop.current.runForDistanceFuture()
-        action()
+        actions.forEach { action in
+            action()
+            RunLoop.current.runForDistanceFuture()
+        }
         
         wait(for: [exp], timeout: 1.0)
     }
@@ -105,15 +121,21 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
 
     private var readTasksInfosRequests = [CompletionHolder<Result<[TasksListModel], Error>>]()
     private var readTaskItemsCountRequests = [CompletionHolder<Result<[UUID: Int], Error>>]()
-    
     private var insertQuery = [CompletionHolder<Result<(), Error>>]()
     
-    public var readQueryCount: Int {
+    public var readTaskItemsCountCallCount: Int {
+        return readTaskItemsCountRequests.count
+    }
+    public var readQueryCallCount: Int {
         return readTasksInfosRequests.count
     }
     
-    public var insertQueryCount: Int {
+    public var insertQueryCallCount: Int {
         return insertQuery.count
+    }
+    
+    public func completeReadTasksCount(withTasksCount tasksCout: [UUID: Int], at index: Int = 0) -> Void {
+        readTaskItemsCountRequests[index].completion?(.success(tasksCout))
     }
     
     public func completeReadTasksList(withTasks tasks: [TasksListModel], at index: Int = 0) -> Void {

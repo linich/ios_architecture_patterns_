@@ -20,6 +20,7 @@ public class HomeService: HomeServiceProtocol {
     public func readTasksInfos() async throws -> HomeServiceProtocol.Result {
         do {
             let tasksLists = try await tasksListRepository.readTasksLists()
+            let counts = try await tasksListRepository.readTaskItemsCount(forTasksListsWithIds: tasksLists.map({$0.id}))
             return tasksLists.map({TasksListInfo(id: $0.id, name: $0.name, type: $0.type, tasksCount: 0)})
         }
         catch {
