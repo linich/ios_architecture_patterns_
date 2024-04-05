@@ -13,6 +13,20 @@ public enum TasksListRepositoryError: Error {
 }
 
 public class TasksListRepository: TasksListRepositoryProtocol {
+    public func readTaskItemsCount(forTasksListsWithIds tasksListId: [UUID]) async throws -> [UUID : Int] {
+        return await withCheckedContinuation({continuation in
+            let counts = tasksListId.reduce([UUID: Int](), { acc, tasksListId in
+                let request = TaskItem.fetchRequest()
+                request.predicate = NSPredicate(format: "%K.id == %@", #keyPath(TaskItem.taskList), tasksListId.uuidString as CVarArg)
+                let count = try! self.context.count(for: request)
+                var cpy = acc
+                cpy[tasksListId] = count
+                return cpy
+            })
+            continuation.resume(returning: counts)
+        })
+    }
+    
     private let context: NSManagedObjectContext
     
     public init(context: NSManagedObjectContext) {

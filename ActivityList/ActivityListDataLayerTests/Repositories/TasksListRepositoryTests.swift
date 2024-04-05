@@ -19,7 +19,7 @@ final class TasksListRepositoryTests: XCTestCase {
     func test_readTasksList_returnsEmptyListOnCleanDb() {
         let (sut,_) = createSUT()
         
-        expect(sut, toRetreive: [])
+        assertThat(sut, retreivesTasksLists: [])
     }
     
     func test_readTasksList_hasNoSideEffectOnCleanDb() {
@@ -43,7 +43,7 @@ final class TasksListRepositoryTests: XCTestCase {
                 into: sut
             )
             
-            expect(sut, toRetreive: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: expectedType)])
+            assertThat(sut, retreivesTasksLists: [TasksListModel(id: tasksListId, name: "name1", createdAt: tasksListCreationDate, type: expectedType)])
         }
     }
         
@@ -77,7 +77,7 @@ final class TasksListRepositoryTests: XCTestCase {
         let createdAt = Date.now
         insertTasksList(withId: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane, into: sut)
         
-        expect(sut, toRetreive: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
+        assertThat(sut, retreivesTasksLists: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
     }
     
     func test_readTasksList_deliverTasksListsWithoutItemWithInvalidType() {
@@ -90,11 +90,41 @@ final class TasksListRepositoryTests: XCTestCase {
         tasksList.tasksListType = Int16.min
         try! context.save()
         
-        let validTaskId = UUID()
+        let validTaskId = anyUUID()
         let createdAt = Date.now
         insertTasksList(withId: validTaskId, name: "name 1", type: .airplane, into: sut)
         
-        expect(sut, toRetreive: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
+        assertThat(sut, retreivesTasksLists: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
+    }
+    
+    fileprivate func assertThatReadTaskItemsCount(_ sut: TasksListRepositoryProtocol, forTasksListIds tasksListIds: [UUID], returns expectedTasksCounts: [UUID : Int]) {
+        let exp = expectation(description: "Reading tasks items count")
+        Task {
+            defer { exp.fulfill()}
+            do {
+                let actualCounts = try await sut.readTaskItemsCount(forTasksListsWithIds: tasksListIds)
+                XCTAssertEqual(actualCounts, expectedTasksCounts, "Expected tasks counts \(expectedTasksCounts), but got \(actualCounts)")
+            } catch {
+                XCTFail("Expected to receive task items count, but got error \(error)")
+            }
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_readTaskItemsCount_deliverValidTaskItemsCountAggregatedByTasksList() {
+        let (sut, context) = createSUT()
+        
+        let tasksListId1 = UUID()
+        let tasksListId2 = UUID()
+        
+        insertTasksList(withId: tasksListId1, name: "name", type: .airplane, into: sut)
+        insertTasksList(withId: tasksListId2, name: "name", type: .airplane, into: sut)
+        
+        add(taskItemNumber: 7, toTasksListWithId: tasksListId1, inContext: context)
+        add(taskItemNumber: 3, toTasksListWithId: tasksListId2, inContext: context)
+        
+        assertThatReadTaskItemsCount(sut, forTasksListIds: [tasksListId1, tasksListId2], returns: [tasksListId1:7, tasksListId2: 3])
     }
     
     // Mark: - Helpers
@@ -121,7 +151,25 @@ final class TasksListRepositoryTests: XCTestCase {
         wait(for: [exp], timeout:  1.0)
     }
     
-    fileprivate func expect(_ sut: TasksListRepositoryProtocol, toRetreive expectedResult: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func add(taskItemNumber count: Int, toTasksListWithId tasksListId: UUID, inContext context: NSManagedObjectContext) -> Void {
+        context.performAndWait {
+            let request = TasksList.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", tasksListId.uuidString as CVarArg)
+            let taskList = try! context.fetch(request).first!
+            (0..<count).forEach { _ in
+                let taskItem = TaskItem(context: context)
+                taskItem.id = UUID().uuidString
+                taskItem.name = "name"
+                taskItem.createdAt = Date.now
+                taskItem.taskList = taskList
+            }
+            
+            try! context.save()
+        }
+        
+    }
+    
+    fileprivate func assertThat(_ sut: TasksListRepositoryProtocol, retreivesTasksLists expectedResult: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
         
         let exp = expectation(description: "Loading taks lists")
        
@@ -145,8 +193,8 @@ final class TasksListRepositoryTests: XCTestCase {
     }
     
     func expect(_ sut: TasksListRepositoryProtocol, toRetrieveTwice expected: [TasksListModel], file: StaticString = #filePath, line: UInt = #line) {
-        expect(sut, toRetreive: expected)
-        expect(sut, toRetreive: expected)
+        assertThat(sut, retreivesTasksLists: expected)
+        assertThat(sut, retreivesTasksLists: expected)
     }
 }
 
