@@ -17,13 +17,13 @@ final class TasksListRepositoryTests: XCTestCase {
     }
         
     func test_readTasksList_returnsEmptyListOnCleanDb() {
-        let sut = createSUT()
+        let (sut,_) = createSUT()
         
         expect(sut, toRetreive: [])
     }
     
     func test_readTasksList_hasNoSideEffectOnCleanDb() {
-        let sut = createSUT()
+        let (sut,_) = createSUT()
         
         assertThatReadTasksListHasNoSideEffectCleanDb(sut)
     }
@@ -32,7 +32,7 @@ final class TasksListRepositoryTests: XCTestCase {
         
         for expectedType in ActivityType.allCases {
             let tasksListCreationDate = Date.now
-            let sut = createSUT()
+            let (sut,_) = createSUT()
             let tasksListId = UUID()
             
             insertTasksList(
@@ -48,20 +48,62 @@ final class TasksListRepositoryTests: XCTestCase {
     }
         
     func test_readTasksList_deliverAnErrorOnErrorFromCoreDate() {
-        let (sut) = createSUT(storeType: ErrorProneStoreType)
+        let (sut,_) = createSUT(storeType: ErrorProneStoreType)
         
         expect(receiveError: TasksListRepositoryError.ReadTasksLists, onAction: {
             let _ = try await sut.readTasksLists()
         })
     }
     
+    func test_readTasksList_deliverAnErrorOnInsertTasksList() {
+        let (sut,_) = createSUT(storeType: ErrorProneStoreType)
+        
+        expect(receiveError: TasksListRepositoryError.ReadTasksLists, onAction: {
+            let _ = try await sut.insertTasksList(withId: anyUUID(), name: "name1", createdAt: Date.now, type: .airplane)
+        })
+    }
+    
+    func test_readTasksList_deliverTasksListsWithoutItemWithInvalidUUID() {
+        let (sut, context) = createSUT()
+        
+        let tasksList = TasksList(context: context)
+        tasksList.id = "invalid_id"
+        tasksList.name = "name"
+        tasksList.createdAt = Date.now
+        tasksList.tasksListType = 0
+        try! context.save()
+        
+        let validTaskId = UUID()
+        let createdAt = Date.now
+        insertTasksList(withId: validTaskId, name: "name 1", type: .airplane, into: sut)
+        
+        expect(sut, toRetreive: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
+    }
+    
+    func test_readTasksList_deliverTasksListsWithoutItemWithInvalidType() {
+        let (sut, context) = createSUT()
+        
+        let tasksList = TasksList(context: context)
+        tasksList.id = anyUUID().uuidString
+        tasksList.name = "name"
+        tasksList.createdAt = Date.now
+        tasksList.tasksListType = Int16.min
+        try! context.save()
+        
+        let validTaskId = UUID()
+        let createdAt = Date.now
+        insertTasksList(withId: validTaskId, name: "name 1", type: .airplane, into: sut)
+        
+        expect(sut, toRetreive: [TasksListModel(id: validTaskId, name: "name 1", createdAt: createdAt, type: .airplane)])
+    }
+    
     // Mark: - Helpers
     
-    fileprivate func createSUT(storePath: String = "/dev/null", storeType: NSPersistentStore.StoreType = .inMemory) -> TasksListRepositoryProtocol {
+    fileprivate func createSUT(storePath: String = "/dev/null", storeType: NSPersistentStore.StoreType = .inMemory) -> (TasksListRepositoryProtocol, NSManagedObjectContext) {
         let coordinator = createPersistanceStoreCoordinator(storeUrl: URL(fileURLWithPath: storePath), storeType: storeType)
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
-        return TasksListRepository(context: context)
+        return (TasksListRepository(context: context), context)
     }
     
     fileprivate func insertTasksList(withId id: UUID, name: String, createdAt: Date = Date.now, type: TasksListModel.TasksListType, into  sut: TasksListRepositoryProtocol) {
