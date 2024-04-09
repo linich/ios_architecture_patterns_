@@ -8,9 +8,12 @@
 import UIKit
 import ActivityListDomain
 
-public class IconImageProvider: IconImageProviderProtocol {
-    public func image(byActivityType type: ActivityType) -> UIImage? {
-        return UIImage(named:  type.iconName)
+public class IconImageProvider: ImageProviderProtocol {
+    public init() {
+        
+    }
+    public func getImage(byKind kind: ActivityType) -> UIImage {
+        return UIImage(named:  kind.iconName)!
     }
 }
 

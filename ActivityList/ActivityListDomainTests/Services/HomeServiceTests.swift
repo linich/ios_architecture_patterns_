@@ -9,7 +9,7 @@ import XCTest
 import ActivityListDomain
 
 final class HomeServiceTests: XCTestCase {
-    
+    fileprivate typealias SutType = HomeService<Int, IconImageProviderStub>
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
         let (_, tasksListRepository) = makeSUT()
         
@@ -32,9 +32,9 @@ final class HomeServiceTests: XCTestCase {
     func test_readTasksInfo_returnsTasksListInfoOnNonEmptyTasksList() {
         let (sut, repositoryStub) = makeSUT()
         
-        let tasksListModel1 = makeTasksList(name: "Name1")
+        let tasksListModel1 = makeTasksList(name: "Name1", tasksListType: .gym)
         let expectedTasksInfos = [
-            makeTasksListInfo(name: tasksListModel1.name, id: tasksListModel1.id, tasksCount: 0)
+            makeTasksListInfo(name: tasksListModel1.name, tasksListType: .gym, id: tasksListModel1.id, tasksCount: 0, icon: ActivityType.gym.hashValue)
         ]
         
         assert(sut, receive: expectedTasksInfos, onActions: [
@@ -46,7 +46,7 @@ final class HomeServiceTests: XCTestCase {
     func test_readTasksInfo_returnsErrorWhenReceiveErrorFromRepository() {
         let (sut, repositoryStub) = makeSUT()
                 
-        assert(sut, receiveError: HomeService.Error.ReadFromRepository) {
+        assert(sut, receiveError: SutType.Error.ReadFromRepository) {
             repositoryStub.completeReadTasksList(withError: anyNSError())
         }
     }
@@ -54,12 +54,12 @@ final class HomeServiceTests: XCTestCase {
     func test_readTasksInfo_returnsTasksListInfoWithTasksCountInfo() {
         let (sut, repositoryStub) = makeSUT()
         
-        let tasksListModel1 = makeTasksList(name: "Name1")
-        let tasksListModel2 = makeTasksList(name: "Name2")
+        let tasksListModel1 = makeTasksList(name: "Name1", tasksListType: .airplane)
+        let tasksListModel2 = makeTasksList(name: "Name2", taskType: .baseball)
         
         let expectedTasksInfos = [
-            makeTasksListInfo(name: tasksListModel1.name, id: tasksListModel1.id, tasksCount: 1),
-            makeTasksListInfo(name: tasksListModel2.name, id: tasksListModel2.id, tasksCount: 3),
+            makeTasksListInfo(name: tasksListModel1.name,tasksListType: tasksListModel1.type, id: tasksListModel1.id, tasksCount: 1, icon: tasksListModel1.type.hashValue),
+            makeTasksListInfo(name: tasksListModel2.name,tasksListType: tasksListModel2.type, id: tasksListModel2.id, tasksCount: 3, icon: tasksListModel2.type.hashValue),
         ]
         
         assert(sut, receive: expectedTasksInfos, onActions: [
@@ -70,11 +70,11 @@ final class HomeServiceTests: XCTestCase {
     
     // Mark: - Helpers
     
-    fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onAction action: @escaping() -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assert(_ sut: SutType, receive expectedTasksInfos: [TasksListInfo<Int>], onAction action: @escaping() -> Void, file: StaticString = #filePath, line: UInt = #line) {
         assert(sut, receive: expectedTasksInfos, onActions: [action])
     }
     
-    fileprivate func assert(_ sut: HomeService, receive expectedTasksInfos: [TasksListInfo], onActions actions: [() -> Void], file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assert(_ sut: SutType, receive expectedTasksInfos: [TasksListInfo<Int>], onActions actions: [() -> Void], file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Loading tasks list infos")
         Task(operation: {
             defer { exp.fulfill() }
@@ -96,7 +96,7 @@ final class HomeServiceTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-    fileprivate func assert(_ sut: HomeService, receiveError expectedError: HomeService.Error, onAction action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assert(_ sut: SutType, receiveError expectedError: SutType.Error, onAction action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Loading tasks list infos")
         let createTaskExpectation = expectation(description: "Creating read tasks task")
         Task.detached(operation: {
@@ -109,7 +109,7 @@ final class HomeServiceTests: XCTestCase {
                 
             }
             catch {
-                guard let homeError = error as? HomeService.Error else {
+                guard let homeError = error as? SutType.Error else {
                     XCTFail("Expect to get error HomeService.Error, but got \(error)")
                     return
                 }
@@ -124,9 +124,9 @@ final class HomeServiceTests: XCTestCase {
     }
     
     
-    fileprivate func makeSUT( file: StaticString = #filePath, line: UInt = #line) -> (HomeService, TasksListRepositoryStub) {
+    fileprivate func makeSUT( file: StaticString = #filePath, line: UInt = #line) -> (SutType, TasksListRepositoryStub) {
         let tasksListRepository = TasksListRepositoryStub()
-        let sut = HomeService(tasksListRepository: tasksListRepository)
+        let sut = HomeService<Int, IconImageProviderStub>(tasksListRepository: tasksListRepository, imageProvider: IconImageProviderStub())
 
         trackMemoryLeak(sut, file: file, line: line)
         
@@ -214,5 +214,15 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
                 }
             }
         }
+    }
+}
+
+
+fileprivate class IconImageProviderStub: ImageProviderProtocol {
+    typealias Image = Int
+    typealias ImageKind = ActivityType
+    
+    func getImage(byKind kind: ActivityType) -> Int {
+        return kind.hashValue
     }
 }

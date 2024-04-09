@@ -10,6 +10,7 @@ import ActivityListUI
 import ActivityListDataLayer
 import ActivityListDomain
 import CoreData
+import UIKit
 
 internal class CompositionRoot {
     lazy var persistentCoordinator: NSPersistentStoreCoordinator = {
@@ -48,16 +49,17 @@ internal class CompositionRoot {
         
     }
     
-    var home: HomeViewController {
-        return HomeViewController(homeService: homeService)
+    var home: HomeViewController<HomeService<UIImage, IconImageProvider>> {
+        let controller = HomeViewController(homeService: homeService)
+        return controller
     }
     
     var taskListRepository: TasksListRepositoryProtocol {
         return TasksListRepository(context: viewContext)
     }
     
-    var homeService: HomeServiceProtocol {
-        return HomeService(tasksListRepository: taskListRepository)
+    var homeService: HomeService<UIImage, IconImageProvider> {
+        return HomeService(tasksListRepository: taskListRepository, imageProvider: IconImageProvider())
     }
     
     var coreDataStoreUrl: URL {

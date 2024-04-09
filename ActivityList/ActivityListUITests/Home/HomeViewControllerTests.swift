@@ -25,9 +25,9 @@ final class HomeViewControllerTests: XCTestCase {
     
     func test_loadTasksListCompletion_renderSuccessufullyLoadedTasksLists() {
         
-        let tasksList1 = makeTasksListInfo(name: "name1", tasksListType: .airplane)
-        let tasksList2 = makeTasksListInfo(name: "name2", tasksListType: .american_football)
-        let tasksList3 = makeTasksListInfo(name: "name3", tasksListType: .fight)
+        let tasksList1 = makeTasksListInfo(name: "name1", tasksListType: .airplane, icon: UIImage())
+        let tasksList2 = makeTasksListInfo(name: "name2", tasksListType: .american_football, icon: UIImage())
+        let tasksList3 = makeTasksListInfo(name: "name3", tasksListType: .fight, icon: UIImage())
         
         let (sut, repository) = createSUT()
         sut.loadViewIfNeeded()
@@ -37,7 +37,7 @@ final class HomeViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.homeView.tasksLists, [tasksList1, tasksList2, tasksList3])
     }
     
-    fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController, HomeServiceStub) {
+    fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController<HomeServiceStub>, HomeServiceStub) {
         let stub = HomeServiceStub()
         let homeController = HomeViewController(homeService: stub)
         trackMemoryLeak(homeController, file: file, line: line)
@@ -56,8 +56,8 @@ extension TasksListModel: Equatable {
 }
 
 private class HomeServiceStub: HomeServiceProtocol {
-    func readTasksInfos() async throws -> HomeServiceProtocol.Result {
-        let completionHolder = CompletionHolder<HomeService.Result>( completion: nil)
+    func readTasksInfos() async throws -> [TasksListInfo<UIImage>] {
+        let completionHolder = CompletionHolder<[TasksListInfo<UIImage>]>( completion: nil)
         self.readTasksInfosRequests.append(completionHolder)
         
         return try await withCheckedThrowingContinuation { continuation in
@@ -69,11 +69,11 @@ private class HomeServiceStub: HomeServiceProtocol {
         return readTasksInfosRequests.count
     }
     
-    func completeReadTasksInfos(with items: HomeService.Result, at:Int = 0) {
+    func completeReadTasksInfos(with items: [TasksListInfo<UIImage>], at:Int = 0) {
         RunLoop.current.runForDistanceFuture()
         readTasksInfosRequests[at].completion!(items)
         RunLoop.current.runForDistanceFuture()
     }
     
-    private var readTasksInfosRequests = [CompletionHolder<HomeService.Result>]()
+    private var readTasksInfosRequests = [CompletionHolder<[TasksListInfo<UIImage>]>]()
 }

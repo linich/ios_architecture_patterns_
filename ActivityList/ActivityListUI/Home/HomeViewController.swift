@@ -8,11 +8,11 @@
 import UIKit
 import ActivityListDomain
 
-final public class HomeViewController: UIViewController {
+final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController where HS.Image == UIImage{
     @IBOutlet public weak var homeView: HomeView!
-    public var homeService: HomeServiceProtocol?
+    public var homeService: HS?
     
-    public convenience init(homeService: HomeServiceProtocol) {
+    public convenience init(homeService: HS) {
         self.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
         self.homeService = homeService
     }
@@ -34,7 +34,7 @@ final public class HomeViewController: UIViewController {
     }
     
     @MainActor
-    private func update(tasksListInfos items: [TasksListInfo]) {
+    private func update(tasksListInfos items: [TasksListInfo<UIImage>]) {
         homeView.tasksLists = items
     }
 }

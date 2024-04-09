@@ -22,7 +22,7 @@ final class HomeViewTests: XCTestCase {
     func test_emptyState_shouldNotShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [makeTasksListInfo(name: "name1")]
+        view.tasksLists = [makeTasksListInfo(name: "name1", icon: UIImage())]
         
         XCTAssertTrue(view.emptyState.isHidden, "Empty state view should be visible if tasksLists is not empty");
     }
@@ -38,7 +38,7 @@ final class HomeViewTests: XCTestCase {
     func test_tasksLists_shouldShowViewIfTasksListIsNotEmpty() {
         let view = createSUT()
         
-        view.tasksLists = [makeTasksListInfo(name: "name1", tasksListType: .baseball)]
+        view.tasksLists = [makeTasksListInfo(name: "name1", tasksListType: .baseball, icon: UIImage())]
         
         XCTAssertFalse(view.tableView.isHidden, "Tasks Lists view should  be visible if tasksLists is not empty");
     }
@@ -47,9 +47,9 @@ final class HomeViewTests: XCTestCase {
         let sut = createSUT()
         
         let tasksLists = [
-            makeTasksListInfo(name: "name1", tasksListType: .game),
-            makeTasksListInfo(name: "name2", tasksListType: .shop),
-            makeTasksListInfo(name: "name3", tasksListType: .fight, tasksCount: 10)
+            makeTasksListInfo(name: "name1", tasksListType: .game, icon: UIImage()),
+            makeTasksListInfo(name: "name2", tasksListType: .shop, icon: UIImage()),
+            makeTasksListInfo(name: "name3", tasksListType: .fight, tasksCount: 10, icon: UIImage())
         ]
         
         sut.tasksLists = tasksLists
@@ -61,12 +61,11 @@ final class HomeViewTests: XCTestCase {
     
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> HomeView {
         let view = HomeView()
-        view.iconImageProvider = iconImageProvider
         trackMemoryLeak(view)
         return view
     }
     
-    fileprivate func assertThat(sut: HomeView, configuredFor models: [TasksListInfo], file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assertThat(sut: HomeView, configuredFor models: [TasksListInfo<UIImage>], file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(sut.numberOfRenderedTasksLists, models.count);
         
         for ( index, model) in models.enumerated(){
@@ -74,7 +73,7 @@ final class HomeViewTests: XCTestCase {
         }
     }
     
-    fileprivate func assertThat(sut: HomeView, hasConfiguredCellFor model: TasksListInfo, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
+    fileprivate func assertThat(sut: HomeView, hasConfiguredCellFor model: TasksListInfo<UIImage>, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
         let cell = sut.tasksListView(at: row)
         guard let tasksListCell = cell as? TasksListCell else {
             XCTFail("Expected \(TasksListCell.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
@@ -85,12 +84,10 @@ final class HomeViewTests: XCTestCase {
         
         XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasksCount) Tasks", "Expected tasks count text to be '\(model.tasksCount) Tasks') at \(row)", file: file, line: line)
         
-        let expectedImageData = iconImageProvider.image(byActivityType: model.type).map({$0.pngData()}) ?? nil
+        let expectedImageData = model.icon.pngData()
         let actualImageData = tasksListCell.iconImageView.image.map({$0.pngData()}) ?? nil
         XCTAssertEqual(actualImageData, expectedImageData, "Expected image to be valid at \(row)", file: file, line: line)
     }
-    
-    fileprivate var iconImageProvider = IconImageProviderMock()
 }
 
 extension HomeView {
@@ -104,27 +101,5 @@ extension HomeView {
     
     var tasksListSection: Int {
         return 0
-    }
-}
-
-public class IconImageProviderMock: IconImageProviderProtocol {
-    public func image(byActivityType type: ActivityType) -> UIImage? {
-        UIGraphicsBeginImageContext(CGSize.init(width: 1, height: 1))
-        defer {
-            UIGraphicsEndImageContext()
-        }
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        let hash = String(describing: type).hashValue
-        context?.setFillColor(CGColor(
-            red: CGFloat(hash & 0xFF) / 256.0,
-            green: CGFloat((hash >> 16) & 0xFF) / 256.0,
-            blue: CGFloat((hash >> 32) & 0xFF) / 256.0 ,
-            alpha: 1))
-        
-        context?.fill([CGRect(x: 0, y: 0, width: 1, height: 1)])
-        
-        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
