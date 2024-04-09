@@ -146,7 +146,7 @@ public class HomeView: UIView {
 
 internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
     public var tasksLists = [TasksListInfo<UIImage>]()
-    public var iconImageProvider: IconImageProvider?
+    public var iconImageProvider: ImageService?
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(TasksListCell.self)", for: indexPath) as! TasksListCell

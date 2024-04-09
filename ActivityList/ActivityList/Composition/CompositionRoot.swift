@@ -49,7 +49,7 @@ internal class CompositionRoot {
         
     }
     
-    var home: HomeViewController<HomeService<UIImage, IconImageProvider>> {
+    var home: HomeViewController<HomeService<UIImage, ImageService>> {
         let controller = HomeViewController(homeService: homeService)
         return controller
     }
@@ -58,8 +58,8 @@ internal class CompositionRoot {
         return TasksListRepository(context: viewContext)
     }
     
-    var homeService: HomeService<UIImage, IconImageProvider> {
-        return HomeService(tasksListRepository: taskListRepository, imageService: IconImageProvider())
+    var homeService: HomeService<UIImage, ImageService> {
+        return HomeService(tasksListRepository: taskListRepository, imageService: ImageService())
     }
     
     var coreDataStoreUrl: URL {

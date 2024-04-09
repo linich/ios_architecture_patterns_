@@ -8,7 +8,7 @@
 import UIKit
 import ActivityListDomain
 
-public class IconImageProvider: ImageServiceProtocol {
+public class ImageService: ImageServiceProtocol {
     public init() {
         
     }
