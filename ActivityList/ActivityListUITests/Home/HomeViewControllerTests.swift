@@ -45,6 +45,19 @@ final class HomeViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.homeView.isHidden)
     }
     
+    func test_loadTasksListCompletion_shouldWorksCorrectlyIfViewControllerWasDeintBeforeReceiveDataFromService() {
+        let createRepForSut = {
+            let (sut, rep) = self.createSUT()
+            sut.loadViewIfNeeded()
+            RunLoop.current.runForDistanceFuture()
+            return rep
+        }
+    
+        createRepForSut().completeReadTasksInfos(with: [])
+        
+        createRepForSut().completeReadTasksInfos(with: anyNSError())
+    }
+    
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController<HomeServiceStub>, HomeServiceStub) {
         let stub = HomeServiceStub()
         let homeController = HomeViewController(homeService: stub)
