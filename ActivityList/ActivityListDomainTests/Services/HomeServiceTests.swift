@@ -218,7 +218,7 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
 }
 
 
-fileprivate class IconImageProviderStub: ImageProviderProtocol {
+fileprivate class IconImageProviderStub: ImageServiceProtocol {
     typealias Image = Int
     typealias ImageKind = ActivityType
     

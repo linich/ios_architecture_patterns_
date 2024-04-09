@@ -7,14 +7,14 @@
 
 import Foundation
 
-public protocol ImageProviderProtocol {
+public protocol ImageServiceProtocol {
     associatedtype Image
     associatedtype ImageKind
     
     func getImage(byKind: ImageKind) -> Image
 }
 
-public class HomeService<Image, ImageProvider: ImageProviderProtocol>: HomeServiceProtocol where ImageProvider.ImageKind == ActivityType, ImageProvider.Image == Image {
+public class HomeService<Image, ImageProvider: ImageServiceProtocol>: HomeServiceProtocol where ImageProvider.ImageKind == ActivityType, ImageProvider.Image == Image {
     
     public enum Error: Swift.Error {
         case ReadFromRepository
