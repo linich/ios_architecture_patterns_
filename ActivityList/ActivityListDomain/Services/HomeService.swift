@@ -14,15 +14,15 @@ public protocol ImageServiceProtocol {
     func getImage(byKind: ImageKind) -> Image
 }
 
-public class HomeService<Image, ImageProvider: ImageServiceProtocol>: HomeServiceProtocol where ImageProvider.ImageKind == ActivityType, ImageProvider.Image == Image {
+public class HomeService<Image, ImageService: ImageServiceProtocol>: HomeServiceProtocol where ImageService.ImageKind == ActivityType, ImageService.Image == Image {
     
     public enum Error: Swift.Error {
         case ReadFromRepository
     }
 
     private let tasksListRepository: TasksListRepositoryProtocol
-    private let imageProvider: ImageProvider
-    public init(tasksListRepository: TasksListRepositoryProtocol, imageProvider: ImageProvider) {
+    private let imageProvider: ImageService
+    public init(tasksListRepository: TasksListRepositoryProtocol, imageProvider: ImageService) {
         self.tasksListRepository = tasksListRepository
         self.imageProvider = imageProvider
     }
