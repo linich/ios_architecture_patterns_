@@ -20,7 +20,7 @@ internal enum ActivityTypeInner: Int16 {
     
     static func from(activityType: ActivityType) -> ActivityTypeInner {
         switch activityType {
-        case .none:
+        case .undefined:
             return .none
         case .game:
             return .game
@@ -46,7 +46,7 @@ internal enum ActivityTypeInner: Int16 {
     func toDomainType() -> ActivityType {
         switch self {
         case .none:
-            return .none
+            return .undefined
         case .game:
             return .game
         case .gym:

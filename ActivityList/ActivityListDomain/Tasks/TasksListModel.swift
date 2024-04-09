@@ -8,7 +8,7 @@
 import Foundation
 
 public enum ActivityType: CaseIterable {
-    case none
+    case undefined
     case game
     case gym
     case fight

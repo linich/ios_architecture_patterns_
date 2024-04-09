@@ -25,9 +25,9 @@ final class HomeViewControllerTests: XCTestCase {
     
     func test_loadTasksListCompletion_renderSuccessufullyLoadedTasksLists() {
         
-        let tasksList1 = makeTasksListInfo(name: "name1", tasksListType: .airplane, icon: UIImage())
-        let tasksList2 = makeTasksListInfo(name: "name2", tasksListType: .american_football, icon: UIImage())
-        let tasksList3 = makeTasksListInfo(name: "name3", tasksListType: .fight, icon: UIImage())
+        let tasksList1 = makeTasksListInfo(name: "name1", tasksListType: .airplane, icon: image(withColor: .black))
+        let tasksList2 = makeTasksListInfo(name: "name2", tasksListType: .american_football, icon: image(withColor: .red))
+        let tasksList3 = makeTasksListInfo(name: "name3", tasksListType: .fight, icon: image(withColor: .green))
         
         let (sut, repository) = createSUT()
         sut.loadViewIfNeeded()
@@ -43,6 +43,17 @@ final class HomeViewControllerTests: XCTestCase {
         trackMemoryLeak(homeController, file: file, line: line)
         
         return (homeController, stub)
+    }
+    
+    fileprivate func image(withColor color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+        context.fill([rect])
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
     }
 }
 

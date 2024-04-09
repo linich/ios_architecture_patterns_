@@ -9,14 +9,14 @@ import UIKit
 import ActivityListDomain
 
 public class ImageService: ImageServiceProtocol {
+    let bundle: Bundle
     public init() {
-        
+        bundle = Bundle.init(for: ImageService.self)
     }
     public func getImage(byKind kind: ActivityType) -> UIImage {
-        return UIImage(named:  kind.iconName)!
+        return UIImage.init(named: kind.iconName, in: bundle, with: nil)!
     }
 }
-
 
 extension ActivityType {
     var iconName: String {
@@ -39,8 +39,8 @@ extension ActivityType {
             return "skiing"
         case .swimming:
             return "swimming"
-        case .none:
-            return "none"
+        case .undefined:
+            return "undefined"
         }
     }
 }
