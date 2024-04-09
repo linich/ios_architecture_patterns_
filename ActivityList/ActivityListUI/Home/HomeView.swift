@@ -14,13 +14,7 @@ internal protocol HomeViewDelegate: AnyObject {
 
 public class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
-    
-    public var iconImageProvider = IconImageProvider() {
-        didSet {
-            tableViewDataSource.iconImageProvider = iconImageProvider
-        }
-    }
-    
+        
     public var tasksLists: [TasksListInfo<UIImage>] = [] {
         didSet {
             tableViewDataSource.tasksLists = tasksLists

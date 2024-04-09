@@ -9,7 +9,7 @@ import XCTest
 import ActivityListDomain
 
 final class HomeServiceTests: XCTestCase {
-    fileprivate typealias SutType = HomeService<Int, IconImageProviderStub>
+    fileprivate typealias SutType = HomeService<Int, ImageServiceStub>
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
         let (_, tasksListRepository) = makeSUT()
         
@@ -126,7 +126,7 @@ final class HomeServiceTests: XCTestCase {
     
     fileprivate func makeSUT( file: StaticString = #filePath, line: UInt = #line) -> (SutType, TasksListRepositoryStub) {
         let tasksListRepository = TasksListRepositoryStub()
-        let sut = HomeService<Int, IconImageProviderStub>(tasksListRepository: tasksListRepository, imageProvider: IconImageProviderStub())
+        let sut = HomeService<Int, ImageServiceStub>(tasksListRepository: tasksListRepository, imageService: ImageServiceStub())
 
         trackMemoryLeak(sut, file: file, line: line)
         
@@ -218,7 +218,7 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
 }
 
 
-fileprivate class IconImageProviderStub: ImageServiceProtocol {
+fileprivate class ImageServiceStub: ImageServiceProtocol {
     typealias Image = Int
     typealias ImageKind = ActivityType
     

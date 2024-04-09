@@ -59,7 +59,7 @@ internal class CompositionRoot {
     }
     
     var homeService: HomeService<UIImage, IconImageProvider> {
-        return HomeService(tasksListRepository: taskListRepository, imageProvider: IconImageProvider())
+        return HomeService(tasksListRepository: taskListRepository, imageService: IconImageProvider())
     }
     
     var coreDataStoreUrl: URL {
