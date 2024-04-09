@@ -28,7 +28,7 @@ final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController
                 let items = try await self?.homeService?.readTasksInfos()
                 self?.update(tasksListInfos: items ?? [])
             } catch {
-                print("\(error)")
+                self?.homeView.isHidden = true
             }
         }
     }

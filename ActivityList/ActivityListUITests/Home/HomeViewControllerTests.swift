@@ -37,6 +37,14 @@ final class HomeViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.homeView.tasksLists, [tasksList1, tasksList2, tasksList3])
     }
     
+    func test_loadTasksListCompletion_hideHomeViewIfServiceThrowAnError() {
+        let (sut, repository) = createSUT()
+        sut.loadViewIfNeeded()
+        
+        repository.completeReadTasksInfos(with: anyNSError())
+        XCTAssertTrue(sut.homeView.isHidden)
+    }
+    
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController<HomeServiceStub>, HomeServiceStub) {
         let stub = HomeServiceStub()
         let homeController = HomeViewController(homeService: stub)
@@ -68,11 +76,18 @@ extension TasksListModel: Equatable {
 
 private class HomeServiceStub: HomeServiceProtocol {
     func readTasksInfos() async throws -> [TasksListInfo<UIImage>] {
-        let completionHolder = CompletionHolder<[TasksListInfo<UIImage>]>( completion: nil)
+        let completionHolder = CompletionHolder<Result<[TasksListInfo<UIImage>], Error>>( completion: nil)
         self.readTasksInfosRequests.append(completionHolder)
         
         return try await withCheckedThrowingContinuation { continuation in
-            completionHolder.completion =  { result in continuation.resume(returning:result)}
+            completionHolder.completion =  { result in
+                switch result{
+                case let .success(items):
+                    continuation.resume(returning:items)
+                case let .failure(error):
+                    continuation.resume(throwing: error)
+                }
+            }
         }
     }
     
@@ -82,9 +97,15 @@ private class HomeServiceStub: HomeServiceProtocol {
     
     func completeReadTasksInfos(with items: [TasksListInfo<UIImage>], at:Int = 0) {
         RunLoop.current.runForDistanceFuture()
-        readTasksInfosRequests[at].completion!(items)
+        readTasksInfosRequests[at].completion!(.success(items))
         RunLoop.current.runForDistanceFuture()
     }
     
-    private var readTasksInfosRequests = [CompletionHolder<[TasksListInfo<UIImage>]>]()
+    func completeReadTasksInfos(with error: Error , at:Int = 0) {
+        RunLoop.current.runForDistanceFuture()
+        readTasksInfosRequests[at].completion!(.failure(error))
+        RunLoop.current.runForDistanceFuture()
+    }
+    
+    private var readTasksInfosRequests = [CompletionHolder<Result<[TasksListInfo<UIImage>], Error>>]()
 }
