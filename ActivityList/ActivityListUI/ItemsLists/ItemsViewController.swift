@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ActivityListUI
 
 public protocol ItemsServiceProtocol {
     func readItems() async throws -> [ItemData]
