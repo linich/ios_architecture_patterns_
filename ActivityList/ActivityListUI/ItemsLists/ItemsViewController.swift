@@ -20,7 +20,12 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
             }
         }
     }
-    @IBOutlet public weak var itemsView: ItemsView!
+    
+    @IBOutlet public weak var itemsView: ItemsView! {
+        didSet {
+            self.itemsView.title = self.title
+        }
+    }
     public var itemsService: IS?
 
     public convenience init(itemsService: IS) {
@@ -31,7 +36,7 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        itemsView.title = self.title
+        
 //        itemsView.emptyListMessage = "Press 'Add List' to start"
 //        itemsView.addListButtonText = "Add List"
         
