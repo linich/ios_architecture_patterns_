@@ -38,6 +38,18 @@ final class HomeViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.emptyListMessage, "Press 'Add List' to start")
     }
     
+    func test_AddTasksListButtonText() {
+        let (sut, repository) = createSUT()
+        
+        XCTAssertEqual(repository.readTasksListCount, 0, "Expected no loading requests before view is loaded")
+        
+        sut.loadViewIfNeeded()
+        
+        RunLoop.current.runForDistanceFuture()
+        repository.completeReadTasksInfos(with: [])
+        XCTAssertEqual(sut.addItemButtonText, "Add List")
+    }
+    
     func test_loadTasksLists_requestTasksListFromRepository() {
         let (sut, repository) = createSUT()
         

@@ -58,6 +58,7 @@ internal class CompositionRoot {
         let controller = ItemsViewController(itemsService: adapter)
         controller.title = "Tasks Lists"
         controller.emptyListMessage = "Press 'Add List' to start"
+        controller.addItemButtonText = "Add List"
         return controller
     }
     
