@@ -80,6 +80,7 @@
 		B5B7E2122BD961C2008DE1FC /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */; };
 		B5B7E2152BDA550B008DE1FC /* HomeView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */; };
 		B5B7E2162BDA551D008DE1FC /* HomeView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */; };
+		B5B7E2192BDA5F5A008DE1FC /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,6 +233,7 @@
 		B5B7E2042BD96011008DE1FC /* ActivityListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B7E2062BD96011008DE1FC /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+DataSource.swift"; sourceTree = "<group>"; };
+		B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -544,6 +546,7 @@
 		B5B7E1FC2BD95DFD008DE1FC /* ItemsLists */ = {
 			isa = PBXGroup;
 			children = (
+				B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */,
 			);
 			path = ItemsLists;
 			sourceTree = "<group>";
@@ -901,6 +904,7 @@
 				B567262D2BB58231007DE166 /* ImageService.swift in Sources */,
 				B5150E652BB1C88D0016EF33 /* ActivityListUI.docc in Sources */,
 				B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */,
+				B5B7E2192BDA5F5A008DE1FC /* ItemData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
