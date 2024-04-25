@@ -25,11 +25,23 @@ public class ItemsView: UIView {
         return titleLabel
     }()
     
+    private let emptyListLabel = {
+        let titleLabel = UILabel()
+        return titleLabel
+    }()
+    
     public var title: String? {
         didSet {
             self.titleLabel.text = title
         }
     }
+    
+    public var emptyListMessage: String? {
+        didSet {
+            self.emptyListLabel.text = emptyListMessage
+        }
+    }
+    
     public var items: [ItemData] = [] {
         didSet {
             dataSource.items = self.items

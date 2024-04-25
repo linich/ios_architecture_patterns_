@@ -68,15 +68,24 @@ final class ItemsViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.itemsView.title, "Title for test")
     }
     
-    func test_setTitle_shouldUpdateTitle() {
+    func test_loadView_shouldSetEmptyItemsMessage() {
         let (sut,stub) = createSUT()
     
-        sut.title = "Title before load"
+        sut.emptyListMessage = "Title for emptyListMessage"
         sut.loadViewIfNeeded()
         stub.completeReadTasksInfos(with: [])
-        sut.title = "Title after load"
+        XCTAssertEqual(sut.itemsView.emptyListMessage, "Title for emptyListMessage")
+    }
+    
+    func test_setEmptyItemsMessage_shouldUpdateEmptyItemsMessage() {
+        let (sut,stub) = createSUT()
+    
+        sut.emptyListMessage = "Title before load"
+        sut.loadViewIfNeeded()
+        stub.completeReadTasksInfos(with: [])
+        sut.emptyListMessage = "Title after load"
         
-        XCTAssertEqual(sut.itemsView.title, "Title after load")
+        XCTAssertEqual(sut.itemsView.emptyListMessage, "Title after load")
     }
     
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (ItemsViewController<ItemsServiceStub>, ItemsServiceStub) {
