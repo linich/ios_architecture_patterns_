@@ -20,6 +20,16 @@ public class ItemsView: UIView {
         return tableView
     }()
     
+    private let titleLabel = {
+        let titleLabel = UILabel()
+        return titleLabel
+    }()
+    
+    public var title: String? {
+        didSet {
+            self.titleLabel.text = title
+        }
+    }
     public var items: [ItemData] = [] {
         didSet {
             dataSource.items = self.items

@@ -59,6 +59,26 @@ final class ItemsViewControllerTests: XCTestCase {
         createRepForSut().completeReadTasksInfos(with: anyNSError())
     }
     
+    func test_loadView_shouldSetTitle() {
+        let (sut,stub) = createSUT()
+    
+        sut.title = "Title for test"
+        sut.loadViewIfNeeded()
+        stub.completeReadTasksInfos(with: [])
+        XCTAssertEqual(sut.itemsView.title, "Title for test")
+    }
+    
+    func test_setTitle_shouldUpdateTitle() {
+        let (sut,stub) = createSUT()
+    
+        sut.title = "Title before load"
+        sut.loadViewIfNeeded()
+        stub.completeReadTasksInfos(with: [])
+        sut.title = "Title after load"
+        
+        XCTAssertEqual(sut.itemsView.title, "Title after load")
+    }
+    
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (ItemsViewController<ItemsServiceStub>, ItemsServiceStub) {
         let stub = ItemsServiceStub()
         let homeController = ItemsViewController(itemsService: stub)

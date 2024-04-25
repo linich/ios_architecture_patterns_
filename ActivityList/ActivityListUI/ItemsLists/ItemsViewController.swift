@@ -12,10 +12,17 @@ public protocol ItemsServiceProtocol {
 }
 
 final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewController{
-    
+
+    override public var title: String? {
+        didSet {
+            if let itemsView = self.itemsView {
+                itemsView.title = self.title
+            }
+        }
+    }
     @IBOutlet public weak var itemsView: ItemsView!
     public var itemsService: IS?
-    
+
     public convenience init(itemsService: IS) {
         self.init(nibName: "ItemsViewController", bundle: Bundle(for: ItemsViewController.self))
         self.itemsService = itemsService
@@ -24,7 +31,7 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-//        itemsView.title = "My To Do List"
+        itemsView.title = self.title
 //        itemsView.emptyListMessage = "Press 'Add List' to start"
 //        itemsView.addListButtonText = "Add List"
         

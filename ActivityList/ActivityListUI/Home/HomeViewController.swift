@@ -15,7 +15,13 @@ final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController
     
     @IBOutlet public weak var homeView: HomeView!
     public var homeService: HS?
-    
+    private var task: Task<(), Never>? {
+        willSet {
+            if let currentTask = self.task {
+                currentTask.cancel()
+            }
+        }
+    }
     public convenience init(homeService: HS) {
         self.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
         self.homeService = homeService
@@ -29,7 +35,7 @@ final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController
         homeView.emptyListMessage = "Press 'Add List' to start"
         homeView.addListButtonText = "Add List"
         
-        Task { [weak self] in
+        self.task = Task { [weak self] in
             do {
                 let items = try await self?.homeService?.readTasksInfos()
                 self?.update(tasksListInfos: items ?? [])
@@ -42,5 +48,9 @@ final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController
     @MainActor
     private func update(tasksListInfos items: [TasksListInfo<UIImage>]) {
         homeView.tasksLists = items
+    }
+    
+    deinit {
+        self.task = nil
     }
 }
