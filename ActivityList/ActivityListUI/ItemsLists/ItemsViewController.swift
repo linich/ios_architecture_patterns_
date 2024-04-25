@@ -47,8 +47,6 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-//        itemsView.addListButtonText = "Add List"
-        
         if let itemsService = self.itemsService {
             Task { [weak self] in
                 do {

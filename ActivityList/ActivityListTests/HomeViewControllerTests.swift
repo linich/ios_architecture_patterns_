@@ -11,6 +11,19 @@ import ActivityListUI
 @testable import ActivityList
 
 final class HomeViewControllerTests: XCTestCase {
+    fileprivate typealias SUT = ItemsViewController<HomeServiceToItemsServiceAdapter<HomeServiceStub>>
+    
+    func test_title() {
+        let (sut, repository) = createSUT()
+        
+        XCTAssertEqual(repository.readTasksListCount, 0, "Expected no loading requests before view is loaded")
+        
+        sut.loadViewIfNeeded()
+        
+        RunLoop.current.runForDistanceFuture()
+        repository.completeReadTasksInfos(with: [])
+        XCTAssertEqual(sut.title, "Tasks Lists")
+    }
     
     func test_loadTasksLists_requestTasksListFromRepository() {
         let (sut, repository) = createSUT()
@@ -33,6 +46,8 @@ final class HomeViewControllerTests: XCTestCase {
         
         let (sut, repository) = createSUT()
         sut.loadViewIfNeeded()
+        sut.view.frame = CGRect(x: 0, y: 0, width: 300, height: 600)
+        sut.view.layoutIfNeeded()
         
         repository.completeReadTasksInfos(with: [tasksList1, tasksList2, tasksList3])
         
@@ -62,7 +77,7 @@ final class HomeViewControllerTests: XCTestCase {
         createRepForSut().completeReadTasksInfos(with: anyNSError())
     }
     
-    fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (HomeViewController<HomeServiceStub>, HomeServiceStub) {
+    fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (SUT, HomeServiceStub) {
         let compositionRoot = CompositionRoot()
         let stub = HomeServiceStub()
         let sut = compositionRoot.createHomeViewController(withService: stub)
@@ -83,23 +98,23 @@ final class HomeViewControllerTests: XCTestCase {
         return img!
     }
     
-    fileprivate func assertThatSutHasNotVisibleTasksList(_ sut: HomeViewController<HomeServiceStub>, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertTrue(sut.homeView.isHidden)
+    fileprivate func assertThatSutHasNotVisibleTasksList(_ sut: SUT, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertTrue(sut.itemsView.isHidden)
     }
     
-    fileprivate func assertThat(sut: HomeViewController<HomeServiceStub>, hasConfiguredCellFor model: TasksListInfo<UIImage>, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
-        let cell = sut.homeView!.tasksListView(at: row)
-        guard let tasksListCell = cell as? TasksListCell else {
+    fileprivate func assertThat(sut: SUT, hasConfiguredCellFor model: TasksListInfo<UIImage>, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
+        let cell = sut.itemsView!.itemTableCellView(at: row)
+        guard let itemCell = cell as? ItemTableCellView else {
             XCTFail("Expected \(TasksListCell.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
             return
         }
         
-        XCTAssertEqual(tasksListCell.nameLabel.text, model.name, "Expected name to be \(String(describing: model.name)) at \(row)", file: file, line: line)
+        XCTAssertEqual(itemCell.titleLabel.text, model.name, "Expected name to be \(String(describing: model.name)) at \(row)", file: file, line: line)
         
-        XCTAssertEqual(tasksListCell.tasksCountLabel.text, "\(model.tasksCount) Tasks", "Expected tasks count text to be '\(model.tasksCount) Tasks') at \(row)", file: file, line: line)
+        XCTAssertEqual(itemCell.subtitleLabel.text, "\(model.tasksCount) Tasks", "Expected tasks count text to be '\(model.tasksCount) Tasks') at \(row)", file: file, line: line)
         
         let expectedImageData = model.icon.pngData()
-        let actualImageData = tasksListCell.iconImageView.image.map({$0.pngData()}) ?? nil
+        let actualImageData = itemCell.iconImageView.image.map({$0.pngData()}) ?? nil
         XCTAssertEqual(actualImageData, expectedImageData, "Expected image to be valid at \(row)", file: file, line: line)
     }
 }
@@ -147,4 +162,10 @@ private class HomeServiceStub: HomeServiceProtocol {
     }
     
     private var readTasksInfosRequests = [CompletionHolder<Result<[TasksListInfo<UIImage>], Error>>]()
+}
+
+extension ItemsView {
+    func itemTableCellView(at row: Int) -> UITableViewCell? {
+        return self.tableView.cellForRow(at: IndexPath(row: row, section: 0))
+    }
 }

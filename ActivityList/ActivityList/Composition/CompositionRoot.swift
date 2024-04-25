@@ -49,12 +49,14 @@ internal class CompositionRoot {
         
     }
     
-    var home: HomeViewController<HomeService<UIImage, ImageService>> {
+    var home: ItemsViewController<HomeServiceToItemsServiceAdapter<HomeService<UIImage, ImageService>>> {
         return createHomeViewController(withService: homeService)
     }
     
-    public func createHomeViewController<S: HomeServiceProtocol>(withService service: S) -> HomeViewController<S> where S.Image == UIImage{
-        let controller = HomeViewController(homeService: service)
+    public func createHomeViewController<HS: HomeServiceProtocol>(withService service: HS) -> ItemsViewController<HomeServiceToItemsServiceAdapter<HS>> where HS.Image == UIImage{
+        let adapter = HomeServiceToItemsServiceAdapter(homeService: service)
+        let controller = ItemsViewController(itemsService: adapter)
+        controller.title = "Tasks Lists"
         return controller
     }
     

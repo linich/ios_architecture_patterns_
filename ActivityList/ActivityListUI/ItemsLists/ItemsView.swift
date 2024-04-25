@@ -58,6 +58,7 @@ public class ItemsView: UIView {
             dataSource.items = self.items
             emptyState.isHidden = !self.items.isEmpty
             tableView.isHidden = self.items.isEmpty
+            tableView.reloadData()
         }
     }
     
@@ -73,8 +74,60 @@ public class ItemsView: UIView {
         setupSubviews();
     }
 
+    
     private func setupSubviews() {
+        addSubview(titleLabel)
+        addSubview(tableView)
+        addSubview(emptyState)
+        emptyState.addSubview(emptyListLabel)
+        addSubview(addButton)
+        setupConstraints()
         tableView.dataSource = dataSource
+    }
+    
+    private func setupConstraints() {
+        
+        //Title label constraints
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        
+        titleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        
+        
+        //tableView constraints
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        
+        tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        
+        // AddListButton constraints
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        addButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        addButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 24).isActive = true
+        
+        addButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        addButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        
+        // emptyState constraints
+        emptyState.translatesAutoresizingMaskIntoConstraints = false
+        emptyState.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
+        emptyState.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        emptyState.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        emptyState.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant:0 ).isActive = true
+        
+        // emptyListLabel constraints
+        
+        emptyListLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyListLabel.topAnchor.constraint(equalTo: emptyState.safeAreaLayoutGuide.topAnchor, constant: 18).isActive = true
+        emptyListLabel.leadingAnchor.constraint(equalTo: emptyState.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        
+        emptyListLabel.trailingAnchor.constraint(equalTo: emptyState.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        emptyListLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
     }
 }
 
@@ -96,4 +149,7 @@ internal class ItemsViewTableViewDataSource:NSObject, UITableViewDataSource {
         return items.count
     }
     
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 }
