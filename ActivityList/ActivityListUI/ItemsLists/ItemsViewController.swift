@@ -21,18 +21,21 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
         didSet { updateButtonAndLabels()}
     }
     
+    public var addItemButtonText: String? 
+//    {
+////        didSet { updateButtonAndLabels()}
+//    }
+    
     private func updateButtonAndLabels() {
         if let itemsView = self.itemsView {
             itemsView.title = self.title
             itemsView.emptyListMessage = self.emptyListMessage
+            itemsView.addButtonText = self.addItemButtonText
         }
     }
     
     @IBOutlet public weak var itemsView: ItemsView! {
-        didSet {
-            self.itemsView.title = self.title
-            self.itemsView.emptyListMessage = self.emptyListMessage
-        }
+        didSet { updateButtonAndLabels() }
     }
 
     public var itemsService: IS?

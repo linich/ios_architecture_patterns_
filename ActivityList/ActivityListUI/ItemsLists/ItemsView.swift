@@ -19,7 +19,12 @@ public class ItemsView: UIView {
         tableView.register(ItemTableCellView.self, forCellReuseIdentifier: "\(ItemTableCellView.self)")
         return tableView
     }()
-    
+
+    public let addButton = {
+        let button = UIButton()
+        return button
+    }()
+
     private let titleLabel = {
         let titleLabel = UILabel()
         return titleLabel
@@ -39,6 +44,12 @@ public class ItemsView: UIView {
     public var emptyListMessage: String? {
         didSet {
             self.emptyListLabel.text = emptyListMessage
+        }
+    }
+
+    public var addButtonText: String? {
+        didSet {
+            self.addButton.setTitle(addButtonText, for: .normal)
         }
     }
     

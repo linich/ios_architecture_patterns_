@@ -88,6 +88,15 @@ final class ItemsViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.itemsView.emptyListMessage, "Title after load")
     }
     
+    func test_loadView_shouldSetAddButtonText() {
+        let (sut,stub) = createSUT()
+    
+        sut.addItemButtonText = "Text for add button"
+        sut.loadViewIfNeeded()
+        stub.completeReadTasksInfos(with: [])
+        XCTAssertEqual(sut.itemsView.addButtonText, "Text for add button")
+    }
+    
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> (ItemsViewController<ItemsServiceStub>, ItemsServiceStub) {
         let stub = ItemsServiceStub()
         let homeController = ItemsViewController(itemsService: stub)
