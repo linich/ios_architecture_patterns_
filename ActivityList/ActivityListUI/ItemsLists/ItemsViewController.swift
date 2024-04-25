@@ -14,14 +14,14 @@ public protocol ItemsServiceProtocol {
 final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewController{
 
     override public var title: String? {
-        didSet { updateMessages()}
+        didSet { updateButtonAndLabels()}
     }
     
     public var emptyListMessage: String? {
-        didSet { updateMessages()}
+        didSet { updateButtonAndLabels()}
     }
     
-    private func updateMessages() {
+    private func updateButtonAndLabels() {
         if let itemsView = self.itemsView {
             itemsView.title = self.title
             itemsView.emptyListMessage = self.emptyListMessage
@@ -45,7 +45,6 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-//        itemsView.emptyListMessage = "Press 'Add List' to start"
 //        itemsView.addListButtonText = "Add List"
         
         if let itemsService = self.itemsService {
