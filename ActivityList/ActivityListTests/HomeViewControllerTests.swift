@@ -130,7 +130,7 @@ final class HomeViewControllerTests: XCTestCase {
     fileprivate func assertThat(sut: SUT, hasConfiguredCellFor model: TasksListInfo<UIImage>, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
         let cell = sut.itemsView!.itemTableCellView(at: row)
         guard let itemCell = cell as? ItemTableCellView else {
-            XCTFail("Expected \(TasksListCell.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
+            XCTFail("Expected \(ItemTableCellView.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
             return
         }
         

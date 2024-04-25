@@ -60,15 +60,10 @@
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5B399ED2BB2AA350084726F /* ActivityList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5B399EB2BB2AA350084726F /* ActivityList.xcdatamodeld */; };
 		B5B39A0C2BB2ADC90084726F /* TasksListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */; };
-		B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */; };
-		B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B39A122BB2BDC60084726F /* HomeViewController.xib */; };
 		B5B39A162BB2C4360084726F /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A152BB2C4360084726F /* CompositionRoot.swift */; };
-		B5B39A182BB4234E0084726F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A172BB4234E0084726F /* HomeView.swift */; };
 		B5B39A192BB44FB90084726F /* ActivityListDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5150E252BB1BACA0016EF33 /* ActivityListDomain.framework */; platformFilter = ios; };
 		B5B39A1C2BB550FE0084726F /* TasksListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A1B2BB550FE0084726F /* TasksListModel.swift */; };
-		B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A1E2BB552910084726F /* HomeViewTests.swift */; };
 		B5B39A242BB554D90084726F /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */; };
-		B5B39A252BB554DF0084726F /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5150E712BB1C88D0016EF33 /* HomeViewControllerTests.swift */; };
 		B5B39A272BB565FD0084726F /* XCTestCase+TasksListCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */; };
 		B5B7E1FF2BD95E42008DE1FC /* ItemsListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E1FE2BD95E42008DE1FC /* ItemsListViewTests.swift */; };
 		B5B7E2072BD96011008DE1FC /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2062BD96011008DE1FC /* HomeViewControllerTests.swift */; };
@@ -78,8 +73,6 @@
 		B5B7E2102BD96185008DE1FC /* CompletionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594752BBBF35900BCE59A /* CompletionHolder.swift */; };
 		B5B7E2112BD961B6008DE1FC /* SharedTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594692BBAE4F500BCE59A /* SharedTestHelper.swift */; };
 		B5B7E2122BD961C2008DE1FC /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */; };
-		B5B7E2152BDA550B008DE1FC /* HomeView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */; };
-		B5B7E2162BDA551D008DE1FC /* HomeView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */; };
 		B5B7E2192BDA5F5A008DE1FC /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */; };
 		B5B7E21B2BDA6025008DE1FC /* ItemTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E21A2BDA6025008DE1FC /* ItemTableCellView.swift */; };
 		B5B7E21D2BDA60A4008DE1FC /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E21C2BDA60A4008DE1FC /* ItemsView.swift */; };
@@ -199,7 +192,6 @@
 		B5150E632BB1C88C0016EF33 /* ActivityListUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListUI.h; sourceTree = "<group>"; };
 		B5150E642BB1C88D0016EF33 /* ActivityListUI.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListUI.docc; sourceTree = "<group>"; };
 		B5150E6A2BB1C88D0016EF33 /* ActivityListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5150E712BB1C88D0016EF33 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		B54F74EE2BBEEFC100CE0CC7 /* TaskItemRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepositoryProtocol.swift; sourceTree = "<group>"; };
 		B54F74F02BBEF01500CE0CC7 /* TaskItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemRepository.swift; sourceTree = "<group>"; };
 		B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorProneStore.swift; sourceTree = "<group>"; };
@@ -226,20 +218,15 @@
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
 		B5B399EC2BB2AA350084726F /* ActivityList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActivityList.xcdatamodel; sourceTree = "<group>"; };
 		B5B39A0B2BB2ADC90084726F /* TasksListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepository.swift; sourceTree = "<group>"; };
-		B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		B5B39A122BB2BDC60084726F /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		B5B39A152BB2C4360084726F /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
-		B5B39A172BB4234E0084726F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B5B39A1A2BB451170084726F /* ActivityListUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ActivityListUI.xctestplan; sourceTree = "<group>"; };
 		B5B39A1B2BB550FE0084726F /* TasksListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListModel.swift; sourceTree = "<group>"; };
-		B5B39A1E2BB552910084726F /* HomeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewTests.swift; sourceTree = "<group>"; };
 		B5B39A202BB553440084726F /* XCTestCase+MemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeak.swift"; sourceTree = "<group>"; };
 		B5B39A262BB565FD0084726F /* XCTestCase+TasksListCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TasksListCreation.swift"; sourceTree = "<group>"; };
 		B5B39A282BB575340084726F /* ActivityList.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ActivityList.xctestplan; sourceTree = "<group>"; };
 		B5B7E1FE2BD95E42008DE1FC /* ItemsListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListViewTests.swift; sourceTree = "<group>"; };
 		B5B7E2042BD96011008DE1FC /* ActivityListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B7E2062BD96011008DE1FC /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
-		B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+DataSource.swift"; sourceTree = "<group>"; };
 		B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		B5B7E21A2BDA6025008DE1FC /* ItemTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableCellView.swift; sourceTree = "<group>"; };
 		B5B7E21C2BDA60A4008DE1FC /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
@@ -462,7 +449,6 @@
 				B57594722BBBE71800BCE59A /* RunLoop+TestHelpers.swift */,
 				B57594752BBBF35900BCE59A /* CompletionHolder.swift */,
 				B54F74F42BBFFDCF00CE0CC7 /* XCTestCase+ErrorChecking.swift */,
-				B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */,
 				B5B7E2202BDA62E5008DE1FC /* XCTestCase+ItemDataCreation.swift */,
 			);
 			path = TestsHelpers;
@@ -532,9 +518,6 @@
 		B5B39A0D2BB2B0FE0084726F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				B5B39A0E2BB2B10E0084726F /* HomeViewController.swift */,
-				B5B39A122BB2BDC60084726F /* HomeViewController.xib */,
-				B5B39A172BB4234E0084726F /* HomeView.swift */,
 				B567262C2BB58231007DE166 /* ImageService.swift */,
 			);
 			path = Home;
@@ -552,8 +535,6 @@
 		B5B39A1D2BB551580084726F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				B5150E712BB1C88D0016EF33 /* HomeViewControllerTests.swift */,
-				B5B39A1E2BB552910084726F /* HomeViewTests.swift */,
 				B54F74FA2BC5635500CE0CC7 /* TasksListInfo_UIImage+Equatable.swift */,
 			);
 			path = Home;
@@ -860,7 +841,6 @@
 			files = (
 				B567262F2BB58938007DE166 /* Media.xcassets in Resources */,
 				B5B7E2282BDA8713008DE1FC /* ItemsViewController.xib in Resources */,
-				B5B39A132BB2BDC60084726F /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,13 +911,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B39A182BB4234E0084726F /* HomeView.swift in Sources */,
 				B567262D2BB58231007DE166 /* ImageService.swift in Sources */,
 				B5B7E21D2BDA60A4008DE1FC /* ItemsView.swift in Sources */,
 				B5150E652BB1C88D0016EF33 /* ActivityListUI.docc in Sources */,
 				B5B7E21B2BDA6025008DE1FC /* ItemTableCellView.swift in Sources */,
 				B5B7E2272BDA870D008DE1FC /* ItemsViewController.swift in Sources */,
-				B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */,
 				B5B7E2192BDA5F5A008DE1FC /* ItemData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -953,12 +931,9 @@
 				B5B7E1FF2BD95E42008DE1FC /* ItemsListViewTests.swift in Sources */,
 				B54F74FB2BC5635500CE0CC7 /* TasksListInfo_UIImage+Equatable.swift in Sources */,
 				B5B39A272BB565FD0084726F /* XCTestCase+TasksListCreation.swift in Sources */,
-				B5B7E2162BDA551D008DE1FC /* HomeView+DataSource.swift in Sources */,
 				B575946A2BBAE4F500BCE59A /* SharedTestHelper.swift in Sources */,
-				B5B39A232BB554D30084726F /* HomeViewTests.swift in Sources */,
 				B5B7E21F2BDA610C008DE1FC /* ItemsViewControllerTests.swift in Sources */,
 				B54F74FF2BC578FE00CE0CC7 /* IconImageServiceTests.swift in Sources */,
-				B5B39A252BB554DF0084726F /* HomeViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1015,7 +990,6 @@
 				B5B7E20E2BD960B4008DE1FC /* XCTestCase+TasksListCreation.swift in Sources */,
 				B5B7E2122BD961C2008DE1FC /* XCTestCase+MemoryLeak.swift in Sources */,
 				B5B7E2102BD96185008DE1FC /* CompletionHolder.swift in Sources */,
-				B5B7E2152BDA550B008DE1FC /* HomeView+DataSource.swift in Sources */,
 				B5B7E20D2BD9609C008DE1FC /* RunLoop+TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
