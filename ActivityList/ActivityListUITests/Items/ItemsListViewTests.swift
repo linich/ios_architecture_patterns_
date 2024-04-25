@@ -18,30 +18,44 @@ class ItemsView: UIView {
         
     }()
     
+    public let tableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
+    
     public var items: [ItemData] = [] {
         didSet {
             emptyState.isHidden = !self.items.isEmpty
+            tableView.isHidden = self.items.isEmpty
         }
     }
 }
 
 final class ItemsListViewTests: XCTestCase {
     func test_emptyState_shouldShowViewIfItemsListIsEmpty() {
-        let view = createSUT()
+        let sut = createSUT()
         
-        view.items = []
+        sut.items = []
         
-        XCTAssertFalse(view.emptyState.isHidden, "Empty state view should be visible if items is empty");
+        XCTAssertFalse(sut.emptyState.isHidden, "Empty state view should be visible if items is empty");
     }
     
     func test_emptyState_shouldNotShowViewIfTasksListIsNotEmpty() {
-        let view = createSUT()
+        let sut = createSUT()
         
-        view.items = [makeItemData()]
+        sut.items = [makeItemData()]
         
-        XCTAssertTrue(view.emptyState.isHidden, "Empty state view should be visible if items is not empty");
+        XCTAssertTrue(sut.emptyState.isHidden, "Empty state view should be visible if items is not empty");
     }
 
+    func test_tasksLists_shouldNotShowViewIfTasksListIsEmpty() {
+        let sut = createSUT()
+        
+        sut.items = []
+        
+        XCTAssertTrue(sut.tableView.isHidden, "Items Lists view should not be visible if items is empty");
+    }
+    
     // Mark: - Helpers
     
     fileprivate func createSUT(file: StaticString = #filePath, line: UInt = #line) -> ItemsView {
