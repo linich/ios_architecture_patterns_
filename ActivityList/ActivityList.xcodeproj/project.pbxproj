@@ -82,6 +82,7 @@
 		B5B7E2162BDA551D008DE1FC /* HomeView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */; };
 		B5B7E2192BDA5F5A008DE1FC /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */; };
 		B5B7E21B2BDA6025008DE1FC /* ItemTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E21A2BDA6025008DE1FC /* ItemTableCellView.swift */; };
+		B5B7E21D2BDA60A4008DE1FC /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7E21C2BDA60A4008DE1FC /* ItemsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +237,7 @@
 		B5B7E2132BDA54FA008DE1FC /* HomeView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+DataSource.swift"; sourceTree = "<group>"; };
 		B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		B5B7E21A2BDA6025008DE1FC /* ItemTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableCellView.swift; sourceTree = "<group>"; };
+		B5B7E21C2BDA60A4008DE1FC /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -550,6 +552,7 @@
 			children = (
 				B5B7E2182BDA5F5A008DE1FC /* ItemData.swift */,
 				B5B7E21A2BDA6025008DE1FC /* ItemTableCellView.swift */,
+				B5B7E21C2BDA60A4008DE1FC /* ItemsView.swift */,
 			);
 			path = ItemsLists;
 			sourceTree = "<group>";
@@ -905,6 +908,7 @@
 			files = (
 				B5B39A182BB4234E0084726F /* HomeView.swift in Sources */,
 				B567262D2BB58231007DE166 /* ImageService.swift in Sources */,
+				B5B7E21D2BDA60A4008DE1FC /* ItemsView.swift in Sources */,
 				B5150E652BB1C88D0016EF33 /* ActivityListUI.docc in Sources */,
 				B5B7E21B2BDA6025008DE1FC /* ItemTableCellView.swift in Sources */,
 				B5B39A0F2BB2B10E0084726F /* HomeViewController.swift in Sources */,
