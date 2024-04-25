@@ -9,12 +9,6 @@ import XCTest
 import UIKit
 import ActivityListUI
 
-class ItemCellView: UITableViewCell {
-    public let titleLabel = UILabel()
-    public let subtitleLabel = UILabel()
-    public let iconImageView = UIImageView()
-}
-
 class ItemsView: UIView {
     public let emptyState = {
         let view = UIView()
@@ -24,7 +18,7 @@ class ItemsView: UIView {
     
     public let tableView = {
         let tableView = UITableView()
-        tableView.register(ItemCellView.self, forCellReuseIdentifier: "\(ItemCellView.self)")
+        tableView.register(ItemTableCellView.self, forCellReuseIdentifier: "\(ItemTableCellView.self)")
         return tableView
     }()
     
@@ -57,7 +51,7 @@ internal class ItemsViewTableViewDataSource:NSObject, UITableViewDataSource {
     public var items = [ItemData]()
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(ItemCellView.self)", for: indexPath) as! ItemCellView
+        let tasksListCell = tableView.dequeueReusableCell(withIdentifier: "\(ItemTableCellView.self)", for: indexPath) as! ItemTableCellView
         
         let model = items[indexPath.row]
         tasksListCell.titleLabel.text = model.title
@@ -143,8 +137,8 @@ final class ItemsListViewTests: XCTestCase {
     
     fileprivate func assertThat(sut: ItemsView, hasConfiguredCellFor model: ItemData, at row: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
         let cell = sut.tasksListView(at: row)
-        guard let tasksListCell = cell as? ItemCellView else {
-            XCTFail("Expected \(ItemCellView.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
+        guard let tasksListCell = cell as? ItemTableCellView else {
+            XCTFail("Expected \(ItemTableCellView.self) instance, but got \(String(describing: cell.self))", file: file, line: line)
             return
         }
         
