@@ -13,7 +13,7 @@ import ActivityListUI
 final class HomeViewControllerTests: XCTestCase {
     fileprivate typealias SUT = ItemsViewController<HomeServiceToItemsServiceAdapter<HomeServiceStub>>
     
-    func test_title() {
+    func test_Title() {
         let (sut, repository) = createSUT()
         
         XCTAssertEqual(repository.readTasksListCount, 0, "Expected no loading requests before view is loaded")
@@ -22,7 +22,20 @@ final class HomeViewControllerTests: XCTestCase {
         
         RunLoop.current.runForDistanceFuture()
         repository.completeReadTasksInfos(with: [])
+        
         XCTAssertEqual(sut.title, "Tasks Lists")
+    }
+    
+    func test_EmptyTasksListMessages() {
+        let (sut, repository) = createSUT()
+        
+        XCTAssertEqual(repository.readTasksListCount, 0, "Expected no loading requests before view is loaded")
+        
+        sut.loadViewIfNeeded()
+        
+        RunLoop.current.runForDistanceFuture()
+        repository.completeReadTasksInfos(with: [])
+        XCTAssertEqual(sut.emptyListMessage, "Press 'Add List' to start")
     }
     
     func test_loadTasksLists_requestTasksListFromRepository() {

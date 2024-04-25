@@ -57,6 +57,7 @@ internal class CompositionRoot {
         let adapter = HomeServiceToItemsServiceAdapter(homeService: service)
         let controller = ItemsViewController(itemsService: adapter)
         controller.title = "Tasks Lists"
+        controller.emptyListMessage = "Press 'Add List' to start"
         return controller
     }
     
