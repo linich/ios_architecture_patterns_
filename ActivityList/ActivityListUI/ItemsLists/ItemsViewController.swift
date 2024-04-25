@@ -21,10 +21,9 @@ final public class ItemsViewController<IS: ItemsServiceProtocol>: UIViewControll
         didSet { updateButtonAndLabels()}
     }
     
-    public var addItemButtonText: String? 
-//    {
-////        didSet { updateButtonAndLabels()}
-//    }
+    public var addItemButtonText: String? {
+        didSet { updateButtonAndLabels()}
+    }
     
     private func updateButtonAndLabels() {
         if let itemsView = self.itemsView {
