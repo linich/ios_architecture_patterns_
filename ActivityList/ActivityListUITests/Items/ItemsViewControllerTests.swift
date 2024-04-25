@@ -170,6 +170,4 @@ extension ItemData: Equatable {
         lhs.subtitle == rhs.subtitle &&
         lhs.title == rhs.title
     }
-    
-    
 }
