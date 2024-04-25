@@ -64,11 +64,6 @@ final class ItemsListViewTests: XCTestCase {
         return view
     }
     
-    fileprivate func makeItemData(title: String = "title_\(#line)", subtitle: String = "subtitile_\(#line)", icon: UIImage = UIImage()) -> ItemData {
-        return ItemData(title: title, subtitle: subtitle, icon: icon)
-    }
-    
-    
     fileprivate func assertThat(sut: ItemsView, configuredFor models: [ItemData], file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(sut.numberOfRenderedTasksLists, models.count);
         
