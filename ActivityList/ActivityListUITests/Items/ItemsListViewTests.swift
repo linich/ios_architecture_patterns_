@@ -48,12 +48,20 @@ final class ItemsListViewTests: XCTestCase {
         XCTAssertTrue(sut.emptyState.isHidden, "Empty state view should be visible if items is not empty");
     }
 
-    func test_tasksLists_shouldNotShowViewIfTasksListIsEmpty() {
+    func test_itemLists_shouldNotShowViewIfTasksListIsEmpty() {
         let sut = createSUT()
         
         sut.items = []
         
         XCTAssertTrue(sut.tableView.isHidden, "Items Lists view should not be visible if items is empty");
+    }
+    
+    func test_itemLists_shouldShowViewIfTasksListIsNotEmpty() {
+        let sut = createSUT()
+        
+        sut.items = [makeItemData()]
+        
+        XCTAssertFalse(sut.tableView.isHidden, "Items Lists view should  be visible if tasksLists is not empty");
     }
     
     // Mark: - Helpers
