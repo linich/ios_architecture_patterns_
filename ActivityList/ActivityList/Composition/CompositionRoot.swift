@@ -50,7 +50,11 @@ internal class CompositionRoot {
     }
     
     var home: HomeViewController<HomeService<UIImage, ImageService>> {
-        let controller = HomeViewController(homeService: homeService)
+        return createHomeViewController(withService: homeService)
+    }
+    
+    public func createHomeViewController<S: HomeServiceProtocol>(withService service: S) -> HomeViewController<S> where S.Image == UIImage{
+        let controller = HomeViewController(homeService: service)
         return controller
     }
     

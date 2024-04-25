@@ -143,7 +143,6 @@ public class HomeView: UIView {
     }
 }
 
-
 internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
     public var tasksLists = [TasksListInfo<UIImage>]()
     public var iconImageProvider: ImageService?
@@ -155,6 +154,7 @@ internal class HomeViewTableViewDataSource:NSObject, UITableViewDataSource {
         tasksListCell.nameLabel.text = model.name
         tasksListCell.tasksCountLabel.text = "\(model.tasksCount) Tasks"
         tasksListCell.iconImageView.image = model.icon
+        
         return tasksListCell
     }
     

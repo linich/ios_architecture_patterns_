@@ -9,6 +9,10 @@ import UIKit
 import ActivityListDomain
 
 final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController where HS.Image == UIImage{
+    public enum AccessibilityIdentifiers: String {
+        case homeView
+    }
+    
     @IBOutlet public weak var homeView: HomeView!
     public var homeService: HS?
     
@@ -18,6 +22,8 @@ final public class HomeViewController<HS: HomeServiceProtocol>: UIViewController
     }
     
     public override func viewDidLoad() {
+        homeView.accessibilityIdentifier = AccessibilityIdentifiers.homeView.rawValue
+        
         super.viewDidLoad()
         homeView.title = "My To Do List"
         homeView.emptyListMessage = "Press 'Add List' to start"

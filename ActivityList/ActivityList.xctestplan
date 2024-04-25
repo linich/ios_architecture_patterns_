@@ -39,6 +39,14 @@
         "identifier" : "B575947C2BBBFF5200BCE59A",
         "name" : "ActivityListDomainTests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ActivityList.xcodeproj",
+        "identifier" : "B5B7E2032BD96011008DE1FC",
+        "name" : "ActivityListTests"
+      }
     }
   ],
   "version" : 1
