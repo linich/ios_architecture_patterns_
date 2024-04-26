@@ -57,6 +57,8 @@
 		B57594962BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594952BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift */; };
 		B5900E732BDBCE7500966BCD /* TaskItemsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5900E722BDBCE7500966BCD /* TaskItemsServiceProtocol.swift */; };
 		B5900E762BDBD0C500966BCD /* ImageServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5900E752BDBD0C500966BCD /* ImageServiceStub.swift */; };
+		B5900E782BDBD13E00966BCD /* TasksListRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5900E772BDBD13E00966BCD /* TasksListRepositoryStub.swift */; };
+		B5900E7A2BDBD1EC00966BCD /* TaskItemsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5900E792BDBD1EC00966BCD /* TaskItemsServiceTests.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -217,6 +219,8 @@
 		B57594952BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+CoreDataHelpers.swift"; sourceTree = "<group>"; };
 		B5900E722BDBCE7500966BCD /* TaskItemsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsServiceProtocol.swift; sourceTree = "<group>"; };
 		B5900E752BDBD0C500966BCD /* ImageServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceStub.swift; sourceTree = "<group>"; };
+		B5900E772BDBD13E00966BCD /* TasksListRepositoryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListRepositoryStub.swift; sourceTree = "<group>"; };
+		B5900E792BDBD1EC00966BCD /* TaskItemsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsServiceTests.swift; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -472,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				B57594632BBAA77700BCE59A /* HomeServiceTests.swift */,
+				B5900E792BDBD1EC00966BCD /* TaskItemsServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				B5900E752BDBD0C500966BCD /* ImageServiceStub.swift */,
+				B5900E772BDBD13E00966BCD /* TasksListRepositoryStub.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -976,9 +982,11 @@
 				B54F74FC2BC571C500CE0CC7 /* TasksListInfo+Equatable.swift in Sources */,
 				B575948C2BBC002700BCE59A /* XCTestCase+MemoryLeak.swift in Sources */,
 				B575948D2BBC002700BCE59A /* CompletionHolder.swift in Sources */,
+				B5900E7A2BDBD1EC00966BCD /* TaskItemsServiceTests.swift in Sources */,
 				B5900E762BDBD0C500966BCD /* ImageServiceStub.swift in Sources */,
 				B57594882BBBFF7300BCE59A /* HomeServiceTests.swift in Sources */,
 				B575948B2BBC001900BCE59A /* RunLoop+TestHelpers.swift in Sources */,
+				B5900E782BDBD13E00966BCD /* TasksListRepositoryStub.swift in Sources */,
 				B57594892BBBFF8000BCE59A /* XCTestCase+TasksListCreation.swift in Sources */,
 				B575948A2BBBFFF800BCE59A /* SharedTestHelper.swift in Sources */,
 			);
