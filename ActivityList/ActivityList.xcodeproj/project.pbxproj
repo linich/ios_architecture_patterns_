@@ -55,6 +55,8 @@
 		B575948D2BBC002700BCE59A /* CompletionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594752BBBF35900BCE59A /* CompletionHolder.swift */; };
 		B57594932BBC0C8200BCE59A /* TaskItemsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594912BBC0BE400BCE59A /* TaskItemsRepositoryTests.swift */; };
 		B57594962BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57594952BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift */; };
+		B5900E732BDBCE7500966BCD /* TaskItemsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5900E722BDBCE7500966BCD /* TaskItemsServiceProtocol.swift */; };
+		B5900E762BDBD0C500966BCD /* ImageServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5900E752BDBD0C500966BCD /* ImageServiceStub.swift */; };
 		B5B399D12BB2A9F70084726F /* ActivityListDataLayer.docc in Sources */ = {isa = PBXBuildFile; fileRef = B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */; };
 		B5B399E22BB2A9F80084726F /* ActivityListDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; };
 		B5B399E32BB2A9F80084726F /* ActivityListDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -213,6 +215,8 @@
 		B575947D2BBBFF5200BCE59A /* ActivityListDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityListDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57594912BBC0BE400BCE59A /* TaskItemsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsRepositoryTests.swift; sourceTree = "<group>"; };
 		B57594952BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+CoreDataHelpers.swift"; sourceTree = "<group>"; };
+		B5900E722BDBCE7500966BCD /* TaskItemsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsServiceProtocol.swift; sourceTree = "<group>"; };
+		B5900E752BDBD0C500966BCD /* ImageServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceStub.swift; sourceTree = "<group>"; };
 		B5B399CD2BB2A9F60084726F /* ActivityListDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActivityListDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B399CF2BB2A9F60084726F /* ActivityListDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityListDataLayer.h; sourceTree = "<group>"; };
 		B5B399D02BB2A9F60084726F /* ActivityListDataLayer.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = ActivityListDataLayer.docc; sourceTree = "<group>"; };
@@ -314,11 +318,11 @@
 				B5150D5D2BB1ABA60016EF33 /* ActivityList */,
 				B5B7E2052BD96011008DE1FC /* ActivityListTests */,
 				B5150E262BB1BACA0016EF33 /* ActivityListDomain */,
+				B575947E2BBBFF5200BCE59A /* ActivityListDomainTests */,
 				B5150E622BB1C88C0016EF33 /* ActivityListUI */,
 				B5150E702BB1C88D0016EF33 /* ActivityListUITests */,
 				B5B399CE2BB2A9F60084726F /* ActivityListDataLayer */,
 				B56726352BB5A9F8007DE166 /* ActivityListDataLayerTests */,
-				B575947E2BBBFF5200BCE59A /* ActivityListDomainTests */,
 				B5150D5C2BB1ABA60016EF33 /* Products */,
 				B5B39A072BB2AD7C0084726F /* Frameworks */,
 			);
@@ -426,6 +430,7 @@
 			children = (
 				B575945F2BBAA49E00BCE59A /* HomeServiceProtocol.swift */,
 				B575946C2BBAE6AD00BCE59A /* HomeService.swift */,
+				B5900E722BDBCE7500966BCD /* TaskItemsServiceProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -457,6 +462,7 @@
 		B575947E2BBBFF5200BCE59A /* ActivityListDomainTests */ = {
 			isa = PBXGroup;
 			children = (
+				B5900E742BDBD0B700966BCD /* Helpers */,
 				B57594872BBBFF6300BCE59A /* Services */,
 			);
 			path = ActivityListDomainTests;
@@ -475,6 +481,14 @@
 			children = (
 				B57594952BBC0CE100BCE59A /* XCTestCase+CoreDataHelpers.swift */,
 				B54F74F22BBFEB7600CE0CC7 /* ErrorProneStore.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B5900E742BDBD0B700966BCD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B5900E752BDBD0C500966BCD /* ImageServiceStub.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -904,6 +918,7 @@
 				B5B39A1C2BB550FE0084726F /* TasksListModel.swift in Sources */,
 				B5150E472BB1BBAC0016EF33 /* TasksListRepositoryProtocol.swift in Sources */,
 				B57594602BBAA49E00BCE59A /* HomeServiceProtocol.swift in Sources */,
+				B5900E732BDBCE7500966BCD /* TaskItemsServiceProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,6 +976,7 @@
 				B54F74FC2BC571C500CE0CC7 /* TasksListInfo+Equatable.swift in Sources */,
 				B575948C2BBC002700BCE59A /* XCTestCase+MemoryLeak.swift in Sources */,
 				B575948D2BBC002700BCE59A /* CompletionHolder.swift in Sources */,
+				B5900E762BDBD0C500966BCD /* ImageServiceStub.swift in Sources */,
 				B57594882BBBFF7300BCE59A /* HomeServiceTests.swift in Sources */,
 				B575948B2BBC001900BCE59A /* RunLoop+TestHelpers.swift in Sources */,
 				B57594892BBBFF8000BCE59A /* XCTestCase+TasksListCreation.swift in Sources */,

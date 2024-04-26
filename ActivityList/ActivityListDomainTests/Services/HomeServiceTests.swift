@@ -216,13 +216,3 @@ fileprivate class TasksListRepositoryStub: TasksListRepositoryProtocol {
         }
     }
 }
-
-
-fileprivate class ImageServiceStub: ImageServiceProtocol {
-    typealias Image = Int
-    typealias ImageKind = ActivityType
-    
-    func getImage(byKind kind: ActivityType) -> Int {
-        return kind.hashValue
-    }
-}
