@@ -10,6 +10,7 @@ import ActivityListDomain
 
 final class HomeServiceTests: XCTestCase {
     fileprivate typealias SutType = HomeService<Int, ImageServiceStub>
+    
     func tests_init_shouldNotCalTasksListRepositoryMethods() {
         let (_, tasksListRepository) = makeSUT()
         

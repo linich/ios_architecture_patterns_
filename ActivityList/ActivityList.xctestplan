@@ -41,7 +41,6 @@
       }
     },
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:ActivityList.xcodeproj",
         "identifier" : "B5B7E2032BD96011008DE1FC",
